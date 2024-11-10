@@ -2,8 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { fetchHelloMessage } from "./services/api";
 import { Layout } from "antd";
+import "./App.css";
+import Sidebar from "./components/Sidebar/Sidebar";
 
-const { Header, Sider } = Layout;
 const App = () => {
   const [message, setMessage] = useState("");
 
@@ -18,11 +19,7 @@ const App = () => {
     getMessage();
   }, []);
 
-  return (
-    <Layout>
-      <Sider className="sidebar">sidebar</Sider>
-    </Layout>
-  );
+  return <Sidebar />;
 };
 
 export default App;

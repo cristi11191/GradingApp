@@ -1,0 +1,32 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    height: 100vh; 
+    background-color: #001529; 
+}
+
+.homeIcon {
+    color: #fff;
+    font-size: 60px;
+    margin: 10px;
+}
+
+.menu-container {
+    flex-grow: 1; 
+}
+
+.menu-logout {
+    margin-top: auto; 
+    background-color: transparent; 
+}
+
+.account {
+    color: #fff;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    background-color: #001529; 
+}
