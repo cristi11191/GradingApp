@@ -20,7 +20,7 @@ const App = () => {
     <div>
       <h1>React Frontend</h1>
       <h2>My first committ Gladissss😋</h2>
-
+      <h1> Cristinel </h1>
       <p>Message from backend: {message}</p>
     </div>
   );
