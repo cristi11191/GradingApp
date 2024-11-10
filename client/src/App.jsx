@@ -1,7 +1,9 @@
 // src/App.js
 import React, { useEffect, useState } from "react";
 import { fetchHelloMessage } from "./services/api";
+import { Layout } from "antd";
 
+const { Header, Sider } = Layout;
 const App = () => {
   const [message, setMessage] = useState("");
 
@@ -17,12 +19,9 @@ const App = () => {
   }, []);
 
   return (
-    <div>
-      <h1>React Frontend</h1>
-      <h2>My first committ Gladissss😋</h2>
-      <h1> Cristinel </h1>
-      <p>Message from backend: {message}</p>
-    </div>
+    <Layout>
+      <Sider className="sidebar">sidebar</Sider>
+    </Layout>
   );
 };
 
