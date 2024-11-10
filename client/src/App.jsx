@@ -18,7 +18,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>React Frontend Cristin</h1>
+      <h1>React Frontend Test</h1>
       <p>Message from backend: {message}</p>
     </div>
   );
