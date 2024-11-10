@@ -1,9 +1,9 @@
 // src/App.js
-import React, { useEffect, useState } from 'react';
-import { fetchHelloMessage } from './services/api';
+import React, { useEffect, useState } from "react";
+import { fetchHelloMessage } from "./services/api";
 
 const App = () => {
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const getMessage = async () => {
@@ -18,7 +18,9 @@ const App = () => {
 
   return (
     <div>
-      <h1>React Frontend Test</h1>
+      <h1>React Frontend</h1>
+      <h2>My first committ Gladissss😋</h2>
+
       <p>Message from backend: {message}</p>
     </div>
   );
