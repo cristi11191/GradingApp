@@ -41,17 +41,17 @@ const Sidebar = () => {
           <div className="account">
             <AccountBoxIcon />
             User
-          </div>
+          
 
           <Menu theme="dark" mode="inline" className="menu-logout">
             <Menu.Item
               key="logout"
               icon={<LogoutIcon />}
-              onClick={handleLogout}
-            >
+              onClick={handleLogout}>
               Log Out
             </Menu.Item>
           </Menu>
+          </div>
         </div>
       </Sider>
     </Layout>
