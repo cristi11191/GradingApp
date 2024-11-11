@@ -1,25 +1,27 @@
 // src/App.js
 import React, { useEffect, useState } from "react";
 import { fetchHelloMessage } from "./services/api";
-import { Layout } from "antd";
+import { RouterProvider } from 'react-router-dom';
 import "./App.css";
-import Sidebar from "./components/Sidebar/Sidebar";
+import router from "./router.jsx";
 
 const App = () => {
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    const getMessage = async () => {
-      const data = await fetchHelloMessage();
-      if (data) {
-        setMessage(data.message);
-      }
-    };
+  // useEffect(() => {
+  //   const getMessage = async () => {
+  //     const data = await fetchHelloMessage();
+  //     if (data) {
+  //       setMessage(data.message);
+  //     }
+  //   };
 
-    getMessage();
-  }, []);
+  //   getMessage();
+  // }, []);
 
-  return <Sidebar />;
+  return (
+    <RouterProvider router={router} />
+  );
 };
 
-export default App;
+export default App; 
