@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
 const Dashboard = () => (
-    <div>
-        <h2>Dashboard</h2>
-        {/* Conținutul dashboard-ului */}
-    </div>
+  <div>
+    <h2>Dashboard Test</h2>
+    {/* Conținutul dashboard-ului */}
+  </div>
 );
 
 export default Dashboard;
