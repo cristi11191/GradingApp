@@ -4,24 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd8abe29-b600-4083-8b72-8e64ce42d672" name="Changes" comment="Setting up tailwind">
-      <change afterPath="$PROJECT_DIR$/server/controllers/authController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/controllers/userController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/middlewares/authMiddleware.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/routes/authRoutes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/routes/userRoutes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/utils/generateToken.js" afterDir="false" />
+    <list default="true" id="fd8abe29-b600-4083-8b72-8e64ce42d672" name="Changes" comment="Creating login and signup in backend with jwt token">
+      <change afterPath="$PROJECT_DIR$/client/src/components/Login/Login.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/services/authServices.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/server/prisma/database.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/database.db-journal" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/migrations/20241111190202_database_migration/migration.sql" beforeDir="false" afterPath="$PROJECT_DIR$/server/prisma/migrations/20241111190202_database_migration/migration.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/migrations/migration_lock.toml" beforeDir="false" afterPath="$PROJECT_DIR$/server/prisma/migrations/migration_lock.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/server/prisma/schema.prisma" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.end" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/node_modules/.package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Login/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Login/Login.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Signup/Signup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Signup/Signup.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,8 +19,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JSX File" />
         <option value="JavaScript File" />
+        <option value="CSS File" />
+        <option value="JSX File" />
       </list>
     </option>
   </component>
@@ -83,6 +72,7 @@
     &quot;com.codeium.enabled&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;Cristin&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/MrCri.CRISTINEL/Desktop/Facultate2024/TehnologiiWeb/Proiect/GradingApp&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -156,7 +146,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731358123434</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Creating login and signup in backend with jwt token">
+      <option name="closed" value="true" />
+      <created>1731361005409</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1731361005409</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -167,6 +165,7 @@
     <MESSAGE value="Server folders created and modules installed" />
     <MESSAGE value="Deleted additional files from root folder" />
     <MESSAGE value="Setting up tailwind" />
-    <option name="LAST_COMMIT_MESSAGE" value="Setting up tailwind" />
+    <MESSAGE value="Creating login and signup in backend with jwt token" />
+    <option name="LAST_COMMIT_MESSAGE" value="Creating login and signup in backend with jwt token" />
   </component>
 </project>
