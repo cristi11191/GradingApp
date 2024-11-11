@@ -1,0 +1,41 @@
+// Configurare datasource SQLite
+datasource db {
+  provider = "sqlite"
+  url      = "file:./database.db"  // dev.db va fi baza ta de date SQLite
+}
+
+// Generator Prisma Client pentru utilizarea în Node.js
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Modelele bazei de date
+model User {
+  id          Int        @id @default(autoincrement())
+  name        String
+  email       String     @unique
+  password    String
+  role        String     @default("user")
+  projects    Project[]
+  evaluations Evaluation[]
+}
+
+model Project {
+  id            Int        @id @default(autoincrement())
+  title         String
+  description   String
+  attachmentURL String?
+  userId     Int
+  user       User    @relation(fields: [userId], references: [id])
+  evaluations   Evaluation[]
+}
+
+model Evaluation {
+  id         Int      @id @default(autoincrement())
+  score      Float
+  projectId  Int
+  userID  Int
+  user    User  @relation(fields: [userID], references: [id])
+  project    Project  @relation(fields: [projectId], references: [id])
+  createdOn  DateTime
+}
