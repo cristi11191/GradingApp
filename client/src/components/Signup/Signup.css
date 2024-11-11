@@ -1,0 +1,9 @@
+/* src/styles.css */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+.min-h-screen {
+    background-image:linear-gradient(115deg,#9F7AEA,#fee2fe); 
+}
+
