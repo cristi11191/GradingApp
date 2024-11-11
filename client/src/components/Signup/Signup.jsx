@@ -13,7 +13,7 @@ const Signup = () => {
         <div>
             <h2>Signup</h2>
             {/* Formularul de înregistrare */}
-            <button onClick={handleLogin}>Sign Up</button>
+            <button onClick={handleSignup}>Sign Up</button>
         </div>
     );
 };

@@ -10,10 +10,15 @@ const Login = () => {
         navigate('/dashboard');
     };
 
+    const handleSignup = () => {
+        navigate('/signup'); // Redirecționează utilizatorul la pagina de Signup
+    };
+
     return (
         <div>
             <h2>Login</h2>
             <button onClick={handleLogin}>Log In</button>
+            <button onClick={handleSignup}>Sign Up</button>
         </div>
     );
 };
