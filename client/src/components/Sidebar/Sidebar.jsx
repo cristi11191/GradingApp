@@ -1,5 +1,6 @@
 import React from "react";
 import { Layout, Menu } from "antd";
+import { useNavigate } from "react-router-dom";
 import HomeIcon from '@mui/icons-material/Home';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AssignmentIcon from '@mui/icons-material/Assignment';
@@ -11,6 +12,14 @@ import "./Sidebar.css";
 const { Sider } = Layout;
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Remove token from localStorage
+    localStorage.removeItem('token');
+    // Redirect to login page
+    navigate('/login');
+  };
   return (
     <Layout>
       <Sider className="sidebar">
@@ -29,7 +38,7 @@ const Sidebar = () => {
           </Menu>
         </div>
         <Menu theme="dark" mode="inline" className="menu-logout">
-          <Menu.Item key="logout" icon={<LogoutIcon />}>
+          <Menu.Item key="logout" icon={<LogoutIcon />}  onClick={handleLogout}>
             Log Out
           </Menu.Item>
         </Menu>
