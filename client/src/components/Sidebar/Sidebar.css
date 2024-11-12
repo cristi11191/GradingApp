@@ -1,20 +1,40 @@
+
+#layout {
+  height: 100vh; /* Se asigură că layout-ul ocupă toată înălțimea ecranului */
+}
 .sidebar {
   display: flex;
   flex-direction: column;
-  justify-content: space-between !important;
-  gap: auto;
+  justify-content: space-between;
   height: 100vh;
   background-color: #001529;
 }
 
+.menu-icon-container {
+  display: flex;
+  justify-content: flex-end; /* Mută iconița la dreapta */
+  padding: 10px; /* Ajustează padding-ul după preferință */
+ 
+}
+
+.spacer {
+  flex-grow: 1; /* Spațiu pentru a împinge iconița spre dreapta */
+}
+.menu-icon {
+  color: #fff; /* Asigură-te că iconița este vizibilă */
+  font-size: 30px; /* Ajustează dimensiunea iconiței dacă este necesar */
+}
+
 .bottom-items {
-  margin-top: 70vh;
+  margin-top: auto; /* Împinge elementul în partea de jos */
+  padding: 10px;
 }
 
 .homeIcon {
   color: #fff;
   font-size: 60px;
-  margin: 10px;
+  justify-content: right;
+
 }
 
 .menu-container {
@@ -35,3 +55,17 @@
   padding: 10px 24px;
   background-color: #001529;
 }
+
+.ant-layout{
+  max-width: 200px;
+  transition: max-width 0.3s ease;
+}
+
+.ant-layout.closed{
+  max-width: 80px;
+}
+
+.ant-menu-item{
+  padding: 0px !important;
+}
+
