@@ -7,6 +7,7 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import FolderIcon from "@mui/icons-material/Folder";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import GradeIcon from '@mui/icons-material/Grade';
 import "./Sidebar.css";
 
 const { Sider } = Layout;
@@ -46,6 +47,10 @@ const Sidebar = () => {
     navigate("/dashboard");
   };
 
+  const HandleEvaluation=()=>{
+    navigate("/evaluation");
+  }
+
   // Array-ul de obiecte pentru `Menu`
   const menuItemsTop = [
     {
@@ -65,6 +70,12 @@ const Sidebar = () => {
       icon: <FolderIcon />,
       label: 'Projects',
       onClick: HandleProjects,
+    },
+    {
+      key: 'evaluation',
+      icon: <GradeIcon />,
+      label: 'Evaluation',
+      onClick: HandleEvaluation,
     },
     
   ];
