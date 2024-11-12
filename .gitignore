@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Logs
 logs
 *.log
@@ -129,15 +129,14 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-=======
-# Node.js
-node_modules/
-.env
-
-# Logs
-logs
-*.log
+#idea
+.idea/*
+!.idea/modules.xml
+!.idea/*.iml
+!.idea/libraries
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/usage.statistics.xml
 
 # Build files for React
 build/
->>>>>>> d1a3d062878368b83b5ed115cd6130a37c9084ef
