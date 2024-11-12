@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 // User signup
 exports.signup = async (req, res) => {
-    const { name, email, password, role } = req.body;
+    const { name, email, password, confirmPassword, role } = req.body;
     try {
         // Check if email already exists
         const existingUser = await prisma.user.findUnique({
@@ -14,6 +14,9 @@ exports.signup = async (req, res) => {
         });
         if (existingUser) {
             return res.status(400).json({ error: 'Email is already in use' });
+        }
+        if( password !== confirmPassword){
+            return res.status(400).json({error: 'Password and ConfirmPassword are different! '});
         }
 
         // Hash the password and create a new user

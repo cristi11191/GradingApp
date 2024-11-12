@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd8abe29-b600-4083-8b72-8e64ce42d672" name="Changes" comment="Backend connected with Singup and Login">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="fd8abe29-b600-4083-8b72-8e64ce42d672" name="Changes" comment=".gitignore changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Sidebar/Sidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Sidebar/Sidebar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Signup/Signup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Signup/Signup.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/router.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/router.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/authController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/authController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/prisma/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/server/prisma/database.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +114,8 @@
       <updated>1731306588797</updated>
       <workItem from="1731306589831" duration="1631000" />
       <workItem from="1731341892751" duration="5972000" />
-      <workItem from="1731394130255" duration="250000" />
+      <workItem from="1731394130255" duration="921000" />
+      <workItem from="1731429813367" duration="1816000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented Router which split DefaultLayout from GuestLayout">
       <option name="closed" value="true" />
@@ -160,7 +165,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731361907190</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary=".gitignore changes">
+      <option name="closed" value="true" />
+      <created>1731394398658</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1731394398658</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,6 +186,7 @@
     <MESSAGE value="Setting up tailwind" />
     <MESSAGE value="Creating login and signup in backend with jwt token" />
     <MESSAGE value="Backend connected with Singup and Login" />
-    <option name="LAST_COMMIT_MESSAGE" value="Backend connected with Singup and Login" />
+    <MESSAGE value=".gitignore changes" />
+    <option name="LAST_COMMIT_MESSAGE" value=".gitignore changes" />
   </component>
 </project>

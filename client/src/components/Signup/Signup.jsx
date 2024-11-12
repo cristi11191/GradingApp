@@ -75,7 +75,7 @@ const Signup = () => {
                     <div>
                         <input
                             type="password"
-                            name="confirmpassword"
+                            name="confirmPassword"
                             value={formData.confirmPassword}
                             onChange={handleChange}
                             placeholder="Confirm Password"
