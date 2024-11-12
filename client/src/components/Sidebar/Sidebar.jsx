@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Layout, Menu } from "antd";
 import { useNavigate } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
@@ -12,17 +12,21 @@ import "./Sidebar.css";
 const { Sider } = Layout;
 
 const Sidebar = () => {
+  const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Remove token from localStorage
     localStorage.removeItem("token");
-    // Redirect to login page
     navigate("/login");
   };
+
+  const toggleCollapse = () => {
+    setCollapsed(!collapsed);
+  };
+
   return (
     <Layout>
-      <Sider className="sidebar">
+      <Sider collapsible collapsed={collapsed} onCollapse={setCollapsed} className="sidebar">
         <HomeIcon className="homeIcon" />
         <div className="menu-container">
           <Menu theme="dark" mode="inline">
@@ -40,20 +44,18 @@ const Sidebar = () => {
         <div className="bottom-items">
           <div className="account">
             <AccountBoxIcon />
-            User
-          
-
-          <Menu theme="dark" mode="inline" className="menu-logout">
-            <Menu.Item
-              key="logout"
-              icon={<LogoutIcon />}
-              onClick={handleLogout}>
-              Log Out
-            </Menu.Item>
-          </Menu>
+            {!collapsed && <span>User</span>}
+            <Menu theme="dark" mode="inline" className="menu-logout">
+              <Menu.Item key="logout" icon={<LogoutIcon />} onClick={handleLogout}>
+                Log Out
+              </Menu.Item>
+            </Menu>
           </div>
         </div>
       </Sider>
+      <button onClick={toggleCollapse} className="toggle-button">
+        {collapsed ? "Expand" : "Collapse"}
+      </button>
     </Layout>
   );
 };

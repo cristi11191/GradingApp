@@ -23,7 +23,7 @@ const Signup = () => {
 
     const handleSignup = async (e) => {
         e.preventDefault();
-        if (formData.password !== confirmPassword) {
+        if (formData.password !== formData.confirmPassword) {
             setError("Passwords do not match");
             return;
         }
@@ -75,6 +75,9 @@ const Signup = () => {
                     <div>
                         <input
                             type="password"
+                            name="confirmpassword"
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
                             placeholder="Confirm Password"
                             className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
                         />
