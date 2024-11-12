@@ -1,13 +1,17 @@
 // src/views/MainContent.jsx
 
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { rolesConfig } from '../config/rolesConfig.jsx';
+import NotFound from "./NotFound.jsx"; // Assuming you have a rolesConfig file
 
-const MainContent = () => (
-    <div>
-        {/* Conținutul specific fiecărei rute */}
-        <Outlet />
-    </div>
-);
+export default function MainContent() {
+    // Match the current route path with the configuration
+    const currentConfig = Object.values(rolesConfig).find(
+        config => config.path === location.pathname
+    );
 
-export default MainContent;
+    // Extract the component associated with the path, fallback to a default if not found
+    const Component = currentConfig ? currentConfig.component : NotFound;
+
+    return <Component />;
+}
