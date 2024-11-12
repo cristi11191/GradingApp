@@ -30,12 +30,12 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen py-40 flex items-center justify-center">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-lg overflow-hidden p-8">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Log In! 😊</h2>
-        {error && <p className="text-red-500">{error}</p>}
-        <form onSubmit={handleLogin}>
-          <div className="mt-5">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 py-12">
+      <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
+        <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Log In! 😊</h2>
+        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+        <form onSubmit={handleLogin} className="space-y-4">
+          <div>
             <input
               type="email"
               name="email"
@@ -43,10 +43,10 @@ const Login = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
           </div>
-          <div className="mb-4">
+          <div>
             <input
               type="password"
               name="password"
@@ -54,21 +54,21 @@ const Login = () => {
               value={formData.password}
               onChange={handleChange}
               required
-              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
           </div>
-          <div className="text-center">
+          <div>
             <button
               type="submit"
-              className="w-full bg-purple-500 text-white p-2 rounded hover:bg-purple-600 transition duration-200"
+              className="w-full bg-purple-500 text-white py-3 rounded hover:bg-purple-600 transition duration-200"
             >
               Log In
             </button>
           </div>
         </form>
-        <div className="mt--4 p-8 relative">
+        <div className="mt-6 text-right">
           <button
-            className="w-32 bg-purple-500 text-white p-2 rounded hover:bg-purple-600 transition duration-200 absolute bottom-4 right-0"
+            className="bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-600 transition duration-200"
             onClick={handleSignup}
           >
             Sign Up
