@@ -26,8 +26,8 @@
 }
 
 .bottom-items {
-  margin-top: auto; /* Împinge elementul în partea de jos */
-  padding: 10px;
+  margin-top: 61vh; /* Împinge elementul în partea de jos */
+  padding-left: 10px;
 }
 
 .homeIcon {
@@ -39,6 +39,7 @@
 
 .menu-container {
   flex-grow: 1;
+  padding: 10px;
 }
 
 .menu-logout {
@@ -49,10 +50,8 @@
 .account {
   color: #fff;
   font-size: 16px;
-  display: flex;
-  align-items: center;
+  display: flex; 
   justify-content: left;
-  padding: 10px 24px;
   background-color: #001529;
 }
 
