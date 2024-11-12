@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd8abe29-b600-4083-8b72-8e64ce42d672" name="Changes" comment="Creating login and signup in backend with jwt token">
-      <change afterPath="$PROJECT_DIR$/client/src/components/Login/Login.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/services/authServices.jsx" afterDir="false" />
+    <list default="true" id="fd8abe29-b600-4083-8b72-8e64ce42d672" name="Changes" comment="Backend connected with Singup and Login">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Login/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Login/Login.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Signup/Signup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Signup/Signup.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,6 +110,7 @@
       <updated>1731306588797</updated>
       <workItem from="1731306589831" duration="1631000" />
       <workItem from="1731341892751" duration="5972000" />
+      <workItem from="1731394130255" duration="250000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented Router which split DefaultLayout from GuestLayout">
       <option name="closed" value="true" />
@@ -154,7 +152,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731361005409</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Backend connected with Singup and Login">
+      <option name="closed" value="true" />
+      <created>1731361907190</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1731361907190</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -166,6 +172,7 @@
     <MESSAGE value="Deleted additional files from root folder" />
     <MESSAGE value="Setting up tailwind" />
     <MESSAGE value="Creating login and signup in backend with jwt token" />
-    <option name="LAST_COMMIT_MESSAGE" value="Creating login and signup in backend with jwt token" />
+    <MESSAGE value="Backend connected with Singup and Login" />
+    <option name="LAST_COMMIT_MESSAGE" value="Backend connected with Singup and Login" />
   </component>
 </project>
