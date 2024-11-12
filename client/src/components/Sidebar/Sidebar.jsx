@@ -38,11 +38,45 @@ const Sidebar = () => {
   const HandleProjects = () => {
     navigate("/projects");
   };
+  const HandleMyProject = () => {
+    navigate("/myproject");
+  };
 
   const HandleDashboard = () => {
     navigate("/dashboard");
   };
 
+  // Array-ul de obiecte pentru `Menu`
+  const menuItemsTop = [
+    {
+      key: 'dashboard',
+      icon: <DashboardIcon />,
+      label: 'Dashboard',
+      onClick: HandleDashboard,
+    },
+    {
+      key: 'myproject',
+      icon: <AssignmentIcon />,
+      label: 'My Project',
+      onClick: HandleMyProject,
+    },
+    {
+      key: 'projects',
+      icon: <FolderIcon />,
+      label: 'Projects',
+      onClick: HandleProjects,
+    },
+    
+  ];
+  const menuItemsBottom=[
+    {
+      key: 'logout',
+      icon: <LogoutIcon />,
+      label: 'Log Out',
+      onClick: handleLogout,
+    },
+
+  ];
   return (
     <Layout id="layout">
       <Sider collapsed={collapsed} className="sidebar">
@@ -50,28 +84,14 @@ const Sidebar = () => {
           <MenuIcon className="menu-icon" />
         </div>
         <div className="menu-container">
-          <Menu theme="dark" mode="inline">
-            <Menu.Item key="dashboard" icon={<DashboardIcon />} onClick={HandleDashboard}>
-              Dashboard
-            </Menu.Item>
-            <Menu.Item key="myproject" icon={<AssignmentIcon />}>
-              My Project
-            </Menu.Item>
-            <Menu.Item key="projects" icon={<FolderIcon />} onClick={HandleProjects}>
-              Projects
-            </Menu.Item>
-          </Menu>
+          <Menu theme="dark" mode="inline" items={menuItemsTop} />
         </div>
         <div className="bottom-items">
           <div className="account">
             <AccountBoxIcon />
             {!collapsed && <span>User</span>}
-            <Menu theme="dark" mode="inline" className="menu-logout">
-              <Menu.Item key="logout" icon={<LogoutIcon />} onClick={handleLogout}>
-                Log Out
-              </Menu.Item>
-            </Menu>
           </div>
+          <Menu theme="dark" mode="inline" items={menuItemsBottom} />
         </div>
       </Sider>
     </Layout>
