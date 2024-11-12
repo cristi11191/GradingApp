@@ -20,9 +20,16 @@ const Sidebar = () => {
     navigate("/login");
   };
 
-  const toggleCollapse = () => {
-    setCollapsed(!collapsed);
-  };
+  const HandleProjects = () =>{
+    navigate("/projects");
+  }
+  const HandleDashboard = () =>{
+    navigate("/dashboard");
+  }
+
+  // const toggleCollapse = () => {
+  //   setCollapsed(!collapsed);
+  // };
 
   return (
     <Layout>
@@ -30,13 +37,13 @@ const Sidebar = () => {
         <HomeIcon className="homeIcon" />
         <div className="menu-container">
           <Menu theme="dark" mode="inline">
-            <Menu.Item key="dashboard" icon={<DashboardIcon />}>
+            <Menu.Item key="dashboard" icon={<DashboardIcon />} onClick={HandleDashboard}>
               Dashboard
             </Menu.Item>
             <Menu.Item key="myproject" icon={<AssignmentIcon />}>
               My Project
             </Menu.Item>
-            <Menu.Item key="projects" icon={<FolderIcon />}>
+            <Menu.Item key="projects" icon={<FolderIcon />} onClick={HandleProjects}>
               Projects
             </Menu.Item>
           </Menu>
@@ -46,16 +53,16 @@ const Sidebar = () => {
             <AccountBoxIcon />
             {!collapsed && <span>User</span>}
             <Menu theme="dark" mode="inline" className="menu-logout">
-              <Menu.Item key="logout" icon={<LogoutIcon />} onClick={handleLogout}>
+              <Menu.Item key="logout" icon={<LogoutIcon />}  onClick={handleLogout}>
                 Log Out
               </Menu.Item>
             </Menu>
           </div>
         </div>
       </Sider>
-      <button onClick={toggleCollapse} className="toggle-button">
-        {collapsed ? "Expand" : "Collapse"}
-      </button>
+      {/*<button onClick={toggleCollapse} className="toggle-button">*/}
+      {/*  {collapsed ? "Expand" : "Collapse"}*/}
+      {/*</button>*/}
     </Layout>
   );
 };
