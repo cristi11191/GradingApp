@@ -1,6 +1,7 @@
 import Dashboard from '../components/Dashboard/Dashboard.jsx';
 import Projects from "../components/Projects/Projects.jsx";
 import MyProject from "../components/MyProject/MyProject.jsx";
+import Evaluation from "../components/Evaluation/Evaluation.jsx";
 
 export const rolesConfig = {
     dashboard: {
@@ -19,6 +20,12 @@ export const rolesConfig = {
         label: 'My Project',
         path: '/myproject',
         component: MyProject,
+        roles: ['user','admin'], // Only admins can manage roles
+    },
+    evaluation: {
+        label: 'Evaluation',
+        path: '/evaluation',
+        component: Evaluation,
         roles: ['user','admin'], // Only admins can manage roles
     },
 
