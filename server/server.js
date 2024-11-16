@@ -36,6 +36,7 @@ app.use('/api', testRoute);
 // Use routes
 app.use('/api/auth', authRoutes); // Routes for signup and login
 app.use('/api/users', userRoutes); // Routes for user data (protected)
+app.use('/uploads', express.static('uploads'));
 
 // Test route
 app.get('/api/hello', (req, res) => {

@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd8abe29-b600-4083-8b72-8e64ce42d672" name="Changes" comment="Updated JWT Login, using random JWT token every restart , checking for old token">
+    <list default="true" id="fd8abe29-b600-4083-8b72-8e64ce42d672" name="Changes" comment="JWT Login changes">
+      <change afterPath="$PROJECT_DIR$/server/controllers/deliverableController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/middlewares/upload.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/routes/uploadRoutes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/userController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/middlewares/authMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/middlewares/authMiddleware.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/prisma/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/server/prisma/database.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/server/prisma/schema.prisma" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,6 +96,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\MrCri.CRISTINEL\Desktop\Facultate2024\TehnologiiWeb\Proiect\GradingApp\server\middlewares" />
       <recent name="C:\Users\MrCri.CRISTINEL\Desktop\Facultate2024\TehnologiiWeb\Proiect\GradingApp\server" />
     </key>
   </component>
@@ -117,7 +121,7 @@
       <workItem from="1731429813367" duration="1816000" />
       <workItem from="1731685080415" duration="567000" />
       <workItem from="1731695255697" duration="4889000" />
-      <workItem from="1731742531742" duration="4422000" />
+      <workItem from="1731742531742" duration="6496000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented Router which split DefaultLayout from GuestLayout">
       <option name="closed" value="true" />
@@ -223,7 +227,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731746481689</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="JWT Login changes">
+      <option name="closed" value="true" />
+      <created>1731747102337</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1731747102337</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -241,6 +253,7 @@
     <MESSAGE value="Massive changes in Database structure. Controllers and Routes Created" />
     <MESSAGE value="Added Deadline column in Project table" />
     <MESSAGE value="Updated JWT Login, using random JWT token every restart , checking for old token" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated JWT Login, using random JWT token every restart , checking for old token" />
+    <MESSAGE value="JWT Login changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="JWT Login changes" />
   </component>
 </project>
