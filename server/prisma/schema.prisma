@@ -43,6 +43,7 @@ model Deliverable {
   title          String
   description    String
   attachmentURL  String?    // Video or link for the deliverable
+  fileType       String     // File type (e.g., "video", "image", "document")
   projectId      Int
   project        Project @relation(fields: [projectId], references: [id])
 }
