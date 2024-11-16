@@ -24,6 +24,7 @@ model Project {
   title          String
   description    String
   attachmentURL  String?         // Optional attachment for the project
+  deadline       DateTime        // New field for project deadline
   collaborators  Collaborator[]  // Relationship to collaborators
   deliverables   Deliverable[]   // List of deliverables for the project
   evaluations    Evaluation[]
