@@ -1,18 +1,29 @@
 const jwt = require('jsonwebtoken');
 
 
-const authMiddleware = (req, res, next) => {
+const authMiddleware = async (req, res, next) => {
     const token = req.header('Authorization')?.replace('Bearer ', '');
     if (!token) {
-        return res.status(401).json({ message: 'Unauthorized: No token provided' });
+        return res.status(401).json({ error: 'Unauthorized: No token provided' });
     }
+
     try {
-        req.user = jwt.verify(token, process.env.JWT_SECRET); // Attach user info to the request
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await prisma.user.findUnique({ where: { id: decoded.id } });
+
+        if (!user || user.tokenVersion !== decoded.tokenVersion) {
+            return res.status(401).json({ error: 'Unauthorized: Token invalid or expired' });
+        }
+
+        req.user = decoded; // Attach user data to the request
         next();
-    } catch (error) {
-        return res.status(401).json({ message: 'Unauthorized: Invalid token' });
+    } catch (err) {
+        return res.status(401).json({ error: 'Unauthorized: Invalid token', message: err.message });
     }
 };
+
+module.exports = authMiddleware;
+
 
 
 const verifyRole = (roles) => {
