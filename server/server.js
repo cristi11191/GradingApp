@@ -9,6 +9,9 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 const prisma = new PrismaClient();
+const crypto = require('crypto');
+
+process.env.JWT_SECRET = crypto.randomBytes(64).toString('hex'); // Generate a new random secret
 
 // Middleware
 app.use(cors());
@@ -18,6 +21,13 @@ app.use(express.json());
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const testRoute = require('./routes/testRoutes');
+const resetTokenVersion = async () => {
+  await prisma.user.updateMany({
+    data: { tokenVersion: { increment: 1 } }, // Increment tokenVersion for all users
+  });
+};
+
+
 
 
 
@@ -35,3 +45,4 @@ app.get('/api/hello', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+resetTokenVersion(); // Call this function when the server starts

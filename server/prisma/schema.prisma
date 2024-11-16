@@ -17,6 +17,7 @@ model User {
   password    String
   role        String      @default("user") // Can be "user", "professor", or "juror"
   evaluations Evaluation[]
+  tokenVersion  Int     @default(0) // New column for token version
 }
 
 model Project {
