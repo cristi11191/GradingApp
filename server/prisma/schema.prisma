@@ -11,31 +11,47 @@ generator client {
 
 // Modelele bazei de date
 model User {
-  id          Int        @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
   name        String
-  email       String     @unique
+  email       String      @unique
   password    String
-  role        String     @default("user")
-  projects    Project[]
+  role        String      @default("user") // Can be "user", "professor", or "juror"
   evaluations Evaluation[]
 }
 
 model Project {
-  id            Int        @id @default(autoincrement())
-  title         String
-  description   String
-  attachmentURL String?
-  userId     Int
-  user       User    @relation(fields: [userId], references: [id])
-  evaluations   Evaluation[]
+  id             Int             @id @default(autoincrement())
+  title          String
+  description    String
+  attachmentURL  String?         // Optional attachment for the project
+  collaborators  Collaborator[]  // Relationship to collaborators
+  deliverables   Deliverable[]   // List of deliverables for the project
+  evaluations    Evaluation[]
+}
+
+model Collaborator {
+  id         Int     @id @default(autoincrement())
+  email      String  // Collaborator's email or identifier
+  projectId  Int
+  project    Project @relation(fields: [projectId], references: [id])
+}
+
+model Deliverable {
+  id             Int        @id @default(autoincrement())
+  title          String
+  description    String
+  attachmentURL  String?    // Video or link for the deliverable
+  projectId      Int
+  project        Project @relation(fields: [projectId], references: [id])
 }
 
 model Evaluation {
-  id         Int      @id @default(autoincrement())
-  score      Float
+  id         Int       @id @default(autoincrement())
+  score      Float     // Score from 1-10 (with up to 2 decimal places)
   projectId  Int
-  userID  Int
-  user    User  @relation(fields: [userID], references: [id])
-  project    Project  @relation(fields: [projectId], references: [id])
+  deliverableId Int?    // Optional, if tied to a specific deliverable
+  userID     Int
+  user       User      @relation(fields: [userID], references: [id])
+  project    Project   @relation(fields: [projectId], references: [id])
   createdOn  DateTime
 }

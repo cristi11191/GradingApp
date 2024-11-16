@@ -1,16 +1,28 @@
 const jwt = require('jsonwebtoken');
 
-const authMiddleware = (req, res, next) => {
-    const token = req.headers.authorization?.split(" ")[1]; // Extract token from Authorization header
-    if (!token) return res.status(401).json({ error: 'Access denied' });
 
+const authMiddleware = (req, res, next) => {
+    const token = req.header('Authorization')?.replace('Bearer ', '');
+    if (!token) {
+        return res.status(401).json({ message: 'Unauthorized: No token provided' });
+    }
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.userId = decoded.userId;
+        req.user = jwt.verify(token, process.env.JWT_SECRET); // Attach user info to the request
         next();
     } catch (error) {
-        res.status(401).json({ error: 'Invalid token' });
+        return res.status(401).json({ message: 'Unauthorized: Invalid token' });
     }
 };
 
-module.exports = authMiddleware;
+
+const verifyRole = (roles) => {
+    return (req, res, next) => {
+        const userRole = req.user.role; // Assuming `req.user` is set after authentication
+        if (!roles.includes(userRole)) {
+            return res.status(403).json({ message: 'Forbidden: Insufficient permissions' });
+        }
+        next();
+    };
+};
+
+module.exports = { authMiddleware, verifyRole };
