@@ -17,7 +17,11 @@ app.use(express.json());
 // Import routes
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
+const testRoute = require('./routes/testRoutes');
 
+
+
+app.use('/api', testRoute);
 // Use routes
 app.use('/api/auth', authRoutes); // Routes for signup and login
 app.use('/api/users', userRoutes); // Routes for user data (protected)
