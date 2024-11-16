@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const { PrismaClient } = require('@prisma/client');
+const crypto = require('crypto');
 
 dotenv.config();
 
@@ -9,7 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 const prisma = new PrismaClient();
-const crypto = require('crypto');
+
 
 process.env.JWT_SECRET = crypto.randomBytes(64).toString('hex'); // Generate a new random secret
 

@@ -20,7 +20,7 @@ const getCurrentUser = async (req, res) => {
 
         // Decode the token to get user ID
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await prisma.user.findUnique({ where: { id: decoded.userId } });
+        const user = await prisma.user.findUnique({ where: { id: decoded.id } });
 
         if (!user) {
             return res.status(404).json({ error: 'User not found' });

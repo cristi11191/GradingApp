@@ -4,17 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd8abe29-b600-4083-8b72-8e64ce42d672" name="Changes" comment="Added Deadline column in Project table">
+    <list default="true" id="fd8abe29-b600-4083-8b72-8e64ce42d672" name="Changes" comment="Updated JWT Login, using random JWT token every restart , checking for old token">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/controllers/authController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/authController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/userController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/middlewares/authMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/middlewares/authMiddleware.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/prisma/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/server/prisma/database.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/prisma/database.db-journal" beforeDir="false" afterPath="$PROJECT_DIR$/server/prisma/database.db-journal" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/server/prisma/schema.prisma" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/userRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/userRoutes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/utils/generateToken.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/utils/generateToken.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +117,7 @@
       <workItem from="1731429813367" duration="1816000" />
       <workItem from="1731685080415" duration="567000" />
       <workItem from="1731695255697" duration="4889000" />
-      <workItem from="1731742531742" duration="3636000" />
+      <workItem from="1731742531742" duration="4422000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented Router which split DefaultLayout from GuestLayout">
       <option name="closed" value="true" />
@@ -212,7 +207,23 @@
       <option name="project" value="LOCAL" />
       <updated>1731744518115</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Updated JWT Login, using random JWT token every restart , checking for old token">
+      <option name="closed" value="true" />
+      <created>1731746441403</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1731746441403</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Updated JWT Login, using random JWT token every restart , checking for old token">
+      <option name="closed" value="true" />
+      <created>1731746481689</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1731746481689</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -229,6 +240,7 @@
     <MESSAGE value="Role Config implementation" />
     <MESSAGE value="Massive changes in Database structure. Controllers and Routes Created" />
     <MESSAGE value="Added Deadline column in Project table" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Deadline column in Project table" />
+    <MESSAGE value="Updated JWT Login, using random JWT token every restart , checking for old token" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated JWT Login, using random JWT token every restart , checking for old token" />
   </component>
 </project>
