@@ -4,24 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd8abe29-b600-4083-8b72-8e64ce42d672" name="Changes" comment="Role Config implementation">
-      <change afterPath="$PROJECT_DIR$/server/controllers/evaluationController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/controllers/projectController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/prismaClient.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/routes/evaluationRoutes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/routes/projectRoutes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/routes/testRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/config/database.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/server/config/database.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/userController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/middlewares/authMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/middlewares/authMiddleware.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/prisma/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/server/prisma/database.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/prisma/migrations/20241111190202_database_migration/migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/prisma/migrations/migration_lock.toml" beforeDir="false" afterPath="$PROJECT_DIR$/server/prisma/migrations/migration_lock.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/server/prisma/schema.prisma" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/userRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/userRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.js" afterDir="false" />
-    </list>
+    <list default="true" id="fd8abe29-b600-4083-8b72-8e64ce42d672" name="Changes" comment="Massive changes in Database structure. Controllers and Routes Created" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -128,7 +111,7 @@
       <workItem from="1731429813367" duration="1816000" />
       <workItem from="1731685080415" duration="567000" />
       <workItem from="1731695255697" duration="4889000" />
-      <workItem from="1731742531742" duration="1634000" />
+      <workItem from="1731742531742" duration="1882000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented Router which split DefaultLayout from GuestLayout">
       <option name="closed" value="true" />
@@ -194,7 +177,23 @@
       <option name="project" value="LOCAL" />
       <updated>1731443444145</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Massive changes in Database structure. Controllers and Routes Created">
+      <option name="closed" value="true" />
+      <created>1731744293251</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1731744293251</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Massive changes in Database structure. Controllers and Routes Created">
+      <option name="closed" value="true" />
+      <created>1731744320975</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1731744320975</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -209,6 +208,7 @@
     <MESSAGE value="Backend connected with Singup and Login" />
     <MESSAGE value=".gitignore changes" />
     <MESSAGE value="Role Config implementation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Role Config implementation" />
+    <MESSAGE value="Massive changes in Database structure. Controllers and Routes Created" />
+    <option name="LAST_COMMIT_MESSAGE" value="Massive changes in Database structure. Controllers and Routes Created" />
   </component>
 </project>
