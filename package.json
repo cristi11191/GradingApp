@@ -1,9 +1,18 @@
 {
   "devDependencies": {
-    "prisma": "^5.22.0"
+    "@aws-amplify/backend": "^1.7.0",
+    "@aws-amplify/backend-cli": "^1.4.2",
+    "aws-cdk": "^2.167.1",
+    "aws-cdk-lib": "^2.167.1",
+    "constructs": "^10.4.2",
+    "esbuild": "^0.24.0",
+    "prisma": "^5.22.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
+    "aws-amplify": "^6.8.2",
     "framer-motion": "^11.11.11",
     "lucide-react": "^0.456.0",
     "react": "^18.3.1"
