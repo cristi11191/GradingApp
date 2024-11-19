@@ -140,3 +140,8 @@ dist
 
 # Build files for React
 build/
+
+# amplify
+.amplify
+amplify_outputs*
+amplifyconfiguration*
