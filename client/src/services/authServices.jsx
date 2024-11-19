@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api/auth'; // Update if your backend URL is different
+const API_URL = 'https://gradingapp-qfjw.onrender.com/api/auth';//'http://localhost:5000/api/auth'; // Update if your backend URL is different
 
 // Function for user signup
 export const signup = async (userData) => {
