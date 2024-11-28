@@ -1,0 +1,49 @@
+.btnEdit, .btnAdd{
+   position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #007bff; /* O culoare albastră */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btnAdd {
+  margin-top: 10px;
+}
+
+.btnEdit:hover{
+    background-color: #0056b3;
+}
+
+
+.btnAdd:hover, .btnEdit:hover {
+  background-color: #0056b3;
+}
+
+.my-project {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.no-project {
+  text-align: center;
+  margin: 50px auto;
+}
+
+.no-project p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+
+
+
