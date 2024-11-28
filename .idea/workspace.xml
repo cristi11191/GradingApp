@@ -4,12 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd8abe29-b600-4083-8b72-8e64ce42d672" name="Changes" comment="Show Create Project Pop-up Fixed">
+    <list default="true" id="fd8abe29-b600-4083-8b72-8e64ce42d672" name="Changes" comment="JWT Token check for Version">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/MyProject/EditProjectForm.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/MyProject/EditProjectForm.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/MyProject/EditProjectForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/MyProject/EditProjectForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/MyProject/MyProject.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/MyProject/MyProject.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/MyProject/MyProject.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/MyProject/MyProject.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/prisma/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/server/prisma/database.db" afterDir="false" />
+
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,15 +71,15 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "com.codeium.enabled": "true",
-    "git-widget-placeholder": "Cristin",
-    "last_opened_file_path": "C:/Users/MrCri.CRISTINEL/Desktop/Facultate2024/TehnologiiWeb/Proiect/GradingApp",
+    "git-widget-placeholder": "Gladis",
+    "last_opened_file_path": "C:/Users/gladi/Licenta/An III/Proiect TW/ProiectTW/GradingApp",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.2.0.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -118,7 +122,6 @@
       <workItem from="1731695255697" duration="4889000" />
       <workItem from="1731742531742" duration="6496000" />
       <workItem from="1732808969649" duration="527000" />
-      <workItem from="1732822890835" duration="163000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented Router which split DefaultLayout from GuestLayout">
       <option name="closed" value="true" />
@@ -277,8 +280,9 @@
     <MESSAGE value="deleting amplify" />
     <MESSAGE value="JWT Login changes" />
     <MESSAGE value="Updating the project for Host" />
+
     <MESSAGE value="JWT Token check for Version" />
-    <MESSAGE value="Show Create Project Pop-up Fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Show Create Project Pop-up Fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="JWT Token check for Version" />
+
   </component>
 </project>
