@@ -22,8 +22,8 @@ const MyProject = () => {
                 if (!response.data) {
                     setProject(null); // Setează null dacă nu există proiect
                 } else {
-                    setProject(response.data);
-                    //setProject(null);
+                    //setProject(response.data);
+                    setProject(null);
                 }
             })
             .catch((error) => {
@@ -49,13 +49,14 @@ const MyProject = () => {
     const handleAddProject = () => {
         setProject({}); // Inițializează un proiect gol pentru creare
         setIsCreating(true); // Activează formularul de creare
+        console.log("Setting isCreating to true");
     };
 
-    const existProject = (!project || Object.keys(project || {}).length === 0);
+    const existProject = (project || Object.keys(project || {}).length !== 0);
 
     return (
         <div className="my-project-container">
-            {existProject ? (
+            {!existProject ? (
                 <div className="no-project">
                     <p>No project available. Start by creating one!</p>
                     <button className="btnAdd" onClick={handleAddProject}>Add Project</button>
@@ -65,32 +66,34 @@ const MyProject = () => {
                     <h1 className="my-project-text">My Project</h1>
                     {(isEditing || isCreating)? (
                         <EditProjectForm
+                            open={true}
                             project={project || {}}
                             onSave={handleSave}
                             onCancel={() => {
+                                {isCreating ? setProject(null): setIsCreating(false)}
                                 setIsEditing(false);
                                 setIsCreating(false);
                             }} />
                     ) : (
                         <>
-                            <h2>{project.title}</h2>
-                            <p>{project.description}</p>
-                            {project.attachmentURL && (
-                                <p>
-                                    Attachment: <a href={project.attachmentURL} target="_blank" rel="noopener noreferrer">View</a>
-                                </p>
-                            )}
-                            <p>Deadline: {new Date(project.deadline).toLocaleDateString()}</p>
+                            <h2>Null</h2>{/*project.title*/}
+                            <p></p>{/*project.description*/}
+                            {/*{project.attachmentURL && (*/}
+                            {/*    <p>*/}
+                            {/*        Attachment: <a href={project.attachmentURL} target="_blank" rel="noopener noreferrer">View</a>*/}
+                            {/*    </p>*/}
+                            {/*)}*/}
+                            {/*<p>Deadline: {new Date(project.deadline).toLocaleDateString()}</p>*/}
                             <button className="btnEdit" onClick={() => setIsEditing(true)}>Edit Project</button>
 
                             <h3>Collaborators</h3>
-                            <CollaboratorsList collaborators={project.collaborators} projectId={project.id} />
+                            {/*<CollaboratorsList collaborators={project.collaborators} projectId={project.id} />*/}
 
                             <h3>Deliverables</h3>
-                            <DeliverablesList deliverables={project.deliverables} projectId={project.id} />
+                            {/*<DeliverablesList deliverables={project.deliverables} projectId={project.id} />*/}
 
                             <h3>Evaluations</h3>
-                            <EvaluationsList evaluations={project.evaluations} projectId={project.id} />
+                            {/*<EvaluationsList evaluations={project.evaluations} projectId={project.id} />*/}
                         </>
                     )}
                 </div>

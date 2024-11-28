@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import "./EditProjectForm.css";
 
-const EditProjectForm = ({ project, onSave, onCancel }) => {
+const EditProjectForm = ({open, project, onSave, onCancel }) => {
+    if (!open) return null;
     const [title, setTitle] = useState(project.title || "");
     const [description, setDescription] = useState(project.description || "");
     const [deadline, setDeadline] = useState(
