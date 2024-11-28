@@ -1,5 +1,5 @@
-
-workspace.xml
+.idea/workspace.xml
+server/prisma/database.db
 # Logs
 logs
 *.log

@@ -4,22 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd8abe29-b600-4083-8b72-8e64ce42d672" name="Changes" comment="Git ignore changes">
-      <change afterPath="$PROJECT_DIR$/server/utils/checkToken.js" afterDir="false" />
+    <list default="true" id="fd8abe29-b600-4083-8b72-8e64ce42d672" name="Changes" comment="JWT Token check for Version">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Login/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Login/Login.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/MyProject/EditProjectForm.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/MyProject/EditProjectForm.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/MyProject/EditProjectForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/MyProject/EditProjectForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/MyProject/MyProject.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/MyProject/MyProject.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/MyProject/MyProject.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/MyProject/MyProject.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/hooks/ProtectedRoutes.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/hooks/ProtectedRoutes.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/router.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/router.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/services/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/services/authServices.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/authServices.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/controllers/authController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/authController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/prisma/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/server/prisma/database.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/authRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/authRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,13 +26,6 @@
         <option value="JSX File" />
         <option value="JavaScript File" />
       </list>
-    </option>
-  </component>
-  <component name="FormatOnSaveOptions">
-    <option name="myRunOnSave" value="false" />
-    <option name="myAllFileTypesSelected" value="true" />
-    <option name="mySelectedFileTypes">
-      <set />
     </option>
   </component>
   <component name="Git.Settings">
@@ -67,6 +53,9 @@
     &quot;repository&quot;: &quot;GradingApp&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 6
@@ -89,7 +78,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.2.0.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -269,15 +258,7 @@
       <option name="project" value="LOCAL" />
       <updated>1732031776212</updated>
     </task>
-    <task id="LOCAL-00018" summary="Git ignore changes">
-      <option name="closed" value="true" />
-      <created>1732810296989</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1732810296989</updated>
-    </task>
-    <option name="localTasksCounter" value="19" />
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -298,7 +279,7 @@
     <MESSAGE value="deleting amplify" />
     <MESSAGE value="JWT Login changes" />
     <MESSAGE value="Updating the project for Host" />
-    <MESSAGE value="Git ignore changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Git ignore changes" />
+    <MESSAGE value="JWT Token check for Version" />
+    <option name="LAST_COMMIT_MESSAGE" value="JWT Token check for Version" />
   </component>
 </project>
