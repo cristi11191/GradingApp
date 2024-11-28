@@ -1,6 +1,5 @@
 // src/App.js
 import React, { useEffect, useState } from "react";
-import { fetchHelloMessage } from "./services/api";
 import { RouterProvider } from 'react-router-dom';
 import "./App.css";
 import router from "./router.jsx";

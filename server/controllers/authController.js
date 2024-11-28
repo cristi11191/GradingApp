@@ -1,8 +1,31 @@
 const bcrypt = require('bcrypt');
 const { PrismaClient } = require('@prisma/client');
 const generateToken = require('../utils/generateToken');
-
+const jwt = require('jsonwebtoken');
 const prisma = new PrismaClient();
+
+
+
+exports.validateToken = async (req, res) => {
+    const token = req.header('Authorization')?.replace('Bearer ', '');
+    if (!token) {
+        return res.status(400).json({ valid: false, error: 'No token provided' });
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await prisma.user.findUnique({ where: { id: decoded.id } });
+        if (!user || user.tokenVersion !== decoded.tokenVersion) {
+            return res.status(401).json({ valid: false, error: 'Invalid or expired token' });
+        }
+
+        return res.json({ valid: true , tokenVersion:user.tokenVersion });
+    } catch (err) {
+        return res.status(401).json({ valid: false, error: 'Invalid token', message: err.message });
+    }
+};
+
+
 
 // User signup
 exports.signup = async (req, res) => {
