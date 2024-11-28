@@ -80,6 +80,7 @@ const EditProjectForm = ({ project, onSave, onCancel }) => {
                        value={deadline}
                        onChange={(e) => setDeadline(e.target.value)}
                        required
+
                 />
             </div>
             <div {...getRootProps()} className="dropzone">

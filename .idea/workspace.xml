@@ -13,6 +13,7 @@
       <change beforePath="$PROJECT_DIR$/client/src/components/MyProject/EditProjectForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/MyProject/EditProjectForm.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/MyProject/MyProject.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/MyProject/MyProject.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/MyProject/MyProject.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/MyProject/MyProject.jsx" afterDir="false" />
+
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +71,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "com.codeium.enabled": "true",
-    "git-widget-placeholder": "#53 on Cristin",
+    "git-widget-placeholder": "Gladis",
     "last_opened_file_path": "C:/Users/gladi/Licenta/An III/Proiect TW/ProiectTW/GradingApp",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
@@ -279,7 +280,9 @@
     <MESSAGE value="deleting amplify" />
     <MESSAGE value="JWT Login changes" />
     <MESSAGE value="Updating the project for Host" />
+
     <MESSAGE value="JWT Token check for Version" />
     <option name="LAST_COMMIT_MESSAGE" value="JWT Token check for Version" />
+
   </component>
 </project>

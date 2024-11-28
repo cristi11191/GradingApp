@@ -12,6 +12,9 @@ const MyProject = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [isCreating, setIsCreating] = useState(false); // Stare pentru creare proiect
 
+  console.log('Project:', project);
+  console.log('Is Editing:', isEditing);
+  console.log('Should show no project:', !project && !isEditing);
 
     useEffect(() => {
         axios.get("/api/project")
