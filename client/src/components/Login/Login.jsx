@@ -19,11 +19,16 @@ const Login = () => {
     try {
       const response = await login(formData);
       localStorage.setItem("token", response.token); // Store JWT token
+      localStorage.setItem("role", response.role); // Store role if needed
+      localStorage.setItem('loginTimestamp', performance.now()); // Save login timestamp
       navigate("/dashboard"); // Redirect to dashboard
+      window.location.reload(); // Force re-render to apply token
+
     } catch (error) {
       setError(error.error || "Login failed"); // Display error message
     }
   };
+
 
   const handleSignup = () => {
     navigate("/signup"); // Redirect to signup page

@@ -3,6 +3,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const { PrismaClient } = require('@prisma/client');
 const crypto = require('crypto');
+const router = express.Router();
 
 dotenv.config();
 
@@ -22,19 +23,20 @@ app.use(express.json());
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const testRoute = require('./routes/testRoutes');
+const validateToken = require("./utils/checkToken");
 const resetTokenVersion = async () => {
   await prisma.user.updateMany({
     data: { tokenVersion: { increment: 1 } }, // Increment tokenVersion for all users
   });
 };
-
-
+app.use('/api/validate-token', authRoutes);
 
 
 
 app.use('/api', testRoute);
 // Use routes
 app.use('/api/auth', authRoutes); // Routes for signup and login
+// app.use('/api/validate', authRoutes);
 app.use('/api/users', userRoutes); // Routes for user data (protected)
 app.use('/uploads', express.static('uploads'));
 

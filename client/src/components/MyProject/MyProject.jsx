@@ -37,9 +37,6 @@ const MyProject = () => {
       });
   };
 
-  console.log('Project:', project);
-  console.log('Is Editing:', isEditing);
-  console.log('Should show no project:', !project && !isEditing);
 
   if ((!project || Object.keys(project).length === 0) && !isEditing) {
     return (

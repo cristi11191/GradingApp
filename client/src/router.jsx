@@ -21,19 +21,19 @@ const router = createBrowserRouter([
             },
             {
                 path: '/dashboard',
-                element: <ProtectedRoutes element={<MainContent />}  /> //role={['Admin', 'Student']}
+                element: <MainContent /> //role={['Admin', 'Student']}
             },
             {
                 path: '/projects',
-                element: <ProtectedRoutes element={<MainContent />}  /> //role={['Admin', 'Student']}
+                element: <MainContent /> //role={['Admin', 'Student']}
             },
             {
                 path: '/myproject',
-                element: <ProtectedRoutes element={<MainContent />}  /> //role={['Admin', 'Student']}
+                element: <MainContent /> //role={['Admin', 'Student']}
             },
             {
                 path: '/evaluation',
-                element: <ProtectedRoutes element={<MainContent />}  /> //role={['Admin', 'Student']}
+                element: <MainContent /> //role={['Admin', 'Student']}
             }
         ]
     },
