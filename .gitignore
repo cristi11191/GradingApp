@@ -1,4 +1,4 @@
-.idea/workspace.xml
+
 server/prisma/database.db
 # Logs
 logs
@@ -132,9 +132,9 @@ dist
 .pnp.*
 #idea
 .idea/*
-!.idea/modules.xml
-!.idea/*.iml
-!.idea/libraries
+.idea/modules.xml
+.idea/*.iml
+.idea/libraries
 .idea/workspace.xml
 .idea/tasks.xml
 .idea/usage.statistics.xml
