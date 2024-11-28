@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd8abe29-b600-4083-8b72-8e64ce42d672" name="Changes" comment="Updating the project for Host">
+    <list default="true" id="fd8abe29-b600-4083-8b72-8e64ce42d672" name="Changes" comment="JWT Token check for Version">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
@@ -12,7 +13,7 @@
       <change beforePath="$PROJECT_DIR$/client/src/components/MyProject/EditProjectForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/MyProject/EditProjectForm.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/MyProject/MyProject.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/MyProject/MyProject.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/MyProject/MyProject.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/MyProject/MyProject.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/prisma/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/server/prisma/database.db" afterDir="false" />
+
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +54,9 @@
     &quot;repository&quot;: &quot;GradingApp&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 6
@@ -276,6 +280,9 @@
     <MESSAGE value="deleting amplify" />
     <MESSAGE value="JWT Login changes" />
     <MESSAGE value="Updating the project for Host" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updating the project for Host" />
+
+    <MESSAGE value="JWT Token check for Version" />
+    <option name="LAST_COMMIT_MESSAGE" value="JWT Token check for Version" />
+
   </component>
 </project>

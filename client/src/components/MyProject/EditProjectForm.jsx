@@ -59,10 +59,10 @@ const EditProjectForm = ({ project, onSave, onCancel }) => {
             <div className="title-container">
                 <label className="title-label">Title:</label>
                 <input className="title-input"
-                    type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    required
+                       type="text"
+                       value={title}
+                       onChange={(e) => setTitle(e.target.value)}
+                       required
                 />
             </div>
             <div className="description-container">
@@ -76,10 +76,11 @@ const EditProjectForm = ({ project, onSave, onCancel }) => {
             <div className="deadline-container">
                 <label className="deadline-input">Deadline:</label>
                 <input className="deadline-input"
-                    type="date"
-                    value={deadline}
-                    onChange={(e) => setDeadline(e.target.value)}
-                    required
+                       type="date"
+                       value={deadline}
+                       onChange={(e) => setDeadline(e.target.value)}
+                       required
+
                 />
             </div>
             <div {...getRootProps()} className="dropzone">
@@ -103,10 +104,10 @@ const EditProjectForm = ({ project, onSave, onCancel }) => {
                 ))}
             </div>
             <div className="buttons">
-            <button type="submit" className="btn-save">Save</button>
-            <button type="button" onClick={onCancel}>
-                Cancel
-            </button>
+                <button type="submit" className="btn-save">Save</button>
+                <button type="button" onClick={onCancel}>
+                    Cancel
+                </button>
             </div>
         </form>
     );
