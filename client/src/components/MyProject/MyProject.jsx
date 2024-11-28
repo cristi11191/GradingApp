@@ -14,7 +14,7 @@ const MyProject = () => {
     axios.get("/api/project/1")
       .then((response) => {
         if (!response.data) {
-          setProject(null); // Setează null dacă nu există proiect
+          setProject(null); // ...Setează null dacă nu există proiect
         } else {
           setProject(response.data);
         }
