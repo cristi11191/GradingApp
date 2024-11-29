@@ -1,31 +1,38 @@
 const multer = require('multer');
 const path = require('path');
+const {mkdir} = require("node:fs");
+const fs = require("node:fs");
 
-// Configure storage
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/'); // Save files in the "uploads" directory
+        const uploadPath = path.join(__dirname, '../uploads/projects');
+        // Ensure the directory exists
+        if (!fs.existsSync(uploadPath)) {
+            fs.mkdirSync(uploadPath, { recursive: true });
+        }
+        cb(null, uploadPath);
     },
     filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname}`); // Use unique filenames
+        cb(null, `${Date.now()}-${file.originalname}`); // Unique file name with timestamp
     },
 });
 
-// File filter for validation (e.g., only allow images and documents)
+
+// Validate file types
 const fileFilter = (req, file, cb) => {
-    const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf', 'video/mp4', 'application/msword'];
+    const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
     if (allowedTypes.includes(file.mimetype)) {
         cb(null, true);
     } else {
-        cb(new Error('Invalid file type'), false);
+        cb(new Error('Invalid file type. Only JPEG, PNG, and PDF are allowed.'));
     }
 };
 
-// Multer middleware
+// Set up the multer upload middleware
 const upload = multer({
     storage,
+    limits: { fileSize: 5 * 1024 * 1024 }, // Limit file size to 5MB
     fileFilter,
-    limits: { fileSize: 10 * 1024 * 1024 }, // Limit files to 10MB
 });
 
 module.exports = upload;

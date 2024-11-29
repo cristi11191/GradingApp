@@ -90,6 +90,7 @@ const UrlInput = ({ urls, setUrls }) => {
         }
     };
 
+
     const removeUrl = (index) => {
         setUrls(urls.filter((_, i) => i !== index));
     };
