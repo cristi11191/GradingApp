@@ -6,6 +6,12 @@ const crypto = require('crypto');
 const router = express.Router();
 const fs = require('fs'); // For checking and creating files
 const { execSync } = require('child_process'); // For running Prisma CLI commands
+const projectRoutes = require('./routes/projectRoutes');
+const path = require('path')
+
+
+const uploadDir = path.join(__dirname, process.env.UPLOAD_DIR);
+
 
 dotenv.config();
 
@@ -32,12 +38,15 @@ if (!fs.existsSync(DB_PATH)) {
     process.exit(1); // Exit the process if database creation fails
   }
 }
-
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+  console.log('Created uploads/projects directory');
+}
 
 // Middleware
 app.use(cors());
 app.use(express.json());
-
+app.use(express.urlencoded({ extended: true }));
 // Import routes
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
@@ -57,7 +66,9 @@ app.use('/api', testRoute);
 app.use('/api/auth', authRoutes); // Routes for signup and login
 // app.use('/api/validate', authRoutes);
 app.use('/api/users', userRoutes); // Routes for user data (protected)
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static('uploads')); // Serve uploaded files
+
+app.use('/api/projects', projectRoutes);
 
 // Test route
 app.get('/api/hello', (req, res) => {
