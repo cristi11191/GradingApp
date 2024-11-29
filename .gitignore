@@ -1,5 +1,5 @@
-
-server/prisma/database.db
+.idea/
+**.database.db
 # Logs
 logs
 *.log

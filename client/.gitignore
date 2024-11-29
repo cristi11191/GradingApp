@@ -1,4 +1,5 @@
-**/.workspace.xml
+.idea/
+**.database.db
 # Logs
 logs
 *.log
