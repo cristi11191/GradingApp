@@ -4,6 +4,8 @@ const dotenv = require('dotenv');
 const { PrismaClient } = require('@prisma/client');
 const crypto = require('crypto');
 const router = express.Router();
+const fs = require('fs'); // For checking and creating files
+const { execSync } = require('child_process'); // For running Prisma CLI commands
 
 dotenv.config();
 
@@ -14,6 +16,23 @@ const prisma = new PrismaClient();
 
 
 process.env.JWT_SECRET = crypto.randomBytes(64).toString('hex'); // Generate a new random secret
+
+// Path to the database file
+const DB_PATH = './prisma/database.db';
+
+// Check if database.db exists
+if (!fs.existsSync(DB_PATH)) {
+  console.log('Database file not found. Initializing the database...');
+  try {
+    // Run Prisma migrations to create the database and schema
+    execSync('npx prisma migrate dev --name init', { stdio: 'inherit' });
+    console.log('Database initialized successfully.');
+  } catch (error) {
+    console.error('Failed to initialize the database:', error);
+    process.exit(1); // Exit the process if database creation fails
+  }
+}
+
 
 // Middleware
 app.use(cors());

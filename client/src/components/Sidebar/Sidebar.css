@@ -26,8 +26,9 @@
 }
 
 .bottom-items {
-  margin-top: 55vh; /* Împinge elementul în partea de jos */
-  padding-left: 10px;
+  position: absolute;
+  bottom: 0; /* Împinge elementul în partea de jos */
+  left: 10px;
 }
 
 .homeIcon {
