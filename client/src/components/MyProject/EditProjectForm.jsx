@@ -5,16 +5,16 @@ import { createProject, updateProject } from "../../services/apiProject"; // Imp
 import "./EditProjectForm.css";
 import {checkCollaboratorExists} from "../../services/apiCollaborators.js";
 
-const CollaboratorsInput = ({ collaborators, setCollaborators }) => {
+const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatus, setCollaboratorStatus }) => {
     const [inputValue, setInputValue] = useState("");
-    const [collaboratorStatus, setCollaboratorStatus] = useState({}); // Ex: { "user@example.com": "existent" }
 
     const handleKeyDown = async (e) => {
         if (e.key === "Enter" && inputValue.trim()) {
             const newCollaborator = inputValue.trim();
             const status = await checkCollaboratorExists(newCollaborator);
             console.log(`Status for ${newCollaborator}:`, status);
-            setCollaborators([...collaborators, newCollaborator]);
+
+            setCollaborators((prev) => [...prev, newCollaborator]);
             setCollaboratorStatus((prev) => ({
                 ...prev,
                 [newCollaborator]: status,
@@ -35,7 +35,6 @@ const CollaboratorsInput = ({ collaborators, setCollaborators }) => {
         });
     };
 
-
     return (
         <div className="collaborators-container">
             <label htmlFor="collaborators" className="collaborators-label">
@@ -52,11 +51,12 @@ const CollaboratorsInput = ({ collaborators, setCollaborators }) => {
                         }`}
                     >
                         {collaborator}
-                        <button className="icon"
+                        <button
+                            className="icon"
                             type="button"
-                            onClick={() => removeCollaborator(index)}>
-                            <CloseIcon/>
-
+                            onClick={() => removeCollaborator(index)}
+                        >
+                            <CloseIcon />
                         </button>
                     </span>
                 ))}
@@ -72,6 +72,7 @@ const CollaboratorsInput = ({ collaborators, setCollaborators }) => {
         </div>
     );
 };
+
 
 // Componentă pentru inserarea URL-urilor
 const UrlInput = ({ urls, setUrls }) => {
@@ -116,16 +117,16 @@ const UrlInput = ({ urls, setUrls }) => {
 };
 
 // Componenta principală pentru editare
-const EditProjectForm = ({ open, project, onCancel , currentUserEmail  }) => {
+const EditProjectForm = ({ open, project, onCancel, currentUserEmail }) => {
     if (!open) return null;
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [title, setTitle] = useState(project?.title || "");
     const [description, setDescription] = useState(project?.description || "");
     const [deadline, setDeadline] = useState(project?.deadline?.split("T")[0] || "");
     const [attachmentFiles, setAttachmentFiles] = useState([]);
     const [collaborators, setCollaborators] = useState(project?.collaborators || []);
     const [urls, setUrls] = useState(project?.urls || []);
+    const [collaboratorStatus, setCollaboratorStatus] = useState({});
     const [errorMessage, setErrorMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
@@ -138,30 +139,31 @@ const EditProjectForm = ({ open, project, onCancel , currentUserEmail  }) => {
                 }
                 return prev;
             });
+
+            setCollaboratorStatus((prev) => ({
+                ...prev,
+                [currentUserEmail]: "existent", // Set status for currentUserEmail
+            }));
         }
-    }, [currentUserEmail]); // Run only when `currentUserEmail` changes
+    }, [currentUserEmail, collaborators]);
 
-
-
-    // Funcție pentru gestionarea fișierelor
+    // File handling
     const onDrop = (acceptedFiles) => {
         setAttachmentFiles((prevFiles) => [...prevFiles, ...acceptedFiles]);
     };
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const { getRootProps, getInputProps } = useDropzone({
         onDrop,
         accept: {
-            'image/*': ['.png', '.jpg', '.jpeg', '.gif'],
-            'application/pdf': ['.pdf'],
-            'text/plain': ['.txt'],
-            'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
-            'application/vnd.ms-excel': ['.xls'],
-            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx'],
+            "image/*": [".png", ".jpg", ".jpeg", ".gif"],
+            "application/pdf": [".pdf"],
+            "text/plain": [".txt"],
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"],
+            "application/vnd.ms-excel": [".xls"],
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [".xlsx"],
         },
         multiple: true,
     });
-
 
     const handleRemoveFile = (fileName) => {
         setAttachmentFiles((prevFiles) =>
@@ -176,7 +178,9 @@ const EditProjectForm = ({ open, project, onCancel , currentUserEmail  }) => {
         formData.append("title", title);
         formData.append("description", description);
         formData.append("deadline", new Date(deadline).toISOString());
-        collaborators.forEach((collaborator, index) => formData.append(`collaborator_${index}`, collaborator));
+        collaborators.forEach((collaborator, index) =>
+            formData.append(`collaborator_${index}`, collaborator)
+        );
         urls.forEach((url, index) => formData.append(`url_${index}`, url));
         attachmentFiles.forEach((file) => formData.append("files", file));
 
@@ -186,12 +190,12 @@ const EditProjectForm = ({ open, project, onCancel , currentUserEmail  }) => {
                 // Update existing project
                 const updatedProject = await updateProject(project.id, formData);
                 console.log("Project updated:", updatedProject);
-                onSave(updatedProject);
+                onCancel();
             } else {
                 // Create new project
                 const createdProject = await createProject(formData);
                 console.log("Project created:", createdProject);
-                onSave(createdProject);
+                onCancel();
             }
         } catch (error) {
             setErrorMessage(error.message);
@@ -216,6 +220,8 @@ const EditProjectForm = ({ open, project, onCancel , currentUserEmail  }) => {
             <CollaboratorsInput
                 collaborators={collaborators}
                 setCollaborators={setCollaborators}
+                collaboratorStatus={collaboratorStatus}
+                setCollaboratorStatus={setCollaboratorStatus}
             />
             <div className="description-container">
                 <label className="description-label">Description:</label>
@@ -229,10 +235,6 @@ const EditProjectForm = ({ open, project, onCancel , currentUserEmail  }) => {
                 <input {...getInputProps()} />
                 <p>Drag & drop files here, or click to select</p>
             </div>
-            <UrlInput
-                urls={urls}
-                setUrls={setUrls}
-            />
             <div className="deadline-container">
                 <label className="deadline-label">Deadline:</label>
                 <input

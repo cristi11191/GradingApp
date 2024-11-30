@@ -7,6 +7,7 @@ import DeliverablesList from "./DeliverablesList.jsx";
 import EvaluationsList from "./EvaluationsList.jsx";
 import './MyProject.css';
 import {jwtDecode} from "jwt-decode";
+import { fetchProjectByCollaboratorEmail } from "../../services/apiProject";
 
 
 
@@ -24,6 +25,8 @@ const getEmailFromToken = (token) => {
         return null;
     }
 };
+
+
 const MyProject = () => {
     const [project, setProject] = useState({});
     const [isEditing, setIsEditing] = useState(false);
@@ -31,19 +34,18 @@ const MyProject = () => {
 
 
     useEffect(() => {
-        axios.get("/api/project")
-            .then((response) => {
-                if (!response.data) {
-                    setProject(null); // Setează null dacă nu există proiect
-                } else {
-                    //setProject(response.data);
-                    setProject(null);
-                }
-            })
-            .catch((error) => {
+        const fetchProject = async () => {
+            try {
+                const projectData = await fetchProjectByCollaboratorEmail(); // Apelul funcției
+                console.log(projectData);
+                setProject(projectData || null); // Setează datele proiectului sau null
+            } catch (error) {
                 console.error("Error fetching project data:", error);
-                setProject(null); // Dacă apare eroare, setează null
-            });
+                setProject(null); // Dacă apare o eroare, setează null
+            }
+        };
+
+        fetchProject(); // Apelează funcția
     }, []);
 
 
@@ -55,7 +57,7 @@ const MyProject = () => {
 
     const existProject = (project || Object.keys(project || {}).length !== 0);
     const currentUserEmail = getEmailFromToken(localStorage.getItem("token"));
-    console.log(currentUserEmail);
+    //console.log(currentUserEmail);
 
     return (
         <div className="my-project-container">
@@ -80,8 +82,8 @@ const MyProject = () => {
                         />
                     ) : (
                         <>
-                            <h2>project.title</h2>
-                            <p>project.description</p>
+                            <h2>{project.title}</h2>
+                            <p>{project.description}</p>
                             {project.attachmentURL && (
                                 <p>
                                     Attachment: <a href={project.attachmentURL} target="_blank" rel="noopener noreferrer">View</a>
@@ -94,7 +96,7 @@ const MyProject = () => {
                             <CollaboratorsList collaborators={project.collaborators} projectId={project.id} />
 
                             <h3>Deliverables</h3>
-                            <DeliverablesList deliverables={project.deliverables} projectId={project.id} />
+                            <DeliverablesList deliverables={project.deliverables || []} projectId={project.id} />
 
                             <h3>Evaluations</h3>
                             <EvaluationsList evaluations={project.evaluations} projectId={project.id} />
