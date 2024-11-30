@@ -6,15 +6,29 @@ import CollaboratorsList from "./CollaboratorsList.jsx";
 import DeliverablesList from "./DeliverablesList.jsx";
 import EvaluationsList from "./EvaluationsList.jsx";
 import './MyProject.css';
+import {jwtDecode} from "jwt-decode";
 
+
+
+/**
+ * Extracts the email from the JWT token.
+ * @param {string} token - The JWT token.
+ * @returns {string|null} The email if present in the token, or null if not found.
+ */
+const getEmailFromToken = (token) => {
+    try {
+        const decodedToken = jwtDecode(token);
+        return decodedToken.email || null; // Adjust based on your token's structure
+    } catch (error) {
+        console.error("Error decoding token:", error);
+        return null;
+    }
+};
 const MyProject = () => {
     const [project, setProject] = useState({});
     const [isEditing, setIsEditing] = useState(false);
     const [isCreating, setIsCreating] = useState(false); // Stare pentru creare proiect
 
-  console.log('Project:', project);
-  console.log('Is Editing:', isEditing);
-  console.log('Should show no project:', !project && !isEditing);
 
     useEffect(() => {
         axios.get("/api/project")
@@ -32,19 +46,6 @@ const MyProject = () => {
             });
     }, []);
 
-    const handleSave = (updatedProject) => {
-        axios.post("/api/project", updatedProject) // Create or update project
-            .then((response) => {
-                setProject(response.data);
-                setIsEditing(false);
-                setIsCreating(false);
-            })
-            .catch((error) => {
-                console.error("Error saving project:", error);
-                setIsEditing(false);
-                setIsCreating(false);
-            });
-    };
 
     const handleAddProject = () => {
         setProject({}); // Inițializează un proiect gol pentru creare
@@ -53,6 +54,8 @@ const MyProject = () => {
     };
 
     const existProject = (project || Object.keys(project || {}).length !== 0);
+    const currentUserEmail = getEmailFromToken(localStorage.getItem("token"));
+    console.log(currentUserEmail);
 
     return (
         <div className="my-project-container">
@@ -68,32 +71,33 @@ const MyProject = () => {
                         <EditProjectForm
                             open={true}
                             project={project || {}}
-                            onSave={handleSave}
                             onCancel={() => {
                                 {isCreating ? setProject(null): setIsCreating(false)}
                                 setIsEditing(false);
                                 setIsCreating(false);
-                            }} />
+                            }}
+                            currentUserEmail={currentUserEmail}
+                        />
                     ) : (
                         <>
-                            <h2>Null</h2>{/*project.title*/}
-                            <p></p>{/*project.description*/}
-                            {/*{project.attachmentURL && (*/}
-                            {/*    <p>*/}
-                            {/*        Attachment: <a href={project.attachmentURL} target="_blank" rel="noopener noreferrer">View</a>*/}
-                            {/*    </p>*/}
-                            {/*)}*/}
-                            {/*<p>Deadline: {new Date(project.deadline).toLocaleDateString()}</p>*/}
+                            <h2>project.title</h2>
+                            <p>project.description</p>
+                            {project.attachmentURL && (
+                                <p>
+                                    Attachment: <a href={project.attachmentURL} target="_blank" rel="noopener noreferrer">View</a>
+                                </p>
+                            )}
+                            <p>Deadline: {new Date(project.deadline).toLocaleDateString()}</p>
                             <button className="btnEdit" onClick={() => setIsEditing(true)}>Edit Project</button>
 
                             <h3>Collaborators</h3>
-                            {/*<CollaboratorsList collaborators={project.collaborators} projectId={project.id} />*/}
+                            <CollaboratorsList collaborators={project.collaborators} projectId={project.id} />
 
                             <h3>Deliverables</h3>
-                            {/*<DeliverablesList deliverables={project.deliverables} projectId={project.id} />*/}
+                            <DeliverablesList deliverables={project.deliverables} projectId={project.id} />
 
                             <h3>Evaluations</h3>
-                            {/*<EvaluationsList evaluations={project.evaluations} projectId={project.id} />*/}
+                            <EvaluationsList evaluations={project.evaluations} projectId={project.id} />
                         </>
                     )}
                 </div>

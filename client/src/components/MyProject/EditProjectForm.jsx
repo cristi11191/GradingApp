@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { useDropzone } from "react-dropzone";
 import CloseIcon from '@mui/icons-material/Close';
+import { createProject, updateProject } from "../../services/apiProject"; // Import API functions
 import "./EditProjectForm.css";
+import {checkCollaboratorExists} from "../../services/apiCollaborators.js";
 
 const CollaboratorsInput = ({ collaborators, setCollaborators }) => {
     const [inputValue, setInputValue] = useState("");
@@ -10,12 +12,14 @@ const CollaboratorsInput = ({ collaborators, setCollaborators }) => {
     const handleKeyDown = async (e) => {
         if (e.key === "Enter" && inputValue.trim()) {
             const newCollaborator = inputValue.trim();
-            const status = await checkCollaboratorExists(newCollaborator); // Verificăm starea
+            const status = await checkCollaboratorExists(newCollaborator);
+            console.log(`Status for ${newCollaborator}:`, status);
             setCollaborators([...collaborators, newCollaborator]);
             setCollaboratorStatus((prev) => ({
                 ...prev,
                 [newCollaborator]: status,
             }));
+
             setInputValue("");
             e.preventDefault();
         }
@@ -31,15 +35,6 @@ const CollaboratorsInput = ({ collaborators, setCollaborators }) => {
         });
     };
 
-    // Simulare API pentru verificarea colaboratorului
-    const checkCollaboratorExists = async (collaborator) => {
-        // Înlocuiește cu un apel real API
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(Math.random() > 0.5 ? "existent" : "inexistent"); // Random pentru demo
-            }, 500);
-        });
-    };
 
     return (
         <div className="collaborators-container">
@@ -121,30 +116,52 @@ const UrlInput = ({ urls, setUrls }) => {
 };
 
 // Componenta principală pentru editare
-const EditProjectForm = ({ open, project, onSave, onCancel }) => {
+const EditProjectForm = ({ open, project, onCancel , currentUserEmail  }) => {
     if (!open) return null;
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [title, setTitle] = useState(project.title || "");
-    const [description, setDescription] = useState(project.description || "");
-    const [deadline, setDeadline] = useState(project.deadline ? project.deadline.split("T")[0] : "");
+    const [title, setTitle] = useState(project?.title || "");
+    const [description, setDescription] = useState(project?.description || "");
+    const [deadline, setDeadline] = useState(project?.deadline?.split("T")[0] || "");
     const [attachmentFiles, setAttachmentFiles] = useState([]);
-    const [collaborators, setCollaborators] = useState([]);
-    const [urls, setUrls] = useState([]); // Stat pentru URL-uri
+    const [collaborators, setCollaborators] = useState(project?.collaborators || []);
+    const [urls, setUrls] = useState(project?.urls || []);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+
+    // Ensure the current user's email is included only once
+    useEffect(() => {
+        if (currentUserEmail && !collaborators.includes(currentUserEmail)) {
+            setCollaborators((prev) => {
+                if (!prev.includes(currentUserEmail)) {
+                    return [...prev, currentUserEmail];
+                }
+                return prev;
+            });
+        }
+    }, [currentUserEmail]); // Run only when `currentUserEmail` changes
+
+
 
     // Funcție pentru gestionarea fișierelor
     const onDrop = (acceptedFiles) => {
         setAttachmentFiles((prevFiles) => [...prevFiles, ...acceptedFiles]);
     };
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const { getRootProps, getInputProps } = useDropzone({
         onDrop,
         accept: {
             'image/*': ['.png', '.jpg', '.jpeg', '.gif'],
-            'application/pdf': ['.pdf']
+            'application/pdf': ['.pdf'],
+            'text/plain': ['.txt'],
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
+            'application/vnd.ms-excel': ['.xls'],
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx'],
         },
         multiple: true,
     });
+
 
     const handleRemoveFile = (fileName) => {
         setAttachmentFiles((prevFiles) =>
@@ -152,44 +169,40 @@ const EditProjectForm = ({ open, project, onSave, onCancel }) => {
         );
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const formData = new FormData();
         formData.append("title", title);
         formData.append("description", description);
         formData.append("deadline", new Date(deadline).toISOString());
+        collaborators.forEach((collaborator, index) => formData.append(`collaborator_${index}`, collaborator));
+        urls.forEach((url, index) => formData.append(`url_${index}`, url));
+        attachmentFiles.forEach((file) => formData.append("files", file));
 
-        // Adaugă colaboratori
-        collaborators.forEach((collaborator, index) => {
-            formData.append(`collaborator_${index}`, collaborator);
-        });
-
-        // Adaugă URL-uri
-        urls.forEach((url, index) => {
-            formData.append(`url_${index}`, url);
-        });
-
-        // Adaugă fișiere
-        attachmentFiles.forEach((file, index) => {
-            formData.append(`file_${index}`, file);
-        });
-
-        // Trimitere formular către server
-        fetch("/api/project", {
-            method: "POST",
-            body: formData,
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("Proiect salvat:", data);
-                onSave(data); // Callback pentru salvare
-            })
-            .catch((error) => console.error("Eroare la salvare:", error));
+        setIsLoading(true);
+        try {
+            if (project && project.id) {
+                // Update existing project
+                const updatedProject = await updateProject(project.id, formData);
+                console.log("Project updated:", updatedProject);
+                onSave(updatedProject);
+            } else {
+                // Create new project
+                const createdProject = await createProject(formData);
+                console.log("Project created:", createdProject);
+                onSave(createdProject);
+            }
+        } catch (error) {
+            setErrorMessage(error.message);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
         <form onSubmit={handleSubmit} className="edit-project-form">
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
             <div className="title-container">
                 <label className="title-label">Title:</label>
                 <input
@@ -233,12 +246,12 @@ const EditProjectForm = ({ open, project, onSave, onCancel }) => {
             <div className="file-list">
                 <h4>Selected Files:</h4>
                 {attachmentFiles.length === 0 && <p>No files selected</p>}
-                {attachmentFiles.map((file) => (
-                    <div key={file.name} className="file-item">
-                        <span>{file.name}</span>
+                {attachmentFiles.map((file, index) => (
+                    <div key={file.name || index} className="file-item">
+                        <span>{file.name || file}</span>
                         <button
                             type="button"
-                            onClick={() => handleRemoveFile(file.name)}
+                            onClick={() => handleRemoveFile(file.name || file)}
                             className="remove-file-btn"
                         >
                             Remove
@@ -246,8 +259,11 @@ const EditProjectForm = ({ open, project, onSave, onCancel }) => {
                     </div>
                 ))}
             </div>
+
             <div className="buttons">
-                <button type="submit" className="btn-save">Save</button>
+                <button type="submit" className="btn-save" disabled={isLoading}>
+                    {isLoading ? "Saving..." : "Save"}
+                </button>
                 <button type="button" onClick={onCancel}>
                     Cancel
                 </button>

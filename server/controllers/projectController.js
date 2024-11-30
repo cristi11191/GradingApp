@@ -155,4 +155,39 @@ const updateProject = async (req, res) => {
     }
 };
 
-module.exports = { createProject , getProject, updateProject  };
+/**
+ * Fetch the project where the given email is a collaborator.
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object.
+ */
+const getProjectByCollaboratorEmail = async (req, res) => {
+    const email = req.user.email; // Extract email from middleware that decodes JWT
+
+    try {
+        const project = await prisma.project.findFirst({
+            where: {
+                collaborators: {
+                    some: {
+                        email, // Check if the email exists in the collaborators
+                    },
+                },
+            },
+            include: {
+                collaborators: true, // Include collaborator details
+                deliverables: true, // Include deliverable details
+                evaluations: true,  // Include evaluations details
+            },
+        });
+
+        if (!project) {
+            return res.status(404).json({ message: "No project found for this collaborator email" });
+        }
+
+        return res.status(200).json(project);
+    } catch (error) {
+        console.error("Error fetching project:", error);
+        return res.status(500).json({ message: "Error fetching project", error: error.message });
+    }
+};
+
+module.exports = { createProject , getProject, updateProject ,getProjectByCollaboratorEmail };
