@@ -6,6 +6,7 @@ const crypto = require('crypto');
 const router = express.Router();
 const fs = require('fs'); // For checking and creating files
 const { execSync } = require('child_process'); // For running Prisma CLI commands
+const collaboratorRoutes = require('./routes/collaboratorsRoutes'); // Import the route
 const projectRoutes = require('./routes/projectRoutes');
 const path = require('path')
 
@@ -69,7 +70,7 @@ app.use('/api/users', userRoutes); // Routes for user data (protected)
 app.use('/uploads', express.static('uploads')); // Serve uploaded files
 
 app.use('/api/projects', projectRoutes);
-
+app.use('/api/collaborators', collaboratorRoutes); // Register the collaborator route
 // Test route
 app.get('/api/hello', (req, res) => {
   res.json({ message: 'Hello from the backend!' });
