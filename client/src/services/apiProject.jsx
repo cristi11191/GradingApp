@@ -1,5 +1,7 @@
 // src/api/apiProject.jsx
 import api from "./api.js";
+import {useEffect} from "react";
+import axios from "axios";
 const API_URL = import.meta.env.VITE_API_URL+'/api/projects';
 /**
  * Fetch a single project by ID.
@@ -17,17 +19,42 @@ export const fetchProjectById = async (projectId) => {
 };
 
 /**
+ * Fetch a project by the email of the collaborator.
+ * @returns {Promise<object>} Project details.
+ */
+
+export const fetchProjectByCollaboratorEmail = async () => {
+    try {
+        const token = localStorage.getItem("token"); // Obține JWT-ul stocat local
+        const response = await api.get(`${API_URL}/project`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        return response.data; // Returnează datele proiectului
+    } catch (error) {
+        console.error("Error fetching project by collaborator email:", error);
+        throw error.response?.data || "Failed to fetch project"; // Forward the error
+    }
+};
+
+
+/**
  * Create a new project.
  * @param {FormData} formData - Form data including title, description, files, etc.
  * @returns {Promise<object>} Created project data.
  */
 export const createProject = async (formData) => {
     try {
+        const token = localStorage.getItem("token");
         const response = await api.post(`${API_URL}/create`, formData, {
             headers: {
+                Authorization: `Bearer ${token}`,
                 'Content-Type': 'multipart/form-data', // Required for file uploads
             },
         });
+
         return response.data; // Return the created project data
     } catch (error) {
         console.error("Error creating project:", error);
