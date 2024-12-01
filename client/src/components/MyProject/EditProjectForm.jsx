@@ -56,7 +56,7 @@ const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatu
                             type="button"
                             onClick={() => removeCollaborator(index)}
                         >
-                            <CloseIcon />
+                            <CloseIcon className="close-icon"/>
                         </button>
                     </span>
                 ))}
@@ -231,10 +231,6 @@ const EditProjectForm = ({ open, project, onCancel, currentUserEmail }) => {
                     required
                 />
             </div>
-            <div {...getRootProps()} className="dropzone">
-                <input {...getInputProps()} />
-                <p>Drag & drop files here, or click to select</p>
-            </div>
             <div className="deadline-container">
                 <label className="deadline-label">Deadline:</label>
                 <input
@@ -245,6 +241,15 @@ const EditProjectForm = ({ open, project, onCancel, currentUserEmail }) => {
                     required
                 />
             </div>
+            <UrlInput
+                urls={urls}
+                setUrls={setUrls}
+            />
+            <div {...getRootProps()} className="dropzone">
+                <input {...getInputProps()} />
+                <p>Drag & drop files here, or click to select</p>
+            </div>
+
             <div className="file-list">
                 <h4>Selected Files:</h4>
                 {attachmentFiles.length === 0 && <p>No files selected</p>}

@@ -58,10 +58,9 @@ const resetTokenVersion = async () => {
     data: { tokenVersion: { increment: 1 } }, // Increment tokenVersion for all users
   });
 };
+
+
 app.use('/api/validate-token', authRoutes);
-
-
-
 app.use('/api', testRoute);
 // Use routes
 app.use('/api/auth', authRoutes); // Routes for signup and login
