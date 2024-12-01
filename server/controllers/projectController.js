@@ -27,25 +27,22 @@ const createProject = async (req, res) => {
                 title,
                 description,
                 deadline: new Date(deadline),
-                attachmentURL: fileAttachments.map((file) => file.attachmentURL).join(','), // Save file URLs as a comma-separated string
+                // Store URLs in attachmentURL as a comma-separated string
+                attachmentURL: urls.join(','),
+
+                // Add collaborators
                 collaborators: {
                     create: collaborators.map((email) => ({ email })),
                 },
+
+                // Add deliverables for file attachments only
                 deliverables: {
-                    create: [
-                        ...urls.map((url) => ({
-                            title: 'Deliverable',
-                            description: 'Uploaded URL',
-                            attachmentURL: url,
-                            fileType: 'url', // Specify file type for URLs
-                        })),
-                        ...fileAttachments.map((file) => ({
-                            title: 'Uploaded File',
-                            description: 'Uploaded file attachment',
-                            attachmentURL: file.attachmentURL,
-                            fileType: file.fileType, // Use the extracted file type
-                        })),
-                    ],
+                    create: fileAttachments.map((file) => ({
+                        title: 'Uploaded File',
+                        description: 'Uploaded file attachment',
+                        attachmentURL: file.attachmentURL,
+                        fileType: file.fileType, // Use the extracted file type
+                    })),
                 },
             },
         });
@@ -56,6 +53,7 @@ const createProject = async (req, res) => {
         res.status(500).json({ message: 'Failed to create project', error: error.message });
     }
 };
+
 
 const getProject = async (req, res) => {
     try {
@@ -115,33 +113,29 @@ const updateProject = async (req, res) => {
         const updatedProject = await prisma.project.update({
             where: { id: parseInt(projectId, 10) },
             data: {
+                // Update title, description, and deadline with fallback to existing values
                 title: title || existingProject.title,
                 description: description || existingProject.description,
                 deadline: deadline ? new Date(deadline) : existingProject.deadline,
-                attachmentURL: [
-                    ...(existingProject.attachmentURL ? existingProject.attachmentURL.split(',') : []),
-                    ...fileAttachments.map((file) => file.attachmentURL),
-                ].join(','), // Append new attachments to existing ones
+
+                // Override the attachmentURL with the new URLs
+                attachmentURL: urls.join(','), // Replace URLs with new ones
+
                 // Replace collaborators
                 collaborators: {
                     deleteMany: {}, // Remove all existing collaborators
                     create: collaborators.map((email) => ({ email })), // Add new collaborators
                 },
-                // Replace deliverables
+
+                // Replace deliverables with only file attachments
                 deliverables: {
                     deleteMany: {}, // Remove all existing deliverables
                     create: [
-                        ...urls.map((url) => ({
-                            title: 'Updated URL',
-                            description: 'Updated URL deliverable',
-                            attachmentURL: url,
-                            fileType: 'url',
-                        })),
                         ...fileAttachments.map((file) => ({
-                            title: 'Updated File',
-                            description: 'Updated file deliverable',
+                            title: 'Updated File', // Use "Updated File" for all file deliverables
+                            description: 'Updated file deliverable', // Static description for all
                             attachmentURL: file.attachmentURL,
-                            fileType: file.fileType,
+                            fileType: file.fileType, // File type from file attachments
                         })),
                     ],
                 },

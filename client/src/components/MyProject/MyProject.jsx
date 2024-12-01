@@ -49,24 +49,57 @@ const MyProject = () => {
     }, []);
 
 
+    const handleEdit = () => {
+        setIsEditing(true);
+    };
+
     const handleAddProject = () => {
-        setProject({}); // Inițializează un proiect gol pentru creare
-        setIsCreating(true); // Activează formularul de creare
-        console.log("Setting isCreating to true");
+        setProject({});
+        setIsCreating(true);
+    };
+
+    const handleSave = (updatedProject) => {
+        setProject(updatedProject); // Update the project state
+        setIsEditing(false);
+        setIsCreating(false);
     };
 
     const existProject = (project || Object.keys(project || {}).length !== 0);
     const currentUserEmail = getEmailFromToken(localStorage.getItem("token"));
-    //console.log(currentUserEmail);
 
-    const downloadAttachment = (url, fileName) => {
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = fileName || url.split('/').pop(); // Nume fișier sau fallback la numele din URL
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+    const downloadAttachment = async (filename) => {
+        if (!filename) {
+            console.error("No filename provided for download.");
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:5000/api/download/${filename}`);
+
+            if (!response.ok) {
+                throw new Error("Failed to download file");
+            }
+
+            const blob = await response.blob();
+            const downloadUrl = window.URL.createObjectURL(blob);
+
+            // Create a temporary link to trigger the download
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.setAttribute('download', filename); // Specify the downloaded file name
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // Revoke the blob URL to free memory
+            window.URL.revokeObjectURL(downloadUrl);
+        } catch (error) {
+            console.error("Error during download:", error);
+        }
     };
+
+
+
 
     return (
         <div className={`my-project-container ${!existProject ? 'no-project-background' : ''}`}>
@@ -82,6 +115,7 @@ const MyProject = () => {
                         <EditProjectForm
                             open={true}
                             project={project || {}}
+                            onSave={handleSave}
                             onCancel={() => {
                                 isCreating ? setProject(null) : setIsCreating(false);
                                 setIsEditing(false);
@@ -95,19 +129,14 @@ const MyProject = () => {
                             <p>Description: {project.description}</p>
                             <p>Deadline: {new Date(project.deadline).toLocaleDateString()}</p>
                             <h3>Collaborators</h3>
-                            <CollaboratorsList  collaborators={project.collaborators} projectId={project.id}/>
+                            <CollaboratorsList collaborators={project.collaborators} projectId={project.id}/>
                             {project.attachmentURL && (
                                 <div className="attachment-section">
-                                    <h3>Attachments:</h3>
+                                    <h3>URL-s:</h3>
                                     <ul>
                                         <li>
                                             <span>{project.attachmentURL ? project.attachmentURL.split('/').pop() : "Unknown File"}</span>
-                                            <button
-                                                className="btnDownload"
-                                                onClick={() => downloadAttachment(project.attachmentURL, project.attachmentURL.split('/').pop())}
-                                            >
-                                                Download
-                                            </button>
+
                                         </li>
                                     </ul>
                                 </div>
@@ -119,10 +148,10 @@ const MyProject = () => {
                                     <ul>
                                         {project.deliverables.map((deliverable, index) => (
                                             <li key={index}>
-                                                <span>{deliverable.url ? deliverable.url.split('/').pop() : "Unknown File"}</span>
+                                                <span>{deliverable.attachmentURL ? deliverable.attachmentURL.split('/').pop() : "Unknown File"}</span>
                                                 <button
                                                     className="btnDownload"
-                                                    onClick={() => downloadAttachment(deliverable.url, deliverable.url ? deliverable.url.split('/').pop() : "Unknown")}
+                                                    onClick={() => downloadAttachment(deliverable.attachmentURL.split('/').pop())}
                                                 >
                                                     Download
                                                 </button>
@@ -132,11 +161,12 @@ const MyProject = () => {
                                 </div>
                             )}
 
+
                             <h3>Evaluations</h3>
                             <EvaluationsList evaluations={project.evaluations} projectId={project.id}/>
 
                             <div className="edit-button-container">
-                                <button className="btnEdit" onClick={() => setIsEditing(true)}>
+                                <button className="btnEdit" onClick={handleEdit}>
                                     Edit Project
                                 </button>
                             </div>

@@ -9,7 +9,7 @@ const CollaboratorsList = ({ collaborators = [] }) => {
     <ul>
       {collaborators.map((collaborator) => (
         <li key={collaborator.id}>
-          <strong>{collaborator.name}</strong> ({collaborator.email})
+          <strong>{collaborator.name}</strong> {collaborator.email}
         </li>
       ))}
     </ul>
