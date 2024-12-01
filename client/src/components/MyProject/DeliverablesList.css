@@ -1,0 +1,32 @@
+/* Stilizare pentru întreaga listă de livrabile */
+ul {
+    list-style-type: none; /* Elimină punctele din fața fiecărui element */
+    padding-left: 0; /* Elimină indentarea implicită */
+    margin: 0;
+}
+
+ul li {
+    color: white;
+    max-height: 40px;  /* Înălțimea maximă a fiecărui element (poți ajusta aceasta pentru a fi mai mică) */
+    margin: 6px 0; /* Spațiu între elementele listei */
+    padding: 5px 12px; /* Reducerea padding-ului pentru a face elementele mai mici */
+    border-radius: 8px; /* Colțuri rotunjite pentru fiecare element */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Umbră subtilă pentru un efect de profunzime */
+    transition: background-color 0.3s ease; /* Efect de tranziție pentru hover */
+    font-size: 15px; /* Dimensiunea fontului mai mică */
+}
+
+/* Efect la hover pentru a face lista mai interactivă */
+ul li:hover {
+    background-color: #39028a; /* Schimbă culoarea fundalului când treci cu mouse-ul */
+}
+
+ul li strong {
+    color: #333; /* Culoare mai închisă pentru titlu */
+    font-weight: 600; /* Grosimea fontului pentru titlu */
+}
+
+ul li span {
+    color: white; /* Culoare mai deschisă pentru textul descrierii */
+    margin-top: 5px; /* Spațiu între titlu și descriere */
+}

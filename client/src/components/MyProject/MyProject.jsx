@@ -10,7 +10,6 @@ import {jwtDecode} from "jwt-decode";
 import { fetchProjectByCollaboratorEmail } from "../../services/apiProject";
 
 
-
 /**
  * Extracts the email from the JWT token.
  * @param {string} token - The JWT token.
@@ -25,6 +24,7 @@ const getEmailFromToken = (token) => {
         return null;
     }
 };
+
 
 
 const MyProject = () => {
@@ -59,8 +59,17 @@ const MyProject = () => {
     const currentUserEmail = getEmailFromToken(localStorage.getItem("token"));
     //console.log(currentUserEmail);
 
+    const downloadAttachment = (url, fileName) => {
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileName || url.split('/').pop(); // Nume fișier sau fallback la numele din URL
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
     return (
-        <div className="my-project-container">
+        <div className={`my-project-container ${!existProject ? 'no-project-background' : ''}`}>
             {!existProject ? (
                 <div className="no-project">
                     <p>No project available. Start by creating one!</p>
@@ -69,12 +78,12 @@ const MyProject = () => {
             ) : (
                 <div className="my-project">
                     <h1 className="my-project-text">My Project</h1>
-                    {(isEditing || isCreating)? (
+                    {(isEditing || isCreating) ? (
                         <EditProjectForm
                             open={true}
                             project={project || {}}
                             onCancel={() => {
-                                {isCreating ? setProject(null): setIsCreating(false)}
+                                isCreating ? setProject(null) : setIsCreating(false);
                                 setIsEditing(false);
                                 setIsCreating(false);
                             }}
@@ -82,24 +91,55 @@ const MyProject = () => {
                         />
                     ) : (
                         <>
-                            <h2>{project.title}</h2>
-                            <p>{project.description}</p>
-                            {project.attachmentURL && (
-                                <p>
-                                    Attachment: <a href={project.attachmentURL} target="_blank" rel="noopener noreferrer">View</a>
-                                </p>
-                            )}
+                            <h2>Title: {project.title}</h2>
+                            <p>Description: {project.description}</p>
                             <p>Deadline: {new Date(project.deadline).toLocaleDateString()}</p>
-                            <button className="btnEdit" onClick={() => setIsEditing(true)}>Edit Project</button>
-
                             <h3>Collaborators</h3>
-                            <CollaboratorsList collaborators={project.collaborators} projectId={project.id} />
+                            <CollaboratorsList  collaborators={project.collaborators} projectId={project.id}/>
+                            {project.attachmentURL && (
+                                <div className="attachment-section">
+                                    <h3>Attachments:</h3>
+                                    <ul>
+                                        <li>
+                                            <span>{project.attachmentURL ? project.attachmentURL.split('/').pop() : "Unknown File"}</span>
+                                            <button
+                                                className="btnDownload"
+                                                onClick={() => downloadAttachment(project.attachmentURL, project.attachmentURL.split('/').pop())}
+                                            >
+                                                Download
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            )}
 
-                            <h3>Deliverables</h3>
-                            <DeliverablesList deliverables={project.deliverables || []} projectId={project.id} />
+                            {project.deliverables && project.deliverables.length > 0 && (
+                                <div className="deliverables-section">
+                                    <h3>Deliverables:</h3>
+                                    <ul>
+                                        {project.deliverables.map((deliverable, index) => (
+                                            <li key={index}>
+                                                <span>{deliverable.url ? deliverable.url.split('/').pop() : "Unknown File"}</span>
+                                                <button
+                                                    className="btnDownload"
+                                                    onClick={() => downloadAttachment(deliverable.url, deliverable.url ? deliverable.url.split('/').pop() : "Unknown")}
+                                                >
+                                                    Download
+                                                </button>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
 
                             <h3>Evaluations</h3>
-                            <EvaluationsList evaluations={project.evaluations} projectId={project.id} />
+                            <EvaluationsList evaluations={project.evaluations} projectId={project.id}/>
+
+                            <div className="edit-button-container">
+                                <button className="btnEdit" onClick={() => setIsEditing(true)}>
+                                    Edit Project
+                                </button>
+                            </div>
                         </>
                     )}
                 </div>

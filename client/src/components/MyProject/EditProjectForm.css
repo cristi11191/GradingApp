@@ -89,13 +89,17 @@ form:hover {
 
 /* Dropzone */
 .dropzone {
-  border: 2px dashed #9F7AEA;
+  border: 1px dashed #0b253e;
   padding: 20px;
   text-align: center;
   cursor: pointer;
   background-color: #f9f9f9;
   border-radius: 8px; /* Colțuri rotunjite */
   transition: background-color 0.3s ease;
+}
+
+.dropzone p{
+  color: #39028a !important;
 }
 
 .dropzone:hover {
@@ -111,16 +115,25 @@ form:hover {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 5px;
+  flex-wrap: nowrap;
 }
 
 .remove-file-btn {
   background-color: red;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 5px 10px; /* Ajustează paddingul pentru un buton mai confortabil */
   cursor: pointer;
   border-radius: 5px;
+  font-size: 12px; /* Poți reduce dimensiunea fontului pentru a fi mai mic */
+  white-space: nowrap; /* Previne ruperea textului pe mai multe linii */
 }
+
+.file-item span {
+  flex-grow: 1; /* Face ca textul să ocupe tot spațiul disponibil */
+  margin-right: 10px; /* Adaugă un spațiu între text și buton */
+}
+
 
 /* Stilizare pentru colaboratori și tag-uri */
 .collaborators-container,
@@ -144,7 +157,8 @@ form:hover {
   display: flex;
   align-items: center;
   justify-content: space-between; /* Textul la stânga, iconul la dreapta */
-  max-width: calc(33.33% - 10px); /* Limităm lățimea pentru 3 pe un rând */
+  max-height: 40px;
+  max-width: calc(50% - 15px ); /* Limităm lățimea pentru 3 pe un rând */
   min-width: 100px; /* Dimensiune minimă pentru tag */
   padding: 5px 10px;
   background-color: #39028a;
@@ -152,20 +166,28 @@ form:hover {
   font-size: 12px;
   border-radius: 12px; /* Rotunjit complet */
   transition: background-color 0.3s ease;
+  margin-right: 8px; /* Spațiu între tag-uri */
 }
 
-.tag:hover {
+.tag:hover, .close-icon:hover {
   background-color: #2c0468;
 }
 
 .tag .icon {
-  margin-left: 8px; /* Spațiu între text și icon */
+  width: 16px; /* Dimensiune fixă pentru icon */
+  height: 16px; /* Dimensiune fixă pentru icon */
+  margin-left: 5px; /* Spațiu între text și icon */
   color: white;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 16px; /* Reduci fontul pentru a face iconul mai mic */
+  padding: 0;
   border: none;
   background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Aliniere centrală pentru icon */
 }
+
 
 .tags-input input {
   border: none;

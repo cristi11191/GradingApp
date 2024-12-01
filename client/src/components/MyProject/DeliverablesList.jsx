@@ -1,5 +1,5 @@
 import React from "react";
-
+import './DeliverablesList.css'
 const DeliverablesList = ({ deliverables = [] }) => {
   if (deliverables.length === 0) {
     return <p>No deliverables available.</p>;
