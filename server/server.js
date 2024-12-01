@@ -9,7 +9,7 @@ const { execSync } = require('child_process'); // For running Prisma CLI command
 const collaboratorRoutes = require('./routes/collaboratorsRoutes'); // Import the route
 const projectRoutes = require('./routes/projectRoutes');
 const path = require('path')
-
+const downloadRoutes = require('./middlewares/download');
 
 const uploadDir = path.join(__dirname, process.env.UPLOAD_DIR);
 
@@ -67,8 +67,10 @@ app.use('/api/auth', authRoutes); // Routes for signup and login
 // app.use('/api/validate', authRoutes);
 app.use('/api/users', userRoutes); // Routes for user data (protected)
 app.use('/uploads', express.static('uploads')); // Serve uploaded files
+app.use('/api', downloadRoutes);
 
 app.use('/api/projects', projectRoutes);
+
 app.use('/api/collaborators', collaboratorRoutes); // Register the collaborator route
 // Test route
 app.get('/api/hello', (req, res) => {

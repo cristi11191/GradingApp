@@ -1,5 +1,7 @@
 .idea/
 **/database.db
+
+./server/uploads
 # Logs
 logs
 *.log

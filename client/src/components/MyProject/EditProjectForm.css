@@ -106,33 +106,39 @@ form:hover {
   background-color: #faf7ff;
 }
 
-.file-list {
-  margin-top: 10px;
-}
-
 .file-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: flex; /* Make the row flex */
+  flex-direction: row; /* Ensure items are in a single row */
+  align-items: center; /* Center items vertically */
+  justify-content: space-between; /* Push items to the edges */
   margin-bottom: 5px;
-  flex-wrap: nowrap;
-}
-
-.remove-file-btn {
-  background-color: red;
-  color: white;
-  border: none;
-  padding: 5px 10px; /* Ajustează paddingul pentru un buton mai confortabil */
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 12px; /* Poți reduce dimensiunea fontului pentru a fi mai mic */
-  white-space: nowrap; /* Previne ruperea textului pe mai multe linii */
+  padding: 5px 0; /* Add some padding for better spacing */
+  border-bottom: 1px solid #ccc; /* Optional: Divider between items */
 }
 
 .file-item span {
-  flex-grow: 1; /* Face ca textul să ocupe tot spațiul disponibil */
-  margin-right: 10px; /* Adaugă un spațiu între text și buton */
+  flex-grow: 1; /* Ensure the file name takes up available space */
+  margin-right: 10px; /* Add spacing between the file name and button */
+  word-break: break-word; /* Ensure long text wraps properly */
+  text-align: left; /* Align the text to the left */
 }
+
+.remove-file-btn {
+  background-color: red!important;
+  color: white !important;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 12px;
+  white-space: nowrap; /* Prevent text wrapping */
+  transition: background-color 0.3s ease;
+}
+
+.remove-file-btn:hover {
+  background-color: darkred !important; /* Provide hover feedback */
+}
+
 
 
 /* Stilizare pentru colaboratori și tag-uri */
@@ -169,7 +175,7 @@ form:hover {
   margin-right: 8px; /* Spațiu între tag-uri */
 }
 
-.tag:hover, .close-icon:hover {
+.tag:hover {
   background-color: #2c0468;
 }
 
@@ -187,7 +193,10 @@ form:hover {
   align-items: center;
   justify-content: center; /* Aliniere centrală pentru icon */
 }
-
+.tag .icon:hover {
+  background: none !important; /* Ensure no background is applied */
+  color: #f8d7da; /* Optional: Change the icon color on hover */
+}
 
 .tags-input input {
   border: none;

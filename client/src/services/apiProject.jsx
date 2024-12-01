@@ -70,8 +70,10 @@ export const createProject = async (formData) => {
  */
 export const updateProject = async (projectId, formData) => {
     try {
+        const token = localStorage.getItem("token");
         const response = await api.put(`${API_URL}/${projectId}`, formData, {
             headers: {
+                Authorization: `Bearer ${token}`,
                 'Content-Type': 'multipart/form-data', // Required for file uploads
             },
         });
