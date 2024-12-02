@@ -15,7 +15,7 @@ const { Sider } = Layout;
 const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
-
+  const username = localStorage.getItem('name');
   useEffect(() => {
     const layoutElement = document.getElementById("layout");
     if (layoutElement) {
@@ -100,7 +100,7 @@ const Sidebar = () => {
         <div className="bottom-items">
           <div className="account">
             <AccountBoxIcon />
-            {!collapsed && <span>User</span>}
+            {!collapsed && <span>{username}</span>}
           </div>
           <Menu theme="dark" mode="inline" items={menuItemsBottom} />
         </div>

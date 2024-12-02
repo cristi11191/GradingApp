@@ -8,6 +8,8 @@ import {checkCollaboratorExists} from "../../services/apiCollaborators.js";
 const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatus, setCollaboratorStatus }) => {
     const [inputValue, setInputValue] = useState("");
 
+
+
     const handleKeyDown = async (e) => {
         if (e.key === "Enter" && inputValue.trim()) {
             const newCollaborator = { email: inputValue.trim() };
@@ -136,15 +138,28 @@ const EditProjectForm = ({ open, project, onCancel, onSave,  currentUserEmail })
 
     // Ensure the current user's email is included only once
     useEffect(() => {
-        if (currentUserEmail && !collaborators.some((collab) => collab.email === currentUserEmail)) {
-            setCollaborators((prev) => [...prev, { email: currentUserEmail }]);
+        if (currentUserEmail) {
+            setCollaborators((prevCollaborators) => {
+                // Check if currentUserEmail is already present
+                const isAlreadyAdded = prevCollaborators.some(
+                    (collab) => collab.email === currentUserEmail
+                );
+                if (!isAlreadyAdded) {
+                    return [...prevCollaborators, { email: currentUserEmail }];
+                }
+                return prevCollaborators;
+            });
 
-            setCollaboratorStatus((prev) => ({
-                ...prev,
-                [currentUserEmail]: "existent", // Set status for currentUserEmail
+            setCollaboratorStatus((prevStatus) => ({
+                ...prevStatus,
+                [currentUserEmail]: "existent",
             }));
         }
-    }, [currentUserEmail, collaborators]);
+        console.log(collaborators);
+        // Only trigger this when `currentUserEmail` changes, not `collaborators`
+    }, [currentUserEmail, setCollaborators, setCollaboratorStatus]);
+
+
 
     // Check the existence of collaborators
     useEffect(() => {
@@ -212,10 +227,22 @@ const EditProjectForm = ({ open, project, onCancel, onSave,  currentUserEmail })
         uniqueUrls.forEach((url, index) => {
             formData.append(`url_${index}`, url);
         });
-        attachmentFiles.forEach((file) => {
-            formData.append("files", file);
-        });
+        const allFiles = [
+            ...existingFiles.map((file) => ({ ...file, isExisting: true })), // Mark existing files
+            ...attachmentFiles.map((file) => ({ file, isExisting: false })), // Mark new files
+        ];
 
+        // Add merged files to FormData
+        allFiles.forEach((fileObj) => {
+            if (fileObj.isExisting) {
+                // For existing files, pass their JSON representation
+                formData.append("files", JSON.stringify(fileObj));
+            } else {
+                // For new files, append the actual file object
+                formData.append("files", fileObj.file);
+            }
+        });
+        console.log("All Files ", allFiles);
         setIsLoading(true);
         try {
             if (project && project.id) {
@@ -227,8 +254,8 @@ const EditProjectForm = ({ open, project, onCancel, onSave,  currentUserEmail })
                 const createdProject = await createProject(formData);
                 console.log("Project created:", createdProject);
             }
-            onCancel();
-            window.location.reload(); // Refresh the page
+            // onCancel();
+            // window.location.reload(); // Refresh the page
         } catch (error) {
             setErrorMessage(error.message);
         } finally {

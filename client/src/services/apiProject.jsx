@@ -34,7 +34,6 @@ export const fetchProjectByCollaboratorEmail = async () => {
 
         return response.data; // Returnează datele proiectului
     } catch (error) {
-        console.error("Error fetching project by collaborator email:", error);
         throw error.response?.data || "Failed to fetch project"; // Forward the error
     }
 };
@@ -83,3 +82,24 @@ export const updateProject = async (projectId, formData) => {
         throw error.response?.data || "Failed to update project"; // Forward the error for handling
     }
 };
+
+/**
+ * Delete an existing project by ID.
+ * @param {number} projectId - ID of the project to delete.
+ * @returns {Promise<object>} Response message.
+ */
+export const deleteProject = async (projectId) => {
+    try {
+        const token = localStorage.getItem("token");
+        const response = await api.delete(`${API_URL}/${projectId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return response.data; // Return success message
+    } catch (error) {
+        console.error("Error deleting project:", error);
+        throw error.response?.data || "Failed to delete project"; // Forward the error for handling
+    }
+};
+

@@ -10,6 +10,8 @@ const collaboratorRoutes = require('./routes/collaboratorsRoutes'); // Import th
 const projectRoutes = require('./routes/projectRoutes');
 const path = require('path')
 const downloadRoutes = require('./middlewares/download');
+const fileRoutes = require('./routes/fileRoutes');
+const { cleanOrphanedFiles } = require('./controllers/deleteFiles');
 
 const uploadDir = path.join(__dirname, process.env.UPLOAD_DIR);
 
@@ -68,8 +70,11 @@ app.use('/api/auth', authRoutes); // Routes for signup and login
 app.use('/api/users', userRoutes); // Routes for user data (protected)
 app.use('/uploads', express.static('uploads')); // Serve uploaded files
 app.use('/api', downloadRoutes);
-
+app.use('/files', fileRoutes);
 app.use('/api/projects', projectRoutes);
+cleanOrphanedFiles().catch((error) => {
+  console.error('Error during server start file cleanup:', error.message);
+});
 
 app.use('/api/collaborators', collaboratorRoutes); // Register the collaborator route
 // Test route

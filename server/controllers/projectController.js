@@ -92,13 +92,6 @@ const updateProject = async (req, res) => {
         const collaborators = Object.keys(req.body)
             .filter((key) => key.startsWith('collaborator_'))
             .map((key) => req.body[key]);
-
-        // Extract file attachments from multer
-        const fileAttachments = req.files.map((file) => ({
-            attachmentURL: `/uploads/projects/${file.filename}`,
-            fileType: file.mimetype.split('/')[0], // Extract file type
-        }));
-
         // Fetch the existing project
         const existingProject = await prisma.project.findUnique({
             where: { id: parseInt(projectId, 10) },
@@ -109,6 +102,34 @@ const updateProject = async (req, res) => {
             return res.status(404).json({ message: 'Project not found' });
         }
 
+        let existingFiles = [];
+        if (req.body.files) {
+            const files = Array.isArray(req.body.files) ? req.body.files : [req.body.files]; // Ensure files is an array
+
+            // Process each file
+            existingFiles = files
+                .filter((file) => {
+                    try {
+                        JSON.parse(file); // Check if it's JSON
+                        return true;
+                    } catch (error) {
+                        return false; // Skip if not JSON (new file handled by multer)
+                    }
+                })
+                .map((file) => JSON.parse(file)); // Parse existing files as JSON
+        }
+
+
+        // Handle new files from multer
+        const newFileAttachments = req.files.map((file) => ({
+            attachmentURL: `/uploads/projects/${file.filename}`,
+            fileType: file.mimetype.split('/')[0], // Extract file type
+        }));
+
+        // Combine existing and new files
+        const allFiles = [...existingFiles, ...newFileAttachments];
+
+        console.log("All Files",allFiles);
         // Update the project data
         const updatedProject = await prisma.project.update({
             where: { id: parseInt(projectId, 10) },
@@ -128,16 +149,15 @@ const updateProject = async (req, res) => {
                 },
 
                 // Replace deliverables with only file attachments
+                // Update deliverables with both old and new files
                 deliverables: {
                     deleteMany: {}, // Remove all existing deliverables
-                    create: [
-                        ...fileAttachments.map((file) => ({
-                            title: 'Updated File', // Use "Updated File" for all file deliverables
-                            description: 'Updated file deliverable', // Static description for all
-                            attachmentURL: file.attachmentURL,
-                            fileType: file.fileType, // File type from file attachments
-                        })),
-                    ],
+                    create: allFiles.map((file) => ({
+                        title: file.title || 'File',
+                        description: file.description || 'Deliverable',
+                        attachmentURL: file.attachmentURL,
+                        fileType: file.fileType,
+                    })),
                 },
             },
         });
@@ -179,9 +199,44 @@ const getProjectByCollaboratorEmail = async (req, res) => {
 
         return res.status(200).json(project);
     } catch (error) {
-        console.error("Error fetching project:", error);
         return res.status(500).json({ message: "Error fetching project", error: error.message });
     }
 };
 
-module.exports = { createProject , getProject, updateProject ,getProjectByCollaboratorEmail };
+const deleteProject = async (req, res) => {
+    try {
+        const { projectId } = req.params;
+
+        // Fetch the project
+        const project = await prisma.project.findUnique({
+            where: { id: parseInt(projectId, 10) }
+        });
+
+        if (!project) {
+            return res.status(404).json({ message: "Project not found" });
+        }
+
+// Delete related deliverables
+        await prisma.deliverable.deleteMany({
+            where: { projectId: parseInt(projectId, 10) },
+        });
+
+        // Delete related collaborators
+        await prisma.collaborator.deleteMany({
+            where: { projectId: parseInt(projectId, 10) },
+        });
+
+        // Delete the project
+        await prisma.project.delete({
+            where: { id: parseInt(projectId, 10) },
+        });
+
+        res.status(200).json({ message: "Project deleted successfully!" });
+    } catch (error) {
+        console.error("Error deleting project:", error.message);
+        res.status(500).json({ message: "Failed to delete project", error: error.message });
+    }
+};
+
+
+module.exports = { createProject , getProject, updateProject ,getProjectByCollaboratorEmail , deleteProject };

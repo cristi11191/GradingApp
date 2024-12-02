@@ -9,8 +9,8 @@ const uploadFile = async (req, res) => {
         }
 
         // Get file details
-        const { filename, mimetype, path } = req.file;
-
+        const { filename, mimetype } = req.file;
+        const path = '../uploads/projects';
         // Extract additional data from the request body
         const { title, description, projectId } = req.body;
 

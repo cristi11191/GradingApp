@@ -61,9 +61,24 @@
   font-size: 16px;
   transition: background 0.3s;
 }
+.btn-delete {
+  padding: 10px 20px;
+  background: #ff4f4f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+  margin-right: 20px;
+}
 
 .btnAdd:hover, .btnEdit:hover {
   background: #0056b3;
+}
+
+.btn-delete:hover, .btn-delete:hover {
+  background: #ff8a8a;
 }
 
 .my-project {

@@ -19,7 +19,8 @@ const Login = () => {
     try {
       const response = await login(formData);
       localStorage.setItem("token", response.token); // Store JWT token
-      localStorage.setItem("role", response.role); // Store role if needed
+      localStorage.setItem("role", response.user.role); // Store role if needed
+      localStorage.setItem("name", response.user.name); // Store role if needed
       localStorage.setItem('loginTimestamp', performance.now()); // Save login timestamp
       navigate("/dashboard"); // Redirect to dashboard
       window.location.reload(); // Force re-render to apply token
