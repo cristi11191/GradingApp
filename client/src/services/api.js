@@ -16,6 +16,7 @@ api.interceptors.response.use(
         // Handle 401 errors globally
         localStorage.removeItem('token');
         localStorage.removeItem('role');
+        localStorage.removeItem('name');
         if (window.location.pathname !== '/login') {
           window.location.href = '/login'; // Redirect to login
         }
@@ -41,6 +42,7 @@ export const validateToken = async () => {
     // Token is invalid or an error occurred
     localStorage.removeItem('token');
     localStorage.removeItem('role');
+    localStorage.removeItem('name');
     window.location.href = '/login'; // Redirect to login
     return false;
   }

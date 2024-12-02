@@ -1,41 +1,30 @@
-
 #layout {
-  height: 100vh; /* Se asigură că layout-ul ocupă toată înălțimea ecranului */
+  height: 100vh; /* Ensure full viewport height */
+  display: flex; /* Layout adjustments for responsiveness */
 }
 .sidebar {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100vh;
   background-color: #001529;
+  height: 100vh;
+  overflow: hidden; /* Prevent overflow issues */
+  transition: width 0.6s ease, max-width 0.6s ease; /* Smooth transition */
+}
+
+.sidebar.collapsed {
+  width: 80px;
 }
 
 .menu-icon-container {
   display: flex;
-  justify-content: flex-end; /* Mută iconița la dreapta */
-  padding: 10px; /* Ajustează padding-ul după preferință */
- 
+  justify-content: flex-end;
+  padding: 10px;
 }
 
-.spacer {
-  flex-grow: 1; /* Spațiu pentru a împinge iconița spre dreapta */
-}
 .menu-icon {
-  color: #fff; /* Asigură-te că iconița este vizibilă */
-  font-size: 30px; /* Ajustează dimensiunea iconiței dacă este necesar */
-}
-
-.bottom-items {
-  position: absolute;
-  bottom: 0; /* Împinge elementul în partea de jos */
-  left: 10px;
-}
-
-.homeIcon {
   color: #fff;
-  font-size: 60px;
-  justify-content: right;
-
+  font-size: 24px;
 }
 
 .menu-container {
@@ -43,29 +32,70 @@
   padding: 10px;
 }
 
-.menu-logout {
-  margin-top: auto;
-  background-color: transparent;
+.menu-container.collapsed .ant-menu-item {
+  justify-content: center;
+  text-align: center;
+}
+
+.bottom-items {
+  padding: 10px;
+  position: absolute;
+  bottom: 0;
 }
 
 .account {
+  display: flex;
+  align-items: center;
   color: #fff;
   font-size: 16px;
-  display: flex; 
-  justify-content: left;
-  background-color: #001529;
+  padding-left: 0;
+  gap: 5px;
+  transition: opacity 0.5s ease;
 }
 
-.ant-layout{
+.account span {
+  display: block;
+}
+
+.sidebar.collapsed .account span {
+  display: none; /* Hide text in collapsed mode */
+}
+
+.ant-menu-item {
+  display: flex;
+  align-items: center !important;
+  transition: padding 0.5s ease;
+  padding: 0 !important;
+}
+
+.ant-menu-item-icon {
+  font-size: 20px !important;
+}
+
+.ant-layout {
   max-width: 200px;
-  transition: max-width 0.3s ease;
+  transition: width 0.6s ease, max-width 0.6s ease;
 }
 
-.ant-layout.closed{
-  max-width: 80px;
+.ant-menu-item span {
+  display: inline;
+  margin: auto 10px !important;
+  margin-left: 10px;
 }
 
-.ant-menu-item{
-  padding: 0px !important;
+.sidebar.collapsed .ant-menu-item span {
+  display: none; /* Hide menu text in collapsed mode */
 }
 
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    max-width: 100%;
+    position: fixed;
+    z-index: 10;
+  }
+
+  .sidebar.collapsed {
+    width: 80px;
+  }
+}
