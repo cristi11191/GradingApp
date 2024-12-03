@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Iconițe pentru vizibilitatea parolei
 import "./Signup.css";
 import { signup } from "../../services/authServices.jsx";
 
@@ -12,6 +13,8 @@ const Signup = () => {
         confirmPassword: '',
     });
     const [error, setError] = useState('');
+    const [showPassword, setShowPassword] = useState(false); // Vizibilitatea parolei
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false); // Vizibilitatea confirmării parolei
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -33,6 +36,14 @@ const Signup = () => {
         } catch (error) {
             setError(error.error || "Signup failed");
         }
+    };
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const toggleConfirmPasswordVisibility = () => {
+        setShowConfirmPassword(!showConfirmPassword);
     };
 
     return (
@@ -62,25 +73,39 @@ const Signup = () => {
                             className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
                         />
                     </div>
-                    <div>
+                    <div className="relative">
                         <input
                             name="password"
-                            type="password"
+                            type={showPassword ? "text" : "password"} // Vizibilitatea parolei
                             value={formData.password}
                             onChange={handleChange}
                             placeholder="Password"
                             className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
                         />
+                        <button
+                            type="button"
+                            onClick={togglePasswordVisibility}
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center justify-center bg-transparent text-black rounded-full w-15 h-15 hover:bg-gray-300 transition z-9999"
+                        >
+                            {showPassword ? <FaEyeSlash size={16} /> : <FaEye size={16} />}
+                        </button>
                     </div>
-                    <div>
+                    <div className="relative">
                         <input
-                            type="password"
                             name="confirmPassword"
+                            type={showConfirmPassword ? "text" : "password"} // Vizibilitatea confirmării parolei
                             value={formData.confirmPassword}
                             onChange={handleChange}
                             placeholder="Confirm Password"
                             className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
                         />
+                        <button
+                            type="button"
+                            onClick={toggleConfirmPasswordVisibility}
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center justify-center bg-transparent text-black rounded-full w-15 h-15 hover:bg-gray-300 transition"
+                        >
+                            {showConfirmPassword ? <FaEyeSlash size={16} /> : <FaEye size={16} />}
+                        </button>
                     </div>
                     <div>
                         <button

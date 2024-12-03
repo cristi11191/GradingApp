@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 import { login } from "../../services/authServices.jsx";
 
@@ -9,6 +10,8 @@ const Login = () => {
     password: "",
   });
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -35,6 +38,10 @@ const Login = () => {
     navigate("/signup"); // Redirect to signup page
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 py-12">
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
@@ -52,21 +59,30 @@ const Login = () => {
               className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
           </div>
-          <div>
+          <div  className="relative">
             <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
+
+            <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center justify-center bg-transparent text-black rounded-full w-15 h-15 hover:bg-gray-300 transition z-9999"
+            >
+              {showPassword ? <FaEyeSlash size={16}/> : <FaEye size={16}/>}
+            </button>
+
           </div>
           <div>
             <button
-              type="submit"
-              className="w-full bg-purple-500 text-white py-3 rounded hover:bg-purple-600 transition duration-200"
+                type="submit"
+                className="w-full bg-purple-500 text-white py-3 rounded hover:bg-purple-600 transition duration-200"
             >
               Log In
             </button>
@@ -74,8 +90,8 @@ const Login = () => {
         </form>
         <div className="mt-6 text-right">
           <button
-            className="bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-600 transition duration-200"
-            onClick={handleSignup}
+              className="bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-600 transition duration-200"
+              onClick={handleSignup}
           >
             Sign Up
           </button>
