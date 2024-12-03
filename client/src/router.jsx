@@ -34,7 +34,11 @@ const router = createBrowserRouter([
             {
                 path: '/evaluation',
                 element: <MainContent /> //role={['Admin', 'Student']}
-            }
+            },
+            {
+                path: '/project/:projectId',
+                element: <MainContent />
+            },
         ]
     },
     {

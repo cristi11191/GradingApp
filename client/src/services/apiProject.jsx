@@ -2,7 +2,7 @@
 import api from "./api.js";
 import {useEffect} from "react";
 import axios from "axios";
-const API_URL = import.meta.env.VITE_API_URL+'/api/projects';
+const API_URL = import.meta.env.VITE_API_URL+'/api';
 /**
  * Fetch a single project by ID.
  * @param {number} projectId
@@ -103,3 +103,20 @@ export const deleteProject = async (projectId) => {
     }
 };
 
+/**
+ * Fetch all projects from the backend.
+ * @returns {Promise<Array>} List of projects.
+ */
+export const fetchAllProjects = async () => {
+    try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(`${API_URL}/projects`, {
+            headers: {Authorization: `Bearer ${token}`,
+            }
+        });
+        return response.data.projects; // Presupunând că backend-ul returnează un obiect cu cheia `projects`
+    } catch (error) {
+        console.error('Failed to fetch projects:', error);
+        throw error; // Aruncă eroarea pentru a fi gestionată în componentă
+    }
+};

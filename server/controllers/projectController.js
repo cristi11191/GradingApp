@@ -238,5 +238,23 @@ const deleteProject = async (req, res) => {
     }
 };
 
+const getAllProjects = async (req, res) => {
+    try {
+        const projects = await prisma.project.findMany({
+            include: {
+                collaborators: true,
+                deliverables: true,
+            },
+        });
 
-module.exports = { createProject , getProject, updateProject ,getProjectByCollaboratorEmail , deleteProject };
+        res.status(200).json({ projects });
+    } catch (error) {
+        console.error('Error fetching projects:', error.message);
+        res.status(500).json({ message: 'Failed to fetch projects', error: error.message });
+    }
+};
+
+
+
+
+module.exports = { createProject , getProject, updateProject ,getProjectByCollaboratorEmail , deleteProject, getAllProjects };

@@ -71,11 +71,12 @@ app.use('/api/users', userRoutes); // Routes for user data (protected)
 app.use('/uploads', express.static('uploads')); // Serve uploaded files
 app.use('/api', downloadRoutes);
 app.use('/files', fileRoutes);
-app.use('/api/projects', projectRoutes);
+
 cleanOrphanedFiles().catch((error) => {
   console.error('Error during server start file cleanup:', error.message);
 });
 
+app.use('/api', projectRoutes);
 app.use('/api/collaborators', collaboratorRoutes); // Register the collaborator route
 // Test route
 app.get('/api/hello', (req, res) => {
