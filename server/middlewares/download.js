@@ -5,7 +5,7 @@ const router = express.Router();
 
 // Serve a file for download
 router.get('/download/:filename', (req, res) => {
-    const filePath = path.join(__dirname, 'uploads/projects', req.params.filename);
+    const filePath = path.join(__dirname, '..', 'uploads/projects', req.params.filename);
 
     // Check if file exists
     if (!fs.existsSync(filePath)) {

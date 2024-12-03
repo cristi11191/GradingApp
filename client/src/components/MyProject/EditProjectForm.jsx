@@ -254,8 +254,8 @@ const EditProjectForm = ({ open, project, onCancel, onSave,  currentUserEmail })
                 const createdProject = await createProject(formData);
                 console.log("Project created:", createdProject);
             }
-            // onCancel();
-            // window.location.reload(); // Refresh the page
+            onCancel();
+            window.location.reload(); // Refresh the page
         } catch (error) {
             setErrorMessage(error.message);
         } finally {

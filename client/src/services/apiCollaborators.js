@@ -8,7 +8,12 @@ const API_URL = import.meta.env.VITE_API_URL+'/api/collaborators';
  */
 export const checkCollaboratorExists = async (email) => {
     try {
+        const token = localStorage.getItem("token");
         const response = await api.get(`${API_URL}/exists`, {
+
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
             params: { email },
         });
         return response.data.exists ? "existent" : "inexistent"; // Return "existent" or "inexistent" based on response

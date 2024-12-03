@@ -54,32 +54,32 @@ const Sidebar = () => {
   // Array-ul de obiecte pentru `Menu`
   const menuItemsTop = [
     {
-      key: 'dashboard',
+      key: "dashboard",
       icon: <DashboardIcon />,
-      label: 'Dashboard',
+      label: !collapsed && "Dashboard",
       onClick: HandleDashboard,
     },
     {
-      key: 'myproject',
+      key: "myproject",
       icon: <AssignmentIcon />,
-      label: 'My Project',
+      label: !collapsed && "My Project",
       onClick: HandleMyProject,
     },
     {
-      key: 'projects',
+      key: "projects",
       icon: <FolderIcon />,
-      label: 'Projects',
+      label: !collapsed && "Projects",
       onClick: HandleProjects,
     },
     {
-      key: 'evaluation',
+      key: "evaluation",
       icon: <GradeIcon />,
-      label: 'Evaluation',
+      label: !collapsed && "Evaluation",
       onClick: HandleEvaluation,
     },
-    
+
   ];
-  const menuItemsBottom=[
+  const menuItemsBottom = [
     {
       key: 'logout',
       icon: <LogoutIcon />,
