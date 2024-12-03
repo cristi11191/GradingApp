@@ -76,7 +76,10 @@
   max-width: 200px;
   transition: width 0.6s ease, max-width 0.6s ease;
 }
-
+.ant-layout.closed {
+  max-width: 80px;
+  transition: width 0.6s ease, max-width 0.6s ease;
+}
 .ant-menu-item span {
   display: inline;
   margin: auto 10px !important;
@@ -98,4 +101,8 @@
   .sidebar.collapsed {
     width: 80px;
   }
+}
+
+.hidden{
+  display: none;
 }

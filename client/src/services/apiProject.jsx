@@ -10,7 +10,12 @@ const API_URL = import.meta.env.VITE_API_URL+'/api';
  */
 export const fetchProjectById = async (projectId) => {
     try {
-        const response = await api.get(`${API_URL}/${projectId}`);
+        const token = localStorage.getItem("token"); // Obține JWT-ul stocat local
+        const response = await api.get(`${API_URL}/${projectId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
         return response.data; // Return the project data
     } catch (error) {
         console.error("Error fetching project:", error);
