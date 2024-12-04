@@ -40,7 +40,7 @@ const ProjectDetails = () => {
         }
 
         try {
-            const response = await fetch(`http://localhost:5000/api/download/${filename}`);
+            const response = await fetch(`http://localhost:5000/api/files/download/${filename}`);
 
             if (!response.ok) {
                 throw new Error("Failed to download file");

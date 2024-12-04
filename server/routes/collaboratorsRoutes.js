@@ -3,6 +3,7 @@ const router = express.Router();
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const { query, validationResult } = require('express-validator');
+const {addCollaborator} = require("../controllers/collaboratorController");
 
 // Route to check if a collaborator exists
 router.get(
@@ -30,5 +31,7 @@ router.get(
         }
     }
 );
+
+router.post('/',addCollaborator);
 
 module.exports = router;

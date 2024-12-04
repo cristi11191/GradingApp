@@ -14,10 +14,10 @@ const deleteFile = async (fileName) => {
 
         // Delete the file
         await fs.unlink(filePath);
-        return { success: true, message: `File ${fileName} deleted successfully!` };
+        return { success: true, message: 'File deleted successfully!' };
     } catch (error) {
         if (error.code === 'ENOENT') {
-            return { success: false, message: `File ${fileName} not found.` };
+            return { success: false, message: 'File not found.' };
         }
         throw error;
     }

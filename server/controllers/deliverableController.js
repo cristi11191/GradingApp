@@ -1,33 +1,43 @@
-const upload = require('../middlewares/upload'); // Import multer configuration
 const prisma = require('../prismaClient'); // Import Prisma client
 
 const uploadFile = async (req, res) => {
     try {
-        // Check if a file was uploaded
-        if (!req.file) {
-            return res.status(400).json({ error: 'No file uploaded' });
+        // Check if files were uploaded
+        if (!req.files || req.files.length === 0) {
+            return res.status(400).json({ error: 'No files uploaded' });
         }
 
-        // Get file details
-        const { filename, mimetype } = req.file;
-        const path = '../uploads/projects';
-        // Extract additional data from the request body
         const { title, description, projectId } = req.body;
 
-        // Save metadata to the database
-        const deliverable = await prisma.deliverable.create({
-            data: {
-                title,
-                description,
-                attachmentURL: path, // Save the file path or URL
-                fileType: mimetype,
-                projectId: parseInt(projectId, 10), // Ensure projectId is an integer
-            },
-        });
+        // Validate required fields
+        if (!projectId) {
+            return res.status(400).json({ error: 'Project ID is required' });
+        }
 
-        return res.status(201).json({ message: 'File uploaded successfully', deliverable });
+        const filesMetadata = [];
+
+        // Iterate over each uploaded file
+        for (const file of req.files) {
+            const { filename, mimetype, path } = file;
+
+            // Save metadata to the database
+            const deliverable = await prisma.deliverable.create({
+                data: {
+                    title: title || filename, // Default to filename if title is not provided
+                    description: description || '',
+                    attachmentURL: path, // Save the file path
+                    fileType: mimetype,
+                    projectId: parseInt(projectId, 10), // Ensure projectId is an integer
+                },
+            });
+
+            filesMetadata.push(deliverable);
+        }
+
+        return res.status(201).json({ message: 'Files uploaded successfully', files: filesMetadata });
     } catch (error) {
-        return res.status(500).json({ error: 'Error uploading file', details: error.message });
+        console.error('Error uploading files:', error);
+        return res.status(500).json({ error: 'Error uploading files', details: error.message });
     }
 };
 

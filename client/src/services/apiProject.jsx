@@ -2,7 +2,7 @@
 import api from "./api.js";
 import {useEffect} from "react";
 import axios from "axios";
-const API_URL = import.meta.env.VITE_API_URL+'/api';
+const API_URL = import.meta.env.VITE_API_URL+'/api/project';
 /**
  * Fetch a single project by ID.
  * @param {number} projectId
@@ -31,7 +31,7 @@ export const fetchProjectById = async (projectId) => {
 export const fetchProjectByCollaboratorEmail = async () => {
     try {
         const token = localStorage.getItem("token"); // Obține JWT-ul stocat local
-        const response = await api.get(`${API_URL}/project`, {
+        const response = await api.get(`${API_URL}/`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -115,7 +115,7 @@ export const deleteProject = async (projectId) => {
 export const fetchAllProjects = async () => {
     try {
         const token = localStorage.getItem("token");
-        const response = await axios.get(`${API_URL}/projects`, {
+        const response = await axios.get(`${API_URL}/all`, {
             headers: {Authorization: `Bearer ${token}`,
             }
         });

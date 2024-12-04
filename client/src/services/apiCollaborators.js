@@ -1,6 +1,6 @@
 // src/api/apiCollaborators.jsx
 import api from "./api.js";
-const API_URL = import.meta.env.VITE_API_URL+'/api/collaborators';
+const API_URL = import.meta.env.VITE_API_URL+'/api/collaborator';
 /**
  * Check if a collaborator exists by email.
  * @param {string} email - The email of the collaborator to check.
