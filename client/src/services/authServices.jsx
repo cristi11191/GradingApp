@@ -1,5 +1,5 @@
 
-import api from "./api.js";
+import api from "./api.jsx";
 
 const API_URL = import.meta.env.VITE_API_URL+'/api/auth';//'http://localhost:5000/api/auth'; // Update if your backend URL is different
 

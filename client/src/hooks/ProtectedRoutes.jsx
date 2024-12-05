@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import api, { validateToken } from "../services/api.js";
+import api, { validateToken } from "../services/api.jsx";
 
 const isAuthenticated = () => !!localStorage.getItem('token');
 const userRole = localStorage.getItem('role'); // Fetch role from localStorage
