@@ -239,8 +239,16 @@ const deleteProject = async (req, res) => {
 };
 
 const getAllProjects = async (req, res) => {
+    const email=req.user.email; //obtinem emailul userului
     try {
         const projects = await prisma.project.findMany({
+            where: {
+                collaborators: {
+                    none:{
+                        email,
+                    },
+                },
+            },
             include: {
                 collaborators: true,
                 deliverables: true,
