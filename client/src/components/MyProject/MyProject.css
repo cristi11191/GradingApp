@@ -36,7 +36,7 @@
   margin: auto ;
 }
 .btnAdd{
-  position: absolute;
+  position: fixed;
   top: 10px;
   right: 10px;
   background-color: #001529; /* O culoare albastră */

@@ -1,4 +1,5 @@
 import React from "react";
+import './EditProjectForm.css'
 
 const CollaboratorsList = ({ collaborators = [] }) => {
   if (collaborators.length === 0) {
@@ -8,8 +9,8 @@ const CollaboratorsList = ({ collaborators = [] }) => {
   return (
     <ul>
       {collaborators.map((collaborator) => (
-        <li key={collaborator.id}>
-          <strong>{collaborator.name}</strong> {collaborator.email}
+        <li className="collab-color" key={collaborator.id}>
+          <strong >{collaborator.name}</strong> {collaborator.email}
         </li>
       ))}
     </ul>
