@@ -6,12 +6,12 @@
 }
 
 .project-card {
-    background: #f9f9f9;
-    border: 1px solid #ddd;
+    background: #001529;
+    border: 1px solid #218df4;
     border-radius: 8px;
     color: black;
     padding: 16px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    //box-shadow: 0 2px 4px rgb(33, 141, 244);
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -22,13 +22,16 @@
 }
 
 .project-card h3 {
-    color: #001529;
+    color: white;
     font-weight: bold;
     margin: 0 0 8px;
+    border-bottom: 2px solid #218df4; /* Linie reală de culoare albastră */
+    padding-bottom: 4px; /* Spațiu între text și linie */
 }
 
 .project-card p {
     margin: 4px 0;
+    color: white;
 }
 
 .no-projects {

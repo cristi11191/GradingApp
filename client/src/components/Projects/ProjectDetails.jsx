@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { fetchProjectById } from '../../services/apiProject'; // Importă funcția
-import { useParams } from 'react-router-dom';
-import EditProjectForm from "../MyProject/EditProjectForm.jsx";
+import { useParams, useNavigate } from 'react-router-dom';
 import CollaboratorsList from "../MyProject/CollaboratorsList.jsx";
 import EvaluationsList from "../MyProject/EvaluationsList.jsx"; // Folosim useParams pentru a extrage ID-ul proiectului
+import './ProjectDetails.css'
 
 const ProjectDetails = () => {
     const { projectId } = useParams(); // Extrage ID-ul proiectului din URL
     const [project, setProject] = useState(null);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProjectDetails = async () => {
@@ -66,54 +67,55 @@ const ProjectDetails = () => {
 
     return (
         <div className={`my-project-container 'no-project-background' : ''}`}>
+            <button className="close-button" onClick={() => navigate('/projects')}>
+                ✖
+            </button>
+            <div className="my-project">
+                <h1 className="my-project-text">My Project</h1>
 
-                <div className="my-project">
-                    <h1 className="my-project-text">My Project</h1>
+                <>
+                    <h2>Title: {project.title}</h2>
+                    <p>Description: {project.description}</p>
+                    <p>Deadline: {new Date(project.deadline).toLocaleDateString()}</p>
+                    <h3>Collaborators</h3>
+                    <CollaboratorsList collaborators={project.collaborators} projectId={project.id}/>
+                    {project.attachmentURL && (
+                        <div className="attachment-section">
+                            <h3>URL-s:</h3>
+                            <ul>
+                                <li>
+                                    <span>{project.attachmentURL ? project.attachmentURL.split('/').pop() : "Unknown File"}</span>
 
-                        <>
-                            <h2>Title: {project.title}</h2>
-                            <p>Description: {project.description}</p>
-                            <p>Deadline: {new Date(project.deadline).toLocaleDateString()}</p>
-                            <h3>Collaborators</h3>
-                            <CollaboratorsList collaborators={project.collaborators} projectId={project.id}/>
-                            {project.attachmentURL && (
-                                <div className="attachment-section">
-                                    <h3>URL-s:</h3>
-                                    <ul>
-                                        <li>
-                                            <span>{project.attachmentURL ? project.attachmentURL.split('/').pop() : "Unknown File"}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    )}
 
-                                        </li>
-                                    </ul>
-                                </div>
-                            )}
-
-                            {project.deliverables && project.deliverables.length > 0 && (
-                                <div className="deliverables-section">
-                                    <h3>Deliverables:</h3>
-                                    <ul>
-                                        {project.deliverables.map((deliverable, index) => (
-                                            <li key={index}>
-                                                <span>{deliverable.attachmentURL ? deliverable.attachmentURL.split('/').pop() : "Unknown File"}</span>
-                                                <button
-                                                    className="btnDownload"
-                                                    onClick={() => downloadAttachment(deliverable.attachmentURL.split('/').pop())}
-                                                >
-                                                    Download
-                                                </button>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            )}
-
-
-                            <h3>Evaluations</h3>
-                            <EvaluationsList evaluations={project.evaluations} projectId={project.id}/>
+                    {project.deliverables && project.deliverables.length > 0 && (
+                        <div className="deliverables-section">
+                            <h3>Deliverables:</h3>
+                            <ul>
+                                {project.deliverables.map((deliverable, index) => (
+                                    <li key={index}>
+                                        <span>{deliverable.attachmentURL ? deliverable.attachmentURL.split('/').pop() : "Unknown File"}</span>
+                                        <button
+                                            className="btnDownload"
+                                            onClick={() => downloadAttachment(deliverable.attachmentURL.split('/').pop())}
+                                        >
+                                            Download
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
 
 
-                        </>
-                </div>
+                    <h3>Evaluations</h3>
+                    <EvaluationsList evaluations={project.evaluations} projectId={project.id}/>
+
+                </>
+            </div>
 
         </div>
     );

@@ -1,0 +1,21 @@
+.my-project-container {
+    position:relative;
+}
+.close-button {
+    position: absolute !important;
+    top: 10px !important;
+    right: 15px !important;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #ffffff !important;
+    cursor: pointer;
+    padding: 5px;
+    transition: transform 0.2s ease, color 0.2s ease;
+    z-index: 10; /* Asigură vizibilitatea */
+}
+
+.close-button:hover {
+    transform: scale(1.2);
+    color: #ff4d4f;
+}
