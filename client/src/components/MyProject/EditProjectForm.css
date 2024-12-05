@@ -12,6 +12,10 @@ form {
   overflow-y: auto; /* Scroll pentru conținut lung */
 }
 
+.collab-color{
+  color: white !important;
+}
+
 form div {
   margin-bottom: 20px;
   display: flex;
