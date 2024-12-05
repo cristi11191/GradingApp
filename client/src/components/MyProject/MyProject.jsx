@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import EditProjectForm from "./EditProjectForm.jsx";
 import CollaboratorsList from "./CollaboratorsList.jsx";
-import DeliverablesList from "./DeliverablesList.jsx";
 import EvaluationsList from "./EvaluationsList.jsx";
 import './MyProject.css';
 import {jwtDecode} from "jwt-decode";

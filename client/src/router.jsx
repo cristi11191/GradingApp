@@ -9,35 +9,60 @@ import ProtectedRoutes from "./hooks/ProtectedRoutes.jsx";
 import MainContent from "./views/MainContent.jsx";
 import GuestLayout from "./layouts/GuestLayout.jsx";
 import NotFound from "./views/NotFound.jsx";
+import AdminDashboard from './components/AdminDashboard/AdminDashboard.jsx';
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <ProtectedRoutes element={<DefaultLayout />} />,
         children: [
+            // User-specific routes
             {
                 path: '/',
-                element: <Navigate to="/dashboard" />
+                element: <Navigate to="/dashboard" />,
+                role: ['user'], // User-specific role
             },
             {
                 path: '/dashboard',
-                element: <MainContent /> //role={['Admin', 'Student']}
+                element: <MainContent />,
+                role: ['user']
             },
             {
                 path: '/projects',
-                element: <MainContent /> //role={['Admin', 'Student']}
+                element: <MainContent />,
+                role: ['user']
             },
             {
                 path: '/myproject',
-                element: <MainContent /> //role={['Admin', 'Student']}
+                element: <MainContent />,
+                role: ['user']
             },
             {
                 path: '/evaluation',
-                element: <MainContent /> //role={['Admin', 'Student']}
+                element: <MainContent />,
+                role: ['user']
             },
             {
                 path: '/project/:projectId',
-                element: <MainContent />
+                element: <MainContent />,
+                role: ['user']
+            },
+
+            // Admin-specific routes
+            {
+                path: '/admin',
+                element: <MainContent />,
+                role: ['admin'], // Admin-specific role
+            },
+            {
+                path: '/admin/projects',
+                element: <MainContent />,
+                role: ['admin']
+            },
+            {
+                path: '/admin/project/:projectId',
+                element: <MainContent />,
+                role: ['admin']
             },
         ]
     },

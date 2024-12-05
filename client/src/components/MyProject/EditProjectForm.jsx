@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone";
 import CloseIcon from '@mui/icons-material/Close';
 import { createProject, updateProject } from "../../services/apiProject"; // Import API functions
 import "./EditProjectForm.css";
-import {checkCollaboratorExists} from "../../services/apiCollaborators.js";
+import {checkCollaboratorExists} from "../../services/apiCollaborators.jsx";
 
 const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatus, setCollaboratorStatus }) => {
     const [inputValue, setInputValue] = useState("");
