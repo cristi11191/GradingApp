@@ -1,0 +1,86 @@
+.dashboard {
+    padding: 40px; /* Dublăm padding-ul */
+    max-width: 160vh; /* Dublăm lățimea maximă */
+    max-height: 190vh; /* Dublăm înălțimea maximă */
+    margin: 0 auto;
+    background: #0b253e;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    color: #ffffff;
+}
+
+.dashboard h1 {
+    font-size: 32px; /* Mărim fontul pentru titlu */
+    margin-bottom: 30px; /* Creștem spațiul de jos */
+    border-bottom: 2px solid #007BFF;
+    padding-bottom: 10px; /* Creștem padding-ul de jos */
+    text-align: center;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 coloane egale */
+    gap: 40px; /* Creștem spațiul dintre elemente */
+}
+
+.card {
+    background-color: #001529;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px; /* Creștem padding-ul */
+    color: white;
+    font-size: 16px; /* Mărim fontul */
+}
+
+.card h2 {
+    font-size: 20px; /* Mărim fontul pentru subtitluri */
+    margin-bottom: 12px; /* Creștem spațiul de jos */
+    color: #ffffff;
+    border-bottom: 1px solid #007BFF;
+    padding-bottom: 8px; /* Creștem padding-ul de jos */
+}
+
+.card ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.card ul li {
+    margin-bottom: 15px; /* Creștem spațiul de jos */
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px; /* Creștem padding-ul */
+    padding-top: 10px; /* Creștem padding-ul */
+}
+
+.btnEdit {
+    padding: 15px 30px; /* Creștem padding-ul */
+    background: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px; /* Mărim fontul */
+    transition: background 0.3s;
+}
+
+.btnEdit:hover {
+    background: #0056b3;
+}
+
+.notification {
+    background-color: #320477;
+    border-radius: 5px;
+    padding: 20px; /* Creștem padding-ul */
+    margin-bottom: 15px; /* Creștem spațiul de jos */
+    color: white;
+}
+
+.notification:last-child {
+    margin-bottom: 0;
+}
+
+.quickstats-container {
+    grid-column: span 2; /* Face ca Notifications să ocupe ambele coloane */
+}
