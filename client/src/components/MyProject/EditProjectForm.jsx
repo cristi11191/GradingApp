@@ -3,26 +3,53 @@ import { useDropzone } from "react-dropzone";
 import CloseIcon from '@mui/icons-material/Close';
 import { createProject, updateProject } from "../../services/apiProject"; // Import API functions
 import "./EditProjectForm.css";
-import {checkCollaboratorExists} from "../../services/apiCollaborators.jsx";
+import {checkCollaboratorExists, checkCollaboratorsAvailability} from "../../services/apiCollaborators.jsx";
 
 const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatus, setCollaboratorStatus }) => {
     const [inputValue, setInputValue] = useState("");
 
 
 
+
     const handleKeyDown = async (e) => {
+
         if (e.key === "Enter" && inputValue.trim()) {
             const newCollaborator = { email: inputValue.trim() };
+
+            // Verificăm dacă colaboratorul a fost deja adăugat
             if (collaborators.some((collab) => collab.email === newCollaborator.email)) {
                 setInputValue(""); // Clear input if duplicate
                 return;
             }
-            const status = await checkCollaboratorExists(newCollaborator.email);
+
+            // Verificăm existența colaboratorului în sistem
+            const existenceStatus = await checkCollaboratorExists(newCollaborator.email);
+
+            // Verificăm disponibilitatea colaboratorului (dacă este deja asociat cu un alt proiect)
+            const availabilityStatus = await checkCollaboratorsAvailability([newCollaborator.email]);
+            console.log(availabilityStatus);
+
+            // Găsim obiectul din array corespunzător email-ului
+            const emailStatus = availabilityStatus.find(
+                (status) => status.email === newCollaborator.email
+            );
+
+            // Determinăm disponibilitatea colaboratorului
+            const isAvailable = emailStatus.available; // Default la `false` dacă nu este găsit
+            console.log(isAvailable , availabilityStatus[newCollaborator.email]);
             setCollaborators((prev) => [...prev, newCollaborator]);
+
+            // Setăm statusurile
             setCollaboratorStatus((prev) => ({
                 ...prev,
-                [newCollaborator.email]: status,
+                [newCollaborator.email]: {
+                    existence: existenceStatus,
+                    availability: isAvailable ? "available" : "unavailable",
+                },
             }));
+
+           // console.log(collaboratorStatus);
+            // Resetăm inputul
             setInputValue("");
             e.preventDefault();
         }
@@ -46,9 +73,11 @@ const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatu
                     <span
                         key={collaborator.id || index}
                         className={`tag ${
-                            collaboratorStatus[collaborator.email] === "existent"
-                                ? "tag-existent"
-                                : "tag-inexistent"
+                            collaboratorStatus[collaborator.email]?.availability === "unavailable"
+                                ? "tag-unavailable" 
+                                : collaboratorStatus[collaborator.email]?.existence === "inexistent"
+                                    ? "tag-inexistent" 
+                                    : "tag-existent" 
                         }`}
                     >
                         {collaborator.email}
@@ -68,6 +97,7 @@ const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatu
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyDown={handleKeyDown}
                     placeholder="Add a collaborator"
+                    className={collaboratorStatus[inputValue.trim()]?.existence === "inexistent" ? "warning" : ""}
                 />
             </div>
         </div>
@@ -242,7 +272,7 @@ const EditProjectForm = ({ open, project, onCancel, onSave,  currentUserEmail })
                 formData.append("files", fileObj.file);
             }
         });
-        console.log("All Files ", allFiles);
+
         setIsLoading(true);
         try {
             if (project && project.id) {

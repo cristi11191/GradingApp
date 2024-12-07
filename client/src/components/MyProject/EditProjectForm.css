@@ -229,3 +229,9 @@ form:hover {
   background-color: #dc3545; /* Roșu pentru inexistent */
   color: white;
 }
+.tag-unavailable{
+  color: black;
+  background-color: yellow;  /* Fundal galben */
+  border: 1px solid orange;  /* Border portocaliu pentru evidențiere */
+}
+
