@@ -46,7 +46,7 @@ const Sidebar = () => {
         return {
           key,
           icon: config.icon || <MenuIcon />, // Default icon
-          label: !collapsed && config.label,
+          label: !collapsed ? config.label : null,
           onClick: () => handleNavigation(config.path),
           roles: config.roles,
         };
@@ -56,7 +56,7 @@ const Sidebar = () => {
     {
       key: 'logout',
       icon: <LogoutIcon />,
-      label: 'Log Out',
+      label: !collapsed ? 'Log Out' : null,
       onClick: handleLogout,
     },
 
@@ -72,7 +72,14 @@ const Sidebar = () => {
           <MenuIcon className="menu-icon" />
         </div>
         <div className="menu-container">
-          <Menu theme="dark" mode="inline" items={filteredMenuItems} />
+          <Menu
+              theme="dark"
+              mode="inline"
+              items={filteredMenuItems.map((item) => ({
+                ...item,
+                className: collapsed ? "collapsed-menu-item" : "",
+              }))}
+          />
         </div>
         <div className="bottom-items">
           <div className="account">

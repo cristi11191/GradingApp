@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useRef} from "react";
 import { useDropzone } from "react-dropzone";
 import CloseIcon from '@mui/icons-material/Close';
+import InfoIcon from '@mui/icons-material/Info';
 import { createProject, updateProject } from "../../services/apiProject"; // Import API functions
 import "./EditProjectForm.css";
 import {checkCollaboratorExists, checkCollaboratorsAvailability} from "../../services/apiCollaborators.jsx";
@@ -9,7 +10,7 @@ import {green, red, yellow} from "@mui/material/colors";
 
 const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatus, setCollaboratorStatus }) => {
     const [inputValue, setInputValue] = useState("");
-
+    const [isLegendVisible, setIsLegendVisible] = useState(false);
     const handleKeyDown = async (e) => {
 
         if (e.key === "Enter" && inputValue.trim()) {
@@ -50,7 +51,9 @@ const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatu
             e.preventDefault();
         }
     };
-
+    const toggleLegendVisibility = () => {
+        setIsLegendVisible(!isLegendVisible);
+    };
     const removeCollaborator = (index) => {
         const removedCollaborator = collaborators[index];
         setCollaborators(collaborators.filter((_, i) => i !== index));
@@ -95,7 +98,25 @@ const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatu
                     placeholder="Add a collaborator"
                     className={collaboratorStatus[inputValue.trim()]?.existence === "inexistent" ? "warning" : ""}
                 />
+
             </div>
+            <InfoIcon type="button" onClick={toggleLegendVisibility} className="info-button">
+                Info
+            </InfoIcon>
+            {isLegendVisible && (
+                <div className="legend">
+                    <p style={{ color: 'black' }}>Legend:</p>
+                    <p style={{ color: 'green' }}>
+                        Green indicates that the email is found in the users database.
+                    </p>
+                    <p style={{ color: 'red' }}>
+                        Red indicates that the email is not found in the users database.
+                    </p>
+                    <p style={{ color: 'yellow' }}>
+                        Yellow indicates that the user is part of a project.
+                    </p>
+                </div>
+            )}
         </div>
     );
 };
@@ -163,12 +184,9 @@ const EditProjectForm = ({ open, project, onCancel, onSave,  currentUserEmail })
     const [attachmentFiles, setAttachmentFiles] = useState([]);
     const errorRef = useRef(null); // Referința pentru eroare
     // Starea pentru a controla vizibilitatea legendei
-    const [isLegendVisible, setIsLegendVisible] = useState(false);
 
-    // Funcția care comută vizibilitatea legendei
-    const toggleLegendVisibility = () => {
-        setIsLegendVisible(!isLegendVisible);
-    };
+
+
 
     // Ensure the current user's email is included only once
     useEffect(() => {
@@ -269,7 +287,10 @@ const EditProjectForm = ({ open, project, onCancel, onSave,  currentUserEmail })
         const formData = new FormData();
         formData.append("title", title);
         formData.append("description", description);
-        formData.append("deadline", new Date(deadline).toISOString());
+        const deadlinedate = new Date(deadline);
+        const formattedDate = deadlinedate.toISOString().split('T')[0]; // Extract only the date part (YYYY-MM-DD)
+
+        formData.append("deadline", formattedDate);
 
         // Add collaborators without duplicates
         collaborators.forEach((collaborator, index) => {
@@ -352,24 +373,8 @@ const EditProjectForm = ({ open, project, onCancel, onSave,  currentUserEmail })
                 setCollaboratorStatus={setCollaboratorStatus}
             />
 
-            <button type="button" onClick={toggleLegendVisibility} className="info-button">
-                Info
-            </button>
 
-            {isLegendVisible && (
-                <div className="legend">
-                    <p style={{ color: 'black' }}>Legend:</p>
-                    <p style={{ color: 'green' }}>
-                        Green indicates that the email is found in the users database.
-                    </p>
-                    <p style={{ color: 'red' }}>
-                        Red indicates that the email is not found in the users database.
-                    </p>
-                    <p style={{ color: 'yellow' }}>
-                        Yellow indicates that the user is part of a project.
-                    </p>
-                </div>
-            )}
+
             <div className="description-container">
                 <label className="description-label">Description:</label>
                 <textarea
