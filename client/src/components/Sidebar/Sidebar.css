@@ -19,7 +19,9 @@
 .menu-icon-container {
   display: flex;
   justify-content: flex-end;
-  padding: 10px;
+  align-items: center;
+  padding: 10px 15px; /* Consistent padding */
+  cursor: pointer;
 }
 
 .menu-icon {
@@ -29,45 +31,64 @@
 
 .menu-container {
   flex-grow: 1;
-  padding: 10px;
+  padding: 0 10px; /* Padding for spacing */
 }
+
+.menu-container .ant-menu-item {
+  justify-content: flex-start; /* Align items closer to the left */
+  text-align: left; /* Ensure text aligns to the left */
+  padding: 8px 15px; /* Consistent padding for menu items */
+}
+
 
 .menu-container.collapsed .ant-menu-item {
   justify-content: center;
   text-align: center;
 }
 
+.collapsed-menu-item span {
+  display: none;
+}
+
 .bottom-items {
-  padding: 10px;
+  padding: 10px 15px; /* Consistent padding */
   position: absolute;
-  bottom: 0;
+  bottom: 0; /* Keep the items fixed at the bottom */
+  width: 100%; /* Full width to align with sidebar */
 }
 
 .account {
   display: flex;
   align-items: center;
-  color: #fff;
-  font-size: 16px;
-  padding-left: 0;
-  gap: 5px;
-  transition: opacity 0.5s ease;
+  color: rgba(255, 255, 255, 0.65); /* White text */
+  font-size: 16px; /* Readable font size */
+  padding-left: 24px; /* Fixed padding for alignment */
+  margin-left: 4px;
+  gap: 10px; /* Space between icon and text */
+  transition: opacity 0.5s ease, padding-left 0.6s ease; /* Smooth transition for text fade */
 }
 
 .account span {
   display: block;
+  transition: opacity 0.5s ease; /* Smooth fade-in/fade-out */
 }
-
+.closed .account {
+  margin-left: 0 !important;
+  padding-left: 16px !important; /* Same padding as expanded */
+}
 .sidebar.collapsed .account span {
-  display: none; /* Hide text in collapsed mode */
+  opacity: 0; /* Hide text when collapsed */
+  pointer-events: none; /* Prevent interaction with hidden text */
 }
 
 .ant-menu-item {
   display: flex;
-  align-items: center !important;
-  transition: padding 0.5s ease;
-  padding: 0 !important;
+  justify-content: flex-start; /* Align closer to the left */
+  align-items: center; /* Vertically align icons and text */
+  transition: padding 0.5s ease; /* Smooth padding transition */
+  padding: 10px 15px; /* Adjust padding for spacing */
+  color: #fff; /* White text color */
 }
-
 .ant-menu-item-icon {
   font-size: 20px !important;
 }
@@ -81,28 +102,30 @@
   transition: width 0.6s ease, max-width 0.6s ease;
 }
 .ant-menu-item span {
-  display: inline;
-  margin: auto 10px !important;
-  margin-left: 10px;
+  display: inline-block; /* Inline text with proper spacing */
+  margin: 0 10px; /* Space around the text */
+  transition: opacity 0.5s ease; /* Smooth fade effect */
 }
 
 .sidebar.collapsed .ant-menu-item span {
   display: none; /* Hide menu text in collapsed mode */
+  opacity: 0;
 }
 
 @media (max-width: 768px) {
   .sidebar {
-    width: 100%;
+    width: 100%; /* Full width on smaller screens */
     max-width: 100%;
     position: fixed;
-    z-index: 10;
+    z-index: 10; /* Ensure it stays on top */
   }
 
   .sidebar.collapsed {
-    width: 80px;
+    width: 80px; /* Maintain collapsed width */
+  }
+
+  .menu-container .ant-menu-item {
+    justify-content: center; /* Center items on small screens */
   }
 }
 
-.hidden{
-  display: none;
-}

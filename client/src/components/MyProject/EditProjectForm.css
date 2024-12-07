@@ -126,7 +126,9 @@ form:hover {
   word-break: break-word; /* Ensure long text wraps properly */
   text-align: left; /* Align the text to the left */
 }
-
+.file-list p{
+  color:rgba(0,0,0,60%) !important;
+}
 .remove-file-btn {
   background-color: red!important;
   color: white !important;
@@ -161,6 +163,7 @@ form:hover {
   padding: 8px;
   border-radius: 8px;
   background-color: #fafafa;
+  margin-bottom: 0;
 }
 
 .tag {
@@ -249,26 +252,25 @@ form:hover {
   margin-bottom: 0 !important; /* Ajustează pentru a micșora distanța */
 }
 .edit-project-form .info-button {
-  padding: 5px 10px;  /* Micșorăm padding-ul */
-  font-size: 12px;    /* Reducem dimensiunea fontului */
-  background-color: #0b253e;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  text-align: left; /* Asigură că butonul este aliniat la stânga */
-  display: block; /* Butonul va deveni un bloc, ocupând întreaga lățime disponibilă */
-  margin-bottom: 10px; /* Adăugăm distanțare față de elementele de sub buton */
+  background: none; /* Remove background */
+  border: none; /* Remove border */
+  padding: 0; /* Remove padding */
+  color: #0b253e; /* Icon color */
+  font-size: 18px; /* Adjust size */
+  cursor: pointer; /* Show pointer cursor */
+  display: inline-flex; /* Align icon and text inline */
+  align-items: center; /* Vertically align items */
+  gap: 5px; /* Space between icon and text */
+  transition: color 0.3s ease; /* Smooth color transition */
 }
 
 .edit-project-form .info-button:hover {
-  background-color: #218df4;
+  color: #218df4; /* Change color on hover */
 }
 .edit-project-form .legend {
   color: #333;
   padding: 5px;
-  background-color: #f9f9f9;
+  background-color: #a6a6a6;
   border-radius: 8px;
 }
 .edit-project-form .legend p {

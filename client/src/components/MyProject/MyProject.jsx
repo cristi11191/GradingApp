@@ -38,6 +38,7 @@ const MyProject = () => {
             try {
                 const projectData = await fetchProjectByCollaboratorEmail(); // Apelul funcției
                 setProject(projectData || null); // Setează datele proiectului sau null
+                console.log(projectData);
                 // eslint-disable-next-line no-unused-vars
             } catch (error) {
                 setProject(null); // Dacă apare o eroare, setează null
@@ -149,7 +150,15 @@ const MyProject = () => {
                                 <>
                                     <h2>Title: {project.title}</h2>
                                     <p>Description: {project.description}</p>
-                                    <p>Deadline: {new Date(project.deadline).toLocaleDateString()}</p>
+                                    <p>
+                                        Deadline: {project.deadline
+                                        ? new Intl.DateTimeFormat('en-GB', {
+                                            day: 'numeric',
+                                            month: 'long',
+                                            year: 'numeric',
+                                        }).format(new Date(project.deadline))
+                                        : 'No deadline specified'}
+                                    </p>
                                     <h3>Collaborators</h3>
                                     <CollaboratorsList collaborators={project.collaborators} projectId={project.id}/>
                                     {project.attachmentURL && (
@@ -187,11 +196,18 @@ const MyProject = () => {
                                     <h3>Evaluations</h3>
                                     <EvaluationsList evaluations={project.evaluations} projectId={project.id}/>
 
-                                    <div className="edit-button-container">
-                                        <DeleteProjectButton projectId={project.id} onDeleteSuccess={handleDeleteSuccess}/>
-                                        <button className="btnEdit" onClick={handleEdit}>
-                                            Edit Project
-                                        </button>
+                                    <div>
+                                        {new Date(project.deadline) > new Date() && (
+                                            <div className="edit-button-container">
+                                                <DeleteProjectButton
+                                                    projectId={project.id}
+                                                    onDeleteSuccess={handleDeleteSuccess}
+                                                />
+                                                <button className="btnEdit" onClick={handleEdit}>
+                                                    Edit Project
+                                                </button>
+                                            </div>
+                                        )}
                                     </div>
                                 </>
                             )}
@@ -199,6 +215,6 @@ const MyProject = () => {
                     )}
                 </div>
                 );
-                };
+};
 
-                export default MyProject;
+export default MyProject;
