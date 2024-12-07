@@ -1,0 +1,13 @@
+
+.contents {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 80px;
+}
+
+.contents p {
+    margin: 0 10px;
+    flex: 1; /* Asigură-te că fiecare paragraf ocupă spațiul rămas */
+    text-align: center; /* Centrează textul în fiecare coloană */
+}
+
