@@ -1,15 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import { useDropzone } from "react-dropzone";
 import CloseIcon from '@mui/icons-material/Close';
 import { createProject, updateProject } from "../../services/apiProject"; // Import API functions
 import "./EditProjectForm.css";
 import {checkCollaboratorExists, checkCollaboratorsAvailability} from "../../services/apiCollaborators.jsx";
+import {color} from "framer-motion";
+import {green, red, yellow} from "@mui/material/colors";
 
 const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatus, setCollaboratorStatus }) => {
     const [inputValue, setInputValue] = useState("");
-
-
-
 
     const handleKeyDown = async (e) => {
 
@@ -27,7 +26,6 @@ const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatu
 
             // Verificăm disponibilitatea colaboratorului (dacă este deja asociat cu un alt proiect)
             const availabilityStatus = await checkCollaboratorsAvailability([newCollaborator.email]);
-            console.log(availabilityStatus);
 
             // Găsim obiectul din array corespunzător email-ului
             const emailStatus = availabilityStatus.find(
@@ -36,7 +34,6 @@ const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatu
 
             // Determinăm disponibilitatea colaboratorului
             const isAvailable = emailStatus.available; // Default la `false` dacă nu este găsit
-            console.log(isAvailable , availabilityStatus[newCollaborator.email]);
             setCollaborators((prev) => [...prev, newCollaborator]);
 
             // Setăm statusurile
@@ -48,7 +45,6 @@ const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatu
                 },
             }));
 
-           // console.log(collaboratorStatus);
             // Resetăm inputul
             setInputValue("");
             e.preventDefault();
@@ -165,6 +161,14 @@ const EditProjectForm = ({ open, project, onCancel, onSave,  currentUserEmail })
     const [errorMessage, setErrorMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [attachmentFiles, setAttachmentFiles] = useState([]);
+    const errorRef = useRef(null); // Referința pentru eroare
+    // Starea pentru a controla vizibilitatea legendei
+    const [isLegendVisible, setIsLegendVisible] = useState(false);
+
+    // Funcția care comută vizibilitatea legendei
+    const toggleLegendVisibility = () => {
+        setIsLegendVisible(!isLegendVisible);
+    };
 
     // Ensure the current user's email is included only once
     useEffect(() => {
@@ -185,7 +189,7 @@ const EditProjectForm = ({ open, project, onCancel, onSave,  currentUserEmail })
                 [currentUserEmail]: "existent",
             }));
         }
-        console.log(collaborators);
+
         // Only trigger this when `currentUserEmail` changes, not `collaborators`
     }, [currentUserEmail, setCollaborators, setCollaboratorStatus]);
 
@@ -241,6 +245,26 @@ const EditProjectForm = ({ open, project, onCancel, onSave,  currentUserEmail })
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Check if all collaborators are available
+        const unavailableCollaborators = collaborators.filter(
+            (collaborator) =>
+                collaboratorStatus[collaborator.email]?.availability === "unavailable"
+        );
+
+        if (unavailableCollaborators.length > 0) {
+            setErrorMessage(
+                `Cannot create the project because the following collaborators are unavailable: ${unavailableCollaborators
+                    .map((collab) => collab.email)
+                    .join(", ")}`
+            );
+            if (errorRef.current) {
+                errorRef.current.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center", // Poziționează eroarea în centrul viewport-ului
+                });
+            }
+            return;
+        }
         // Reinitialize FormData to ensure no stale data remains
         const formData = new FormData();
         formData.append("title", title);
@@ -287,7 +311,15 @@ const EditProjectForm = ({ open, project, onCancel, onSave,  currentUserEmail })
             onCancel();
             window.location.reload(); // Refresh the page
         } catch (error) {
-            setErrorMessage(error.message);
+            if (error.response && error.response.data && error.response.data.unavailableCollaborators) {
+                setErrorMessage(
+                    `The following collaborators are unavailable: ${error.response.data.unavailableCollaborators
+                        .map((collab) => collab.email)
+                        .join(", ")}`
+                );
+            } else {
+                setErrorMessage(error.message);
+            }
         } finally {
             setIsLoading(false);
         }
@@ -302,7 +334,7 @@ const EditProjectForm = ({ open, project, onCancel, onSave,  currentUserEmail })
 
     return (
         <form onSubmit={handleSubmit} className="edit-project-form">
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
+            {errorMessage && <p ref={errorRef} className="error-message">{errorMessage}</p>}
             <div className="title-container">
                 <label className="title-label">Title:</label>
                 <input
@@ -319,6 +351,25 @@ const EditProjectForm = ({ open, project, onCancel, onSave,  currentUserEmail })
                 collaboratorStatus={collaboratorStatus}
                 setCollaboratorStatus={setCollaboratorStatus}
             />
+
+            <button type="button" onClick={toggleLegendVisibility} className="info-button">
+                Info
+            </button>
+
+            {isLegendVisible && (
+                <div className="legend">
+                    <p style={{ color: 'black' }}>Legend:</p>
+                    <p style={{ color: 'green' }}>
+                        Green indicates that the email is found in the users database.
+                    </p>
+                    <p style={{ color: 'red' }}>
+                        Red indicates that the email is not found in the users database.
+                    </p>
+                    <p style={{ color: 'yellow' }}>
+                        Yellow indicates that the user is part of a project.
+                    </p>
+                </div>
+            )}
             <div className="description-container">
                 <label className="description-label">Description:</label>
                 <textarea
