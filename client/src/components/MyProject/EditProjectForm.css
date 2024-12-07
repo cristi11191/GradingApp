@@ -210,6 +210,16 @@ form:hover {
   padding: 5px;
 }
 
+.error-message {
+  font-size: 16px !important;
+  background-color: yellow;
+  color: #d8000c !important;
+  padding: 8px;
+  border: 1px solid #d8000c;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 20px;
+}
 
 /* Fundal pentru pagina principală */
 .min-h-screen {
@@ -231,7 +241,35 @@ form:hover {
 }
 .tag-unavailable{
   color: black;
-  background-color: yellow;  /* Fundal galben */
-  border: 1px solid orange;  /* Border portocaliu pentru evidențiere */
+  background-color: yellow; /* Galben pentru unaviable */
+  border: 1px solid orange;
 }
 
+.collaborators-container {
+  margin-bottom: 0 !important; /* Ajustează pentru a micșora distanța */
+}
+.edit-project-form .info-button {
+  padding: 5px 10px;  /* Micșorăm padding-ul */
+  font-size: 12px;    /* Reducem dimensiunea fontului */
+  background-color: #0b253e;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: left; /* Asigură că butonul este aliniat la stânga */
+  display: block; /* Butonul va deveni un bloc, ocupând întreaga lățime disponibilă */
+  margin-bottom: 10px; /* Adăugăm distanțare față de elementele de sub buton */
+}
+
+.edit-project-form .info-button:hover {
+  background-color: #218df4;
+}
+.edit-project-form .legend {
+  color: #333;
+  padding: 5px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+.edit-project-form .legend p {
+  font-size: 11px !important;}
