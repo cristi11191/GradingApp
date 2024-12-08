@@ -7,7 +7,7 @@ const { getProjectSummary } = require('../controllers/evaluationController');
 const router = express.Router();
 
 // Only "juror" can add evaluations
-router.post('/', verifyRole(['juror']), addEvaluation);
-router.get('/summary/:projectId', verifyRole(['professor']), getProjectSummary);
+router.post('/', addEvaluation);
+router.get('/summary/:projectId',  getProjectSummary);
 
 module.exports = router;
