@@ -101,7 +101,7 @@ export const deleteProject = async (projectId) => {
                 Authorization: `Bearer ${token}`,
             },
         });
-        return response.data; // Return success message
+        return response; // Return success message
     } catch (error) {
         console.error("Error deleting project:", error);
         throw error.response?.data || "Failed to delete project"; // Forward the error for handling

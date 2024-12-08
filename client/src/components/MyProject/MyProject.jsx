@@ -38,7 +38,7 @@ const MyProject = () => {
             try {
                 const projectData = await fetchProjectByCollaboratorEmail(); // Apelul funcției
                 setProject(projectData || null); // Setează datele proiectului sau null
-                console.log(projectData);
+                //console.log(projectData);
                 // eslint-disable-next-line no-unused-vars
             } catch (error) {
                 setProject(null); // Dacă apare o eroare, setează null
@@ -69,8 +69,11 @@ const MyProject = () => {
             if (window.confirm("Are you sure you want to delete this project?")) {
                 try {
                     const response = await deleteProject(projectId);
-                    alert(response.message);
-                    onDeleteSuccess(); // Notify parent component or refresh the list
+                    if (response.status===200) { // Assuming 'response.success' indicates the success status
+                        onDeleteSuccess(); // Call the callback to refresh the parent component
+                    } else {
+                        alert(response.data.message || "Failed to delete project");
+                    } // Notify parent component or refresh the list
                 } catch (error) {
                     alert(error || "Failed to delete project");
                 }
@@ -90,6 +93,7 @@ const MyProject = () => {
                 const handleDeleteSuccess = () => {
                 alert('Project deleted successfully!');
                 // Redirect or refresh the project list here
+                setProject(null);
             };
 
                 const downloadAttachment = async (filename) => {

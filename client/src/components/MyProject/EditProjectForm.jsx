@@ -80,13 +80,14 @@ const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatu
                         }`}
                     >
                         {collaborator.email}
+                        {index>0 &&
                         <button
                             className="icon"
                             type="button"
                             onClick={() => removeCollaborator(index)}
                         >
-                            <CloseIcon className="close-icon" />
-                        </button>
+                           <CloseIcon className="close-icon" />
+                        </button>}
                     </span>
                 ))}
                 <input
@@ -149,7 +150,7 @@ const UrlInput = ({ urls, setUrls }) => {
             <div className="tags-input">
                 {urls.map((url, index) => (
                     <span key={index} className="tag">
-                        {url}
+                        <p>{url} </p>
                         <button className="icon" type="button" onClick={() => removeUrl(index)}>
                             <CloseIcon className="close-icon" />
                         </button>

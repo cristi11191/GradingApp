@@ -187,6 +187,12 @@ h3 {
 .attachment-section {
   margin: 20px 0;
   color: white;
+
+  /* Stiluri pentru limitarea textului */
+  overflow: hidden;               /* Ascunde conținutul care depășește lungimea */
+  white-space: nowrap;            /* Previne textul să treacă pe linii noi */
+  text-overflow: ellipsis;        /* Adaugă "..." la sfârșitul textului */
+  max-width: 100ch;               /* Lungime maximă de 100 de caractere */
 }
 
 .attachment-image {

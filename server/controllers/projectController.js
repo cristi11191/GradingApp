@@ -129,7 +129,6 @@ const updateProject = async (req, res) => {
         // Combine existing and new files
         const allFiles = [...existingFiles, ...newFileAttachments];
 
-        console.log("All Files",allFiles);
         // Update the project data
         const updatedProject = await prisma.project.update({
             where: { id: parseInt(projectId, 10) },

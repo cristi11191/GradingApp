@@ -43,8 +43,6 @@ const checkUnavailableCollaborators = async (collaborators) => {
             select: { email: true }, // Doar email-ul colaboratorilor
         });
 
-        console.log('Colaboratori existenți:', existingCollaborators);
-
         return existingCollaborators.map((collaborator) => collaborator.email); // Returnăm lista de email-uri care sunt deja ocupate
     } catch (error) {
         console.error('Error checking collaborators:', error);
