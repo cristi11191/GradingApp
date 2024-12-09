@@ -14,6 +14,7 @@ const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatu
     const handleKeyDown = async (e) => {
 
         if (e.key === "Enter" && inputValue.trim()) {
+            e.preventDefault(); // Prevent the form from submitting
             const newCollaborator = { email: inputValue.trim() };
 
             // Verificăm dacă colaboratorul a fost deja adăugat
@@ -48,11 +49,15 @@ const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatu
 
             // Resetăm inputul
             setInputValue("");
-            e.preventDefault();
         }
     };
     const toggleLegendVisibility = () => {
         setIsLegendVisible(!isLegendVisible);
+    };
+    const preventEnterSubmit = (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+        }
     };
     const removeCollaborator = (index) => {
         const removedCollaborator = collaborators[index];
@@ -380,6 +385,7 @@ const EditProjectForm = ({ open, project, onCancel, onSave,  currentUserEmail })
                 <textarea
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
+                    onKeyDown={preventEnterSubmit} // Prevent form submission
                     required
                 />
             </div>

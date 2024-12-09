@@ -1,6 +1,5 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import EditProjectForm from "./EditProjectForm.jsx";
 import CollaboratorsList from "./CollaboratorsList.jsx";
 import EvaluationsList from "./EvaluationsList.jsx";
@@ -64,6 +63,7 @@ const MyProject = () => {
         setIsCreating(false);
     };
 
+    // eslint-disable-next-line react/prop-types
     const DeleteProjectButton = ({ projectId, onDeleteSuccess }) => {
         const handleDelete = async () => {
             if (window.confirm("Are you sure you want to delete this project?")) {
