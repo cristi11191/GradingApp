@@ -121,17 +121,25 @@ const getEvaluationsByProjectId = async (req, res) => {
 };
 
 const getEvaluationsByUserId = async (req, res) => {
-    const { userId } = req.params;
 
     try {
-        // Verifică dacă userId este valid
-        if (!userId || isNaN(Number(userId))) {
-            return res.status(400).json({ message: 'Invalid userId. It must be a number.' });
+
+        const token = req.header('Authorization')?.replace('Bearer ', '');
+        if (!token) {
+            return res.status(401).json({ error: 'Token absent' });
+        }
+
+        // Decode the token to get user ID
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await prisma.user.findUnique({ where: { id: decoded.id } });
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
         }
 
         // Găsește toate evaluarile realizate de utilizatorul specificat
         const evaluations = await prisma.evaluation.findMany({
-            where: { userID: parseInt(userId, 10) },
+            where: { userID: parseInt(decoded.id, 10) },
             select: {
                 id:true,
                 score: true,

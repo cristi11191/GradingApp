@@ -12,6 +12,6 @@ router.post('/', addEvaluation);
 router.put('/:evaluationId',editEvaluation);
 router.get('/summary/:projectId',  getProjectSummary);
 router.get('/project/:projectId',  getEvaluationsByProjectId);
-router.get('/user/:userId',  getEvaluationsByUserId);
+router.get('/user/',  getEvaluationsByUserId);
 router.delete('/:evaluationId',  deleteEvaluation);
 module.exports = router;
