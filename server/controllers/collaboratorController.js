@@ -50,7 +50,18 @@ const checkUnavailableCollaborators = async (collaborators) => {
     }
 };
 
+const getAllCollaborators = async (req, res) => {
+    try {
+        const collaborators = await prisma.collaborator.findMany();
+        res.status(200).json({ collaborators });
+    } catch (error) {
+        console.error('Error retrieving collaborators:', error);
+        res.status(500).json({ message: 'Failed to retrieve collaborators', error: error.message });
+    }
+};
+
 module.exports = {
     addCollaborator,
     checkUnavailableCollaborators,
+    getAllCollaborators
 };

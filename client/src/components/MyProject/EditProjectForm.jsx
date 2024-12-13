@@ -7,38 +7,43 @@ import "./EditProjectForm.css";
 import {checkCollaboratorExists, checkCollaboratorsAvailability} from "../../services/apiCollaborators.jsx";
 import {color} from "framer-motion";
 import {green, red, yellow} from "@mui/material/colors";
+import {getAllUsers} from "../../services/apiUsers.jsx";
+
 
 const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatus, setCollaboratorStatus }) => {
     const [inputValue, setInputValue] = useState("");
     const [isLegendVisible, setIsLegendVisible] = useState(false);
-    const handleKeyDown = async (e) => {
+    const [allUsers, setAllUsers] = useState([]);
 
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const users = await getAllUsers();
+                setAllUsers(users);
+            } catch (error) {
+                console.error("Error fetching all users:", error);
+            }
+        };
+
+        fetchUsers();
+    }, []);
+
+    const handleKeyDown = async (e) => {
         if (e.key === "Enter" && inputValue.trim()) {
             e.preventDefault(); // Prevent the form from submitting
             const newCollaborator = { email: inputValue.trim() };
 
-            // Verificăm dacă colaboratorul a fost deja adăugat
             if (collaborators.some((collab) => collab.email === newCollaborator.email)) {
                 setInputValue(""); // Clear input if duplicate
                 return;
             }
 
-            // Verificăm existența colaboratorului în sistem
             const existenceStatus = await checkCollaboratorExists(newCollaborator.email);
-
-            // Verificăm disponibilitatea colaboratorului (dacă este deja asociat cu un alt proiect)
             const availabilityStatus = await checkCollaboratorsAvailability([newCollaborator.email]);
+            const emailStatus = availabilityStatus.find((status) => status.email === newCollaborator.email);
+            const isAvailable = emailStatus?.available ?? false;
 
-            // Găsim obiectul din array corespunzător email-ului
-            const emailStatus = availabilityStatus.find(
-                (status) => status.email === newCollaborator.email
-            );
-
-            // Determinăm disponibilitatea colaboratorului
-            const isAvailable = emailStatus.available; // Default la `false` dacă nu este găsit
             setCollaborators((prev) => [...prev, newCollaborator]);
-
-            // Setăm statusurile
             setCollaboratorStatus((prev) => ({
                 ...prev,
                 [newCollaborator.email]: {
@@ -47,18 +52,20 @@ const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatu
                 },
             }));
 
-            // Resetăm inputul
             setInputValue("");
         }
     };
+
     const toggleLegendVisibility = () => {
         setIsLegendVisible(!isLegendVisible);
     };
+
     const preventEnterSubmit = (e) => {
         if (e.key === "Enter") {
             e.preventDefault();
         }
     };
+
     const removeCollaborator = (index) => {
         const removedCollaborator = collaborators[index];
         setCollaborators(collaborators.filter((_, i) => i !== index));
@@ -69,6 +76,10 @@ const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatu
         });
     };
 
+    const filteredUsers = allUsers.filter(
+        (user) => !collaborators.some((collaborator) => collaborator.email === user.email)
+    );
+
     return (
         <div className="collaborators-container">
             <label htmlFor="collaborators" className="collaborators-label">Collaborators:</label>
@@ -78,21 +89,21 @@ const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatu
                         key={collaborator.id || index}
                         className={`tag ${
                             collaboratorStatus[collaborator.email]?.availability === "unavailable"
-                                ? "tag-unavailable" 
+                                ? "tag-unavailable"
                                 : collaboratorStatus[collaborator.email]?.existence === "inexistent"
-                                    ? "tag-inexistent" 
-                                    : "tag-existent" 
+                                    ? "tag-inexistent"
+                                    : "tag-existent"
                         }`}
                     >
                         {collaborator.email}
-                        {index>0 &&
-                        <button
-                            className="icon"
-                            type="button"
-                            onClick={() => removeCollaborator(index)}
-                        >
-                           <CloseIcon className="close-icon" />
-                        </button>}
+                        {index > 0 &&
+                            <button
+                                className="icon"
+                                type="button"
+                                onClick={() => removeCollaborator(index)}
+                            >
+                                <CloseIcon className="close-icon" />
+                            </button>}
                     </span>
                 ))}
                 <input
@@ -104,7 +115,20 @@ const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatu
                     placeholder="Add a collaborator"
                     className={collaboratorStatus[inputValue.trim()]?.existence === "inexistent" ? "warning" : ""}
                 />
-
+                {inputValue && (
+                    <ul className="dropdown">
+                        {filteredUsers
+                            .filter((user) => user.email.includes(inputValue))
+                            .map((user) => (
+                                <li
+                                    key={user.id}
+                                    onClick={() => setInputValue(user.email)}
+                                >
+                                    {user.email}
+                                </li>
+                            ))}
+                    </ul>
+                )}
             </div>
             <InfoIcon type="button" onClick={toggleLegendVisibility} className="info-button">
                 Info
@@ -126,6 +150,7 @@ const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatu
         </div>
     );
 };
+
 
 
 

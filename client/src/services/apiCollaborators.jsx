@@ -48,3 +48,25 @@ export const checkCollaboratorsAvailability = async (emails) => {
         throw error.response?.data || "Failed to check collaborators availability"; // Forward the error
     }
 };
+
+
+/**
+ * Get all collaborators.
+ * @returns {Promise<Array>} - Array of all collaborators.
+ */
+export const getAllCollaborators = async () => {
+    try {
+        const token = localStorage.getItem("token");
+
+        const response = await api.get(`${API_URL}/all`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        return response.data.collaborators;
+    } catch (error) {
+        console.error("Error retrieving all collaborators:", error);
+        throw error.response?.data || "Failed to retrieve all collaborators"; // Forward the error
+    }
+};

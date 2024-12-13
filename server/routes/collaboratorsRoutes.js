@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-const { addCollaborator, checkUnavailableCollaborators } = require("../controllers/collaboratorController");
+const { addCollaborator, checkUnavailableCollaborators, getAllCollaborators} = require("../controllers/collaboratorController");
 const { query, validationResult } = require('express-validator');
 
 // Route to check if a collaborator exists
@@ -60,5 +60,7 @@ router.post('/checkAvailability', async (req, res) => {
         res.status(500).json({ error: 'Failed to check availability' });
     }
 });
+
+router.get('/all', getAllCollaborators );
 
 module.exports = router;
