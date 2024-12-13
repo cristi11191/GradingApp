@@ -1,9 +1,8 @@
 // src/api/apiEvaluations.jsx
 import api from "./api.jsx";  // Assuming 'api' is a pre-configured axios instance
-import axios from "axios";
 
 // Define the API URL from environment variables
-const API_URL = import.meta.env.VITE_API_URL + '/api/evaluations';
+const API_URL = import.meta.env.VITE_API_URL + '/api/evaluation';
 
 /**
  * Fetch evaluations by project ID.
@@ -26,22 +25,22 @@ export const fetchEvaluationsByProjectId = async (projectId) => {
 };
 
 /**
- * Fetch evaluations by the email of the collaborator.
- * @param {string} email - The email of the collaborator.
- * @returns {Promise<Array>} List of evaluations for the given collaborator's email.
+ * Fetch evaluations by user ID.
+ * @returns {Promise<Array>} List of evaluations for the given user.
  */
-export const fetchEvaluationsByCollaboratorEmail = async (email) => {
+export const fetchEvaluationsByUserId = async () => {
     try {
-        const token = localStorage.getItem("token"); // Get JWT token stored locally
-        const response = await api.get(`${API_URL}/user/${email}`, {
+        const token = localStorage.getItem("token");
+        const response = await api.get(`${API_URL}/user/`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         });
-        return response.data; // Return the evaluations data
+
+        return response.data.evaluations || response.data;
     } catch (error) {
-        console.error("Error fetching evaluations by collaborator email:", error);
-        throw error.response?.data || "Failed to fetch evaluations by collaborator email"; // Forward the error for handling
+        console.error("Error fetching evaluations by user ID:", error);
+        throw error.response?.data || "Failed to fetch evaluations by user ID";
     }
 };
 

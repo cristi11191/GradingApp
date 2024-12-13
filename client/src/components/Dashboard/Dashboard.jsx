@@ -6,6 +6,7 @@ import QuickStats from "./QuickStats";
 import MyProjectCard from "./MyProjectCard";
 import "./Dashboard.css";
 import { fetchRecentProjects, fetchRecentEvaluations, fetchNotifications, fetchQuickStats, fetchMyProject } from "../../services/apiDashboard.jsx";
+import {fetchEvaluationsByUserId} from "../../services/apiEvaluations.jsx";
 
 const Dashboard = () => {
     const [recentProjects, setRecentProjects] = useState([]); // Inițializat ca array
@@ -16,18 +17,24 @@ const Dashboard = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const [projects, evaluations, notifications, stats, myProj] = await Promise.all([
-                fetchRecentProjects(),
-                fetchRecentEvaluations(),
-                fetchNotifications(),
-                fetchQuickStats(),
-                fetchMyProject(),
-            ]);
-            setRecentProjects(projects);
+            // const [projects, evaluations, notifications, stats, myProj] = await Promise.all([
+            //     fetchRecentProjects(),
+            //     fetchEvaluationsByUserId(),
+            //     fetchNotifications(),
+            //     fetchQuickStats(),
+            //     fetchMyProject(),
+            // ]);
+            // setRecentProjects(projects);
+            // setRecentEvaluations(evaluations);
+            // setNotifications(notifications);
+            // setQuickStats(stats);
+            // setMyProject(myProj);
+
+
+            const evaluations = await fetchEvaluationsByUserId();
+            console.log("eval" , evaluations);
+
             setRecentEvaluations(evaluations);
-            setNotifications(notifications);
-            setQuickStats(stats);
-            setMyProject(myProj);
         };
         fetchData();
     }, []);
