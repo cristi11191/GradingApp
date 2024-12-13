@@ -5,6 +5,7 @@ const express = require("express");
 const fileRoutes = require("./fileRoutes");
 const projectRoutes = require("./projectRoutes");
 const collaboratorRoutes = require("./collaboratorsRoutes");
+const evaluationRoutes = require("./evaluationRoutes");
 
 const router = express.Router();
 
@@ -14,5 +15,6 @@ router.use('/user', userRoutes);
 router.use('/files', fileRoutes);
 router.use('/project', projectRoutes);
 router.use('/collaborator', collaboratorRoutes); // Register the collaborator route
+router.use('/evaluation',evaluationRoutes);
 
 module.exports = router;
