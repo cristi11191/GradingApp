@@ -1,13 +1,17 @@
 // routes/evaluationRoutes.js
 const express = require('express');
-const { addEvaluation } = require('../controllers/evaluationController');
+const { addEvaluation, getEvaluationsByUserId, getEvaluationsByProjectId, getProjectSummary,editEvaluation,
+    deleteEvaluation
+} = require('../controllers/evaluationController');
 const { verifyRole } = require('../middlewares/authMiddleware');
-const { getProjectSummary } = require('../controllers/evaluationController');
 
 const router = express.Router();
 
 // Only "juror" can add evaluations
 router.post('/', addEvaluation);
+router.put('/:evaluationId',editEvaluation);
 router.get('/summary/:projectId',  getProjectSummary);
-
+router.get('/project/:projectId',  getEvaluationsByProjectId);
+router.get('/user/:userId',  getEvaluationsByUserId);
+router.delete('/:evaluationId',  deleteEvaluation);
 module.exports = router;

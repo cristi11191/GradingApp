@@ -52,7 +52,6 @@ model Evaluation {
   id         Int       @id @default(autoincrement())
   score      Float     // Score from 1-10 (with up to 2 decimal places)
   projectId  Int
-  deliverableId Int?    // Optional, if tied to a specific deliverable
   userID     Int
   user       User      @relation(fields: [userID], references: [id])
   project    Project   @relation(fields: [projectId], references: [id])
