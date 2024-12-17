@@ -14,7 +14,7 @@ import AdminDashboard from './components/AdminDashboard/AdminDashboard.jsx';
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <ProtectedRoutes element={<DefaultLayout />} />,
+        element: <ProtectedRoutes element={<DefaultLayout />} role={['user', 'admin']} />,
         children: [
             // User-specific routes
             {
@@ -24,45 +24,37 @@ const router = createBrowserRouter([
             },
             {
                 path: '/dashboard',
-                element: <MainContent />,
-                role: ['user']
+                element: <ProtectedRoutes element={<MainContent />} role={['user']} />
             },
             {
                 path: '/projects',
-                element: <MainContent />,
-                role: ['user']
+                element: <ProtectedRoutes element={<MainContent />} role={['user']} />,
             },
             {
                 path: '/myproject',
-                element: <MainContent />,
-                role: ['user']
+                element: <ProtectedRoutes element={<MainContent />} role={['user']} />,
             },
             {
                 path: '/evaluation',
-                element: <MainContent />,
-                role: ['user']
+                element: <ProtectedRoutes element={<MainContent />} role={['user']} />,
             },
             {
                 path: '/project/:projectId',
-                element: <MainContent />,
-                role: ['user']
+                element: <ProtectedRoutes element={<MainContent />} role={['user']} />,
             },
 
             // Admin-specific routes
             {
                 path: '/admin',
-                element: <MainContent />,
-                role: ['admin'], // Admin-specific role
+                element: <ProtectedRoutes element={<AdminDashboard />} role={['admin']} />,
             },
             {
                 path: '/admin/projects',
-                element: <MainContent />,
-                role: ['admin']
+                element: <ProtectedRoutes element={<MainContent />} role={['admin']} />,
             },
             {
                 path: '/admin/project/:projectId',
-                element: <MainContent />,
-                role: ['admin']
+                element: <ProtectedRoutes element={<MainContent />} role={['admin']} />,
             },
         ]
     },
