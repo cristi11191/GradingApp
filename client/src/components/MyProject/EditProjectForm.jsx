@@ -201,7 +201,7 @@ const UrlInput = ({ urls, setUrls }) => {
 
 // Componenta principală pentru editare
 const EditProjectForm = ({ open, project, onCancel, onSave,  currentUserEmail }) => {
-    if (!open) return null;
+
 
     const [title, setTitle] = useState(project?.title || "");
     const [description, setDescription] = useState(project?.description || "");
@@ -215,7 +215,7 @@ const EditProjectForm = ({ open, project, onCancel, onSave,  currentUserEmail })
     const [attachmentFiles, setAttachmentFiles] = useState([]);
     const errorRef = useRef(null); // Referința pentru eroare
     // Starea pentru a controla vizibilitatea legendei
-
+    if (!open) return null;
 
 
 

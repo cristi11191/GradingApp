@@ -1,4 +1,6 @@
-const prisma = require('../prismaClient'); // Import Prisma client
+const prisma = require('../prismaClient');
+const path = require("path");
+const fs = require("fs"); // Import Prisma client
 
 const uploadFile = async (req, res) => {
     try {
@@ -41,4 +43,47 @@ const uploadFile = async (req, res) => {
     }
 };
 
-module.exports = { uploadFile };
+const deleteFile = async (req, res) => {
+    try {
+        const { fileName } = req.body;
+
+        try {
+            const filePath = path.join(__dirname, '../uploads/projects', fileName);
+
+            // Check if file exists
+            await fs.access(filePath);
+
+            // Delete the file
+            await fs.unlink(filePath);
+            return { success: true, message: 'File deleted successfully!' };
+        } catch (error) {
+            if (error.code === 'ENOENT') {
+                return { success: false, message: 'File not found.' };
+            }
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+const downloadFile = async (req,res)=>{
+    const filePath = path.join(__dirname, '..', 'uploads/projects', req.params.filename);
+
+    // Check if file exists
+    if (!fs.existsSync(filePath)) {
+        return res.status(404).json({ message: 'File not found' });
+    }
+
+    // Set headers to force download
+    res.setHeader('Content-Disposition', `attachment; filename="${req.params.filename}"`);
+    res.setHeader('Content-Type', 'application/octet-stream'); // Force the file to be treated as a binary
+
+    // Stream the file to the client
+    res.download(filePath, req.params.filename, (err) => {
+        if (err) {
+            console.error('Error sending file:', err);
+            res.status(500).json({ message: 'Error downloading file' });
+        }
+    });
+}
+
+module.exports = { uploadFile,deleteFile,downloadFile };

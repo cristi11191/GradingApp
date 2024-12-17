@@ -1,8 +1,21 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {fetchEvaluationsByUserId} from "../../services/apiEvaluations.jsx";
+import {fetchAllProjects} from "../../services/apiProject.jsx";
 
-const RecentProjects = ({ projects }) => {
+const RecentProjects = () => {
+
+    const [projects, setProjects] = useState([]);
+    useEffect(() => {
+        const fetchData = async () => {
+            const projects = await fetchAllProjects();
+            console.log("eval" , projects);
+            setProjects(projects);
+        };
+        fetchData();
+    }, []);
+
     if (!Array.isArray(projects)) {
-        return <div className="card"><h2>Recent Projects</h2><p>No projects available.</p></div>;
+         return <div className="card"><h2>Recent Projects</h2><p>No projects available.</p></div>;
     }
 
     return (

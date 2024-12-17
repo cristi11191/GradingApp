@@ -9,13 +9,13 @@ const router = express.Router();
 
 router.use(authMiddleware);
 // Route to create a project
-router.get('/', getProjectByCollaboratorEmail);
-router.post('/create', upload.array('files'), createProject);
+router.get('/',authMiddleware, getProjectByCollaboratorEmail);
+router.post('/create',authMiddleware, upload.array('files'), createProject);
 // Route to create show all projects
-router.get('/all',getAllProjects);
-router.get('/:projectId', getProject);
-router.put('/:projectId', upload.array('files'), updateProject);
-router.delete('/:projectId', deleteProject); // Add the delete route
+router.get('/all',authMiddleware,getAllProjects);
+router.get('/:projectId',authMiddleware, getProject);
+router.put('/:projectId',authMiddleware, upload.array('files'), updateProject);
+router.delete('/:projectId',authMiddleware, deleteProject); // Add the delete route
 
 
 module.exports = router;

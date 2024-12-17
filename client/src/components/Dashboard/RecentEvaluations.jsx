@@ -1,6 +1,28 @@
-const RecentEvaluations = ({ evaluations }) => {
+import {useEffect, useState} from "react";
+import {fetchEvaluationsByUserId} from "../../services/apiEvaluations.jsx";
+
+const RecentEvaluations = () => {
     // Ensure evaluations is an array or default to an empty array
+
+    const [evaluations, setEvaluations] = useState([]);
+    const [error, setError] = useState(null);
     const evaluationsArray = Array.isArray(evaluations) ? evaluations : [];
+
+
+    useEffect(() => {
+        const getEvaluations = async () => {
+            const data = await fetchEvaluationsByUserId();
+            if (data.length === 0) {
+                setError('No evaluations found for this user.');
+            }
+            setEvaluations(data);
+        };
+
+        getEvaluations().catch((err) => {
+            setError('Failed to load evaluations.'); // Fallback error
+        });
+    }, []);
+
 
     return (
         <div className="card recent-evaluations">
