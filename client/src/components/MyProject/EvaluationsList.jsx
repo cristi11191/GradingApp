@@ -1,4 +1,5 @@
 import React from "react";
+import "./EvaluationList.css";
 
 const EvaluationsList = ({ evaluations = [] }) => {
   if (evaluations.length === 0) {
@@ -7,11 +8,12 @@ const EvaluationsList = ({ evaluations = [] }) => {
 
   return (
     <ul>
-      {evaluations.map((evaluation) => (
-        <li key={evaluation.id}>
-          <strong>Evaluator:</strong> {evaluation.evaluator} - <strong>Score:</strong> {evaluation.score}
-        </li>
+      {evaluations.map((evaluation, index) => (
+          <li key={evaluation.id} className="textcolor">
+            Evaluator: <strong >{index + 1}</strong> Score: <strong>{evaluation.score}</strong>
+          </li>
       ))}
+
     </ul>
   );
 };

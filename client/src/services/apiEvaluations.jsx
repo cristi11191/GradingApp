@@ -36,11 +36,28 @@ export const fetchEvaluationsByUserId = async () => {
                 Authorization: `Bearer ${token}`,
             },
         });
+        console.log("Response ",response);
 
         return response.data.evaluations || response.data;
     } catch (error) {
-        console.error("Error fetching evaluations by user ID:", error);
-        throw error.response?.data || "Failed to fetch evaluations by user ID";
+        if (error.response) {
+            // Server responded with a status other than 2xx
+            const { status, data } = error.response;
+
+            if (status === 404) {
+                console.warn('No evaluations found.'); // Log as warning
+            } else {
+                console.error(`Error fetching evaluations: ${data.error || 'Unknown error'}`);
+            }
+        } else if (error.request) {
+            // No response from server
+            console.error('Server did not respond. Please try again later.');
+        } else {
+            // Other unexpected errors
+            console.error('Unexpected error occurred:', error.message);
+        }
+
+        return []; // Return an empty array to avoid breaking the UI
     }
 };
 

@@ -34,6 +34,7 @@ export const fetchProjectByCollaboratorEmail = async () => {
                 Authorization: `Bearer ${token}`,
             },
         });
+        // console.log(response.data);
 
         return response.data; // Returnează datele proiectului
     } catch (error) {

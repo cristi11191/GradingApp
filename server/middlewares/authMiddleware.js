@@ -6,6 +6,10 @@ const authMiddleware = async (req, res, next) => {
     if (!token) {
         return res.status(401).json({ error: 'Unauthorized: No token provided' });
     }
+    if (!process.env.JWT_SECRET) {
+        throw new Error('JWT_SECRET is not defined in the environment variables');
+    }
+
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -15,7 +19,7 @@ const authMiddleware = async (req, res, next) => {
             return res.status(401).json({ error: 'Unauthorized: Token invalid or expired' });
         }
 
-        req.user = decoded; // Attach user data to the request
+        req.user = user; // Attach the full user object
         next();
     } catch (err) {
         return res.status(401).json({ error: 'Unauthorized: Invalid token', message: err.message });

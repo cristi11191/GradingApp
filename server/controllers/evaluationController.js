@@ -1,7 +1,8 @@
 // controllers/evaluationController.js
 // prismaClient.js
 const prisma = require('../prismaClient');
-const jwt = require("jsonwebtoken"); // Ensure the correct relative path
+const jwt = require("jsonwebtoken");
+const {calculateFinalGrade} = require("../utils/gradeUtils"); // Ensure the correct relative path
 module.exports = prisma;
 
 
@@ -38,6 +39,13 @@ const addEvaluation = async (req, res) => {
         if (isCollaborator) {
             return res.status(403).json({ message: 'Collaborators cannot evaluate their own projects' });
         }
+        const project = await prisma.project.findUnique({
+            where: { id: parseInt(projectId, 10) },
+        });
+
+        if (!project) {
+            return res.status(404).json({ error: 'Project not found' });
+        }
 
         // Check if user has already evaluated the project
         const existingEvaluation = await prisma.evaluation.findFirst({
@@ -73,6 +81,13 @@ const getProjectSummary = async (req, res) => {
             where: { projectId: parseInt(projectId, 10) },
             select: { score: true },
         });
+        const project = await prisma.project.findUnique({
+            where: { id: parseInt(projectId, 10) },
+        });
+
+        if (!project) {
+            return res.status(404).json({ error: 'Project not found' });
+        }
 
         const scores = evaluations.map((e) => e.score);
 
@@ -80,22 +95,8 @@ const getProjectSummary = async (req, res) => {
             return res.status(400).json({ message: 'No evaluations found for this project' });
         }
 
-        let finalGrade;
-
-        if (scores.length === 1) {
-            // Dacă există o singură evaluare
-            finalGrade = scores[0];
-        } else if (scores.length <= 3) {
-            // Dacă sunt mai puțin de 3 evaluări sau exact 3, se calculează normal
-            const total = scores.reduce((acc, score) => acc + score, 0);
-            finalGrade = total / scores.length;
-        } else {
-            // Dacă sunt mai mult de 3 evaluări, se elimină cea mai mare și cea mai mică
-            const total = scores.reduce((acc, score) => acc + score, 0);
-            const max = Math.max(...scores);
-            const min = Math.min(...scores);
-            finalGrade = (total - max - min) / (scores.length - 2);
-        }
+        // Use the utility function to calculate the final grade
+        const finalGrade = calculateFinalGrade(scores);
 
         res.status(200).json({ finalGrade });
     } catch (error) {
@@ -109,6 +110,13 @@ const getEvaluationsByProjectId = async (req, res) => {
     const { projectId } = req.params;
 
     try {
+        const project = await prisma.project.findUnique({
+            where: { id: parseInt(projectId, 10) },
+        });
+
+        if (!project) {
+            return res.status(404).json({ error: 'Project not found' });
+        }
         const evaluations = await prisma.evaluation.findMany({
             where: {projectId: parseInt(projectId, 10)},
             select: { id:true ,score: true, createdOn: true }, // Exclude user information

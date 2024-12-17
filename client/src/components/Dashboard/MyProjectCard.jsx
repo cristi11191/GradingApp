@@ -1,8 +1,21 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "./MyProjectCard.css";
+import {fetchProjectByCollaboratorEmail} from "../../services/apiProject.jsx";
 
-const MyProjectCard = ({ project }) => {
+// eslint-disable-next-line react/prop-types
+const MyProjectCard = () => {
+    const [project, setMyProject] = useState(null);
     const isProjectValid = project && project.title && project.description && project.deadline;
+
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const myProject = await fetchProjectByCollaboratorEmail();
+            setMyProject(myProject);
+        };
+        fetchData();
+    }, []);
 
     return (
         <div className="card my-project-card">
