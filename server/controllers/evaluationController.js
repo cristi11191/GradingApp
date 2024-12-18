@@ -10,7 +10,6 @@ module.exports = prisma;
 // Add evaluation
 const addEvaluation = async (req, res) => {
     const { score, projectId } = req.body;
-
     try {
         // Extract token from headers
         const token = req.header('Authorization')?.replace('Bearer ', '');
@@ -92,11 +91,11 @@ const getProjectSummary = async (req, res) => {
         const scores = evaluations.map((e) => e.score);
 
         if (scores.length === 0) {
-            return res.status(400).json({ message: 'No evaluations found for this project' });
+            return res.status(200).json({ message: 'No evaluations found for this project' });
         }
 
         // Use the utility function to calculate the final grade
-        const finalGrade = calculateFinalGrade(scores);
+        const finalGrade = calculateFinalGrade(scores) || 0;
 
         res.status(200).json({ finalGrade });
     } catch (error) {
@@ -124,6 +123,50 @@ const getEvaluationsByProjectId = async (req, res) => {
 
         res.status(200).json(evaluations);
     } catch (error) {
+        res.status(500).json({ message: 'Failed to fetch evaluations', error });
+    }
+};
+
+const getUserEvaluationsByProjectId = async (req, res) => {
+    const { projectId } = req.params;
+    try {
+
+        const token = req.header('Authorization')?.replace('Bearer ', '');
+        if (!token) {
+            return res.status(401).json({ error: 'Token absent' });
+        }
+
+        // Decode the token to get user ID
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await prisma.user.findUnique({ where: { id: decoded.id } });
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Găsește toate evaluarile realizate de utilizatorul specificat
+        const evaluations = await prisma.evaluation.findMany({
+            where: {
+                userID: parseInt(decoded.id, 10),
+                projectId: parseInt(projectId, 10)
+            },
+            select: {
+                id:true,
+                score: true,
+                projectId: true,
+                createdOn: true, // Opțional, dacă dorești să vezi data evaluării
+            },
+        });
+
+        // Verifică dacă utilizatorul are evaluări
+        if (evaluations.length === 0) {
+            return res.status(200).json({ evaluations: [] }); // 200 OK with empty list
+        }
+
+        // Returnează lista evaluărilor
+        res.status(200).json({ evaluations });
+    } catch (error) {
+        console.error('Error fetching evaluations by user ID:', error);
         res.status(500).json({ message: 'Failed to fetch evaluations', error });
     }
 };
@@ -158,7 +201,7 @@ const getEvaluationsByUserId = async (req, res) => {
 
         // Verifică dacă utilizatorul are evaluări
         if (evaluations.length === 0) {
-            return res.status(404).json({ message: 'No evaluations found for this user' });
+            return res.status(200).json({ evaluations: [] }); // 200 OK with empty list
         }
 
         // Returnează lista evaluărilor
@@ -225,6 +268,7 @@ const editEvaluation = async (req, res) => {
         if (typeof score !== 'number' || score < 1 || score > 10 || !/^\d+(\.\d{1,2})?$/.test(score.toString())) {
             return res.status(400).json({ error: 'Score must be a number between 1 and 10, with up to 2 decimal places.' });
         }
+
         const evaluation = await prisma.evaluation.findUnique({ where: { id: parseInt(evaluationId, 10) } });
 
         if (!evaluation) {
@@ -248,4 +292,4 @@ const editEvaluation = async (req, res) => {
 };
 
 
-module.exports = { addEvaluation, getProjectSummary , getEvaluationsByProjectId,getEvaluationsByUserId,editEvaluation,deleteEvaluation };
+module.exports = { addEvaluation, getProjectSummary , getEvaluationsByProjectId,getEvaluationsByUserId,editEvaluation,deleteEvaluation ,getUserEvaluationsByProjectId };

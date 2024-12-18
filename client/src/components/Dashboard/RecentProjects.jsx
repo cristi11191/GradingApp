@@ -8,7 +8,6 @@ const RecentProjects = () => {
     useEffect(() => {
         const fetchData = async () => {
             const projects = await fetchAllProjects();
-            console.log("eval" , projects);
             setProjects(projects);
         };
         fetchData();
@@ -24,7 +23,13 @@ const RecentProjects = () => {
             <ul>
                 {projects.map((project, index) => (
                     <li key={index}>
-                        {project.title} - {new Date(project.date).toLocaleDateString()}
+                        {project.title} - {project.deadline
+                        ? new Intl.DateTimeFormat('en-GB', {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric',
+                        }).format(new Date(project.deadline))
+                        : 'No deadline specified'}
                     </li>
                 ))}
             </ul>

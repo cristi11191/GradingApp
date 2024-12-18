@@ -36,8 +36,12 @@ const MyProject = () => {
         const fetchProject = async () => {
             try {
                 const projectData = await fetchProjectByCollaboratorEmail(); // Apelul funcției
-                setProject(projectData || null); // Setează datele proiectului sau null
-                //console.log(projectData);
+                if(projectData.length ===0) {
+                    setProject(null); // Setează datele proiectului sau null
+                } else {
+                    setProject(projectData);
+                }
+                    //console.log(projectData);
                 // eslint-disable-next-line no-unused-vars
             } catch (error) {
                 setProject(null); // Dacă apare o eroare, setează null

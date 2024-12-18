@@ -1,9 +1,9 @@
 // routes/evaluationRoutes.js
 const express = require('express');
 const { addEvaluation, getEvaluationsByUserId, getEvaluationsByProjectId, getProjectSummary,editEvaluation,
-    deleteEvaluation
+    deleteEvaluation, getUserEvaluationsByProjectId
 } = require('../controllers/evaluationController');
-const { verifyRole, authMiddleware} = require('../middlewares/authMiddleware');
+const {  authMiddleware} = require('../middlewares/authMiddleware');
 
 const router = express.Router();
 
@@ -13,5 +13,6 @@ router.put('/:evaluationId',authMiddleware,editEvaluation);
 router.get('/summary/:projectId',authMiddleware,  getProjectSummary);
 router.get('/project/:projectId',authMiddleware,  getEvaluationsByProjectId);
 router.get('/user/',authMiddleware,  getEvaluationsByUserId);
+router.get('/user/:projectId',authMiddleware,  getUserEvaluationsByProjectId);
 router.delete('/:evaluationId',authMiddleware,  deleteEvaluation);
 module.exports = router;

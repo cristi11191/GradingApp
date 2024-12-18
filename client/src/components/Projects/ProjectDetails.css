@@ -19,3 +19,57 @@
     transform: scale(1.2);
     color: #ff4d4f;
 }
+
+.my-evaluation-form {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between input and button */
+    margin-top: 10px;
+}
+
+.my-evaluation-form input {
+    flex: 1; /* Input takes up the remaining space */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.my-evaluation-form button {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.my-evaluation-form button:hover {
+    background-color: #0056b3;
+}
+
+.evaluations-container {
+    max-height: 150px; /* Fixed height for evaluations */
+    overflow-y: auto; /* Enable scrolling */
+    margin-bottom: 10px;
+}
+
+.evaluations-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.evaluations-list li {
+    padding: 8px;
+    /*border-bottom: 1px solid #ccc;*/
+}
+
+.overall-score {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+    border-top: 1px solid #ccc;
+}

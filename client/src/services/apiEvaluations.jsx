@@ -23,6 +23,20 @@ export const fetchEvaluationsByProjectId = async (projectId) => {
         throw error.response?.data || "Failed to fetch evaluations"; // Forward the error for handling
     }
 };
+export const fetchUserEvaluationsByProjectId = async (projectId) => {
+    try {
+        const token = localStorage.getItem("token"); // Get JWT token stored locally
+        const response = await api.get(`${API_URL}/user/${projectId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return response.data; // Return the evaluations data
+    } catch (error) {
+        console.error("Error fetching evaluations:", error);
+        throw error.response?.data || "Failed to fetch evaluations"; // Forward the error for handling
+    }
+};
 
 /**
  * Fetch evaluations by user ID.
@@ -35,52 +49,74 @@ export const fetchEvaluationsByUserId = async () => {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
+            validateStatus: (status) => {
+                // Treat status 200 and 404 as valid responses
+                return status === 200 || status === 404;
+            },
         });
-        console.log("Response ",response);
-
-        return response.data.evaluations || response.data;
-    } catch (error) {
-        if (error.response) {
-            // Server responded with a status other than 2xx
-            const { status, data } = error.response;
-
-            if (status === 404) {
-                console.warn('No evaluations found.'); // Log as warning
-            } else {
-                console.error(`Error fetching evaluations: ${data.error || 'Unknown error'}`);
-            }
-        } else if (error.request) {
-            // No response from server
-            console.error('Server did not respond. Please try again later.');
-        } else {
-            // Other unexpected errors
-            console.error('Unexpected error occurred:', error.message);
+        if (response.status === 200 && response.data.evaluations.length === 0) {
+            console.warn('No evaluations found.');
+            return []; // Return empty array to handle gracefully
         }
 
-        return []; // Return an empty array to avoid breaking the UI
+        return response.data.evaluations || response.data;
+
+    } catch (error) {
+        if (error.request) {
+            console.error('Server did not respond. Please try again later.');
+        } else {
+            console.error('Unexpected error occurred:', error.message);
+        }
+        return [];
     }
 };
 
-/**
- * Create a new evaluation for a project.
- * @param {number} projectId - The ID of the project.
- * @param {object} evaluationData - The evaluation data (e.g., score, comments).
- * @returns {Promise<object>} Created evaluation data.
- */
-export const createEvaluation = async (projectId, evaluationData) => {
+
+export const fetchProjectSummary = async (projectId) => {
     try {
-        const token = localStorage.getItem("token"); // Get JWT token stored locally
-        const response = await api.post(`${API_URL}/create/${projectId}`, evaluationData, {
+        const token = localStorage.getItem("token"); // Obține JWT-ul stocat local
+        const response = await api.get(`${API_URL}/summary/${projectId}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         });
+        return response.data || []; // Return the project data
+    } catch (error) {
+        console.error("Error fetching project:", error);
+        throw error.response?.data || "Failed to fetch project"; // Forward the error for handling
+    }
+};
+
+
+/**
+ * Create a new evaluation for a project.
+ * @param {number} projectId - The ID of the project.
+ * @param {object} score - The evaluation data (e.g., score, comments).
+ * @returns {Promise<object>} Created evaluation data.
+ */
+export const createEvaluation = async (projectId, score) => {
+    try {
+        const token = localStorage.getItem("token"); // Retrieve the JWT token
+        const evaluationData = {
+            score: parseFloat(score.score), // Ensure score is a float
+            projectId: parseInt(projectId, 10), // Include projectId in the body
+        };
+
+        const response = await api.post(`${API_URL}/`, evaluationData, {
+            headers: {
+                Authorization: `Bearer ${token}`, // Pass the token for authorization
+            },
+        });
+
         return response.data; // Return the created evaluation data
     } catch (error) {
         console.error("Error creating evaluation:", error);
-        throw error.response?.data || "Failed to create evaluation"; // Forward the error for handling
+
+        // Forward backend error message or default error message
+        throw error.response?.data || { error: "Failed to create evaluation" };
     }
 };
+
 
 /**
  * Update an existing evaluation.
@@ -91,15 +127,17 @@ export const createEvaluation = async (projectId, evaluationData) => {
 export const updateEvaluation = async (evaluationId, evaluationData) => {
     try {
         const token = localStorage.getItem("token"); // Get JWT token stored locally
-        const response = await api.put(`${API_URL}/update/${evaluationId}`, evaluationData, {
+        const response = await api.put(`${API_URL}/${evaluationId}`, evaluationData, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         });
         return response.data; // Return the updated evaluation data
+
     } catch (error) {
         console.error("Error updating evaluation:", error);
-        throw error.response?.data || "Failed to update evaluation"; // Forward the error for handling
+        throw error.response?.data || { message: "Failed to update evaluation", status: 500 };
+
     }
 };
 
