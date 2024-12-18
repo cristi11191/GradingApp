@@ -69,7 +69,7 @@ const getProject = async (req, res) => {
         });
 
         if (!project) {
-            return res.status(404).json({ message: 'Project not found' });
+            return res.status(200).json({ message: 'Project not found' });
         }
 
         res.status(200).json({ project });
@@ -193,7 +193,7 @@ const getProjectByCollaboratorEmail = async (req, res) => {
         });
 
         if (!project) {
-            return res.status(404).json({ message: "No project found for this collaborator email" });
+            return res.status(200).json({ message: "No project found for this collaborator email" });
         }
 
         return res.status(200).json(project);

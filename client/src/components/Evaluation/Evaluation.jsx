@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { fetchEvaluationsByUserId } from "../../services/apiEvaluations.jsx";
 import {fetchAllProjects} from "../../services/apiProject.jsx"; // Assuming this is the function to fetch projects
+import "./Evaluation.css";
+import {useNavigate} from "react-router-dom";
 
 const Evaluation = () => {
     const [evaluations, setEvaluations] = useState([]);
@@ -10,6 +12,7 @@ const Evaluation = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selectedProjectId, setSelectedProjectId] = useState("");
+    const navigate = useNavigate(); // Initialize useNavigate
 
     useEffect(() => {
         const fetchData = async () => {
@@ -43,6 +46,10 @@ const Evaluation = () => {
             setFilteredEvaluations(evaluations);
         }
     };
+    const handleCardClick = (projectId) => {
+        // Navigate to the project's details page
+        navigate(`/project/${projectId}`);
+    };
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
@@ -71,10 +78,15 @@ const Evaluation = () => {
             <ul className="list-group">
                 {filteredEvaluations.length > 0 ? (
                     filteredEvaluations.map(evaluation => (
-                        <li key={evaluation.id} className="list-group-item">
+
+                        <li key={evaluation.id} className="list-group-item"
+                            onClick={() => handleCardClick(evaluation.projectId)}
+                        >
+                            <div className="evaluation-card">
                             <p><strong>Score:</strong> {evaluation.score}</p>
                             <p><strong>Project ID:</strong> {evaluation.projectId}</p>
                             <p><strong>Created On:</strong> {new Date(evaluation.createdOn).toLocaleDateString()}</p>
+                            </div>
                         </li>
                     ))
                 ) : (

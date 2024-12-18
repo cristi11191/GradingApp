@@ -34,8 +34,10 @@ export const fetchProjectByCollaboratorEmail = async () => {
                 Authorization: `Bearer ${token}`,
             },
         });
-        // console.log(response.data);
-
+        if (response.status === 200 && response.data.description === undefined) {
+            console.warn('No project found.');
+            return []; // Return empty array to handle gracefully
+        }
         return response.data; // Returnează datele proiectului
     } catch (error) {
         throw error.response?.data || "Failed to fetch project"; // Forward the error
@@ -124,3 +126,4 @@ export const fetchAllProjects = async () => {
         throw error; // Aruncă eroarea pentru a fi gestionată în componentă
     }
 };
+
