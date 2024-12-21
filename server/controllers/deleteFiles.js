@@ -1,18 +1,36 @@
 const path = require('path');
 const fs = require('node:fs/promises');
 const { PrismaClient } = require('@prisma/client');
-const {deleteFile} = require("./deliverableController");
 
 const prisma = new PrismaClient();
 
+// Utility function to delete a file
+const deleteFile = async (filePath) => {
+    try {
+        // Check if file exists
+        await fs.access(filePath);
+
+        // Delete the file
+        await fs.unlink(filePath);
+        console.log(`Deleted file: ${filePath}`);
+        return { success: true, message: 'File deleted successfully!' };
+    } catch (error) {
+        if (error.code === 'ENOENT') {
+            console.warn(`File not found: ${filePath}`);
+            return { success: false, message: 'File not found.' };
+        }
+        throw error; // Re-throw unexpected errors
+    }
+};
 
 // Function to clean orphaned files
 const cleanOrphanedFiles = async () => {
     try {
-        const uploadDir = path.join(__dirname, '../uploads/projects');
+        const uploadDir = path.join(__dirname, '..', 'uploads', 'projects');
 
         // Fetch all files in the uploads directory
         const filesInDirectory = await fs.readdir(uploadDir);
+
 
         // Fetch all file paths from the Deliverables table
         const deliverables = await prisma.deliverable.findMany({
@@ -31,7 +49,8 @@ const cleanOrphanedFiles = async () => {
 
         // Delete orphaned files
         for (const file of orphanedFiles) {
-            const result = await deleteFile(file);
+            const filePath = path.join(uploadDir, file);
+            const result = await deleteFile(filePath);
             console.log(result.message);
         }
 

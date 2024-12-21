@@ -2,8 +2,7 @@ const express = require('express');
 const { getProject, createProject, updateProject, getProjectByCollaboratorEmail, deleteProject, getAllProjects} = require('../controllers/projectController');
 const uploadFile = require('../controllers/deliverableController');
 const {authMiddleware} = require('../middlewares/authMiddleware'); // Adjust the path if needed
-const multer = require('multer');
-const upload = multer({ dest: './uploads/projects' }); // Set the upload destination
+const upload = require('../middlewares/multerFile');
 
 const router = express.Router();
 

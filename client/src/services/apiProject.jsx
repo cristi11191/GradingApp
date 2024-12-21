@@ -82,7 +82,8 @@ export const updateProject = async (projectId, formData) => {
                 'Content-Type': 'multipart/form-data', // Required for file uploads
             },
         });
-        return response.data; // Return the updated project data
+
+        return response.data; // Return the updated project
     } catch (error) {
         console.error("Error updating project:", error);
         throw error.response?.data || "Failed to update project"; // Forward the error for handling

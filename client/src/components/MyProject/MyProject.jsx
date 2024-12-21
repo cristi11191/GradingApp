@@ -106,8 +106,10 @@ const MyProject = () => {
                 return;
             }
 
+
                 try {
                 const response = await fetch(`http://localhost:5000/api/files/download/${filename}`);
+                console.log("filename: " , filename);
 
                 if (!response.ok) {
                 throw new Error("Failed to download file");
