@@ -1,9 +1,9 @@
 .dashboard {
     padding: 40px; /* Dublăm padding-ul */
     max-width: 160vh; /* Dublăm lățimea maximă */
-    max-height: 190vh; /* Dublăm înălțimea maximă */
+    max-height: 95vh; /* Dublăm înălțimea maximă */
     margin: 0 auto;
-    background: #0b253e;
+    background: #253E51;
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -12,7 +12,7 @@
 }
 
 .dashboard h1 {
-    font-size: 32px; /* Mărim fontul pentru titlu */
+    font-size: 25px; /* Mărim fontul pentru titlu */
     margin-bottom: 30px; /* Creștem spațiul de jos */
     border-bottom: 2px solid #007BFF;
     padding-bottom: 10px; /* Creștem padding-ul de jos */
@@ -26,7 +26,7 @@
 }
 
 .card {
-    background-color: #001529;
+    background-color: #19293B !important;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px; /* Creștem padding-ul */
