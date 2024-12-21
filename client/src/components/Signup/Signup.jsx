@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Iconițe pentru vizibilitatea parolei
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import "./Signup.css";
 import { signup } from "../../services/authServices.jsx";
 
@@ -13,8 +13,8 @@ const Signup = () => {
         confirmPassword: '',
     });
     const [error, setError] = useState('');
-    const [showPassword, setShowPassword] = useState(false); // Vizibilitatea parolei
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false); // Vizibilitatea confirmării parolei
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -47,10 +47,10 @@ const Signup = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 py-12">
+        <div className="min-h-screen flex items-center justify-center bg-[#253E51] py-12">
             <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Happy to meet you! 😊</h2>
-                <p className="text-center text-gray-600 mb-4">Create your account.</p>
+                <h2 className="text-2xl font-bold text-center text-[#253E51] mb-6">Happy to meet you! 😊</h2>
+                <p className="text-center text-[#416E8B] mb-4">Create your account.</p>
                 {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
                 <form onSubmit={handleSignup} className="space-y-4">
                     <div>
@@ -60,7 +60,7 @@ const Signup = () => {
                             value={formData.name}
                             onChange={handleChange}
                             placeholder="Name"
-                            className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            className="w-full p-3 border border-[#6F9FBC] rounded focus:outline-none focus:ring-2 focus:ring-[#416E8B]"
                         />
                     </div>
                     <div>
@@ -70,22 +70,22 @@ const Signup = () => {
                             value={formData.email}
                             onChange={handleChange}
                             placeholder="Email"
-                            className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            className="w-full p-3 border border-[#6F9FBC] rounded focus:outline-none focus:ring-2 focus:ring-[#416E8B]"
                         />
                     </div>
                     <div className="relative">
                         <input
                             name="password"
-                            type={showPassword ? "text" : "password"} // Vizibilitatea parolei
+                            type={showPassword ? "text" : "password"}
                             value={formData.password}
                             onChange={handleChange}
                             placeholder="Password"
-                            className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            className="w-full p-3 border border-[#6F9FBC] rounded focus:outline-none focus:ring-2 focus:ring-[#416E8B]"
                         />
                         <button
                             type="button"
                             onClick={togglePasswordVisibility}
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center justify-center bg-transparent text-black rounded-full w-15 h-15 hover:bg-gray-300 transition z-9999"
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center justify-center bg-transparent text-black rounded-full w-15 h-15 hover:bg-[#6F9FBC] transition z-9999"
                         >
                             {showPassword ? <FaEyeSlash size={16} /> : <FaEye size={16} />}
                         </button>
@@ -93,16 +93,16 @@ const Signup = () => {
                     <div className="relative">
                         <input
                             name="confirmPassword"
-                            type={showConfirmPassword ? "text" : "password"} // Vizibilitatea confirmării parolei
+                            type={showConfirmPassword ? "text" : "password"}
                             value={formData.confirmPassword}
                             onChange={handleChange}
                             placeholder="Confirm Password"
-                            className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            className="w-full p-3 border border-[#6F9FBC] rounded focus:outline-none focus:ring-2 focus:ring-[#416E8B]"
                         />
                         <button
                             type="button"
                             onClick={toggleConfirmPasswordVisibility}
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center justify-center bg-transparent text-black rounded-full w-15 h-15 hover:bg-gray-300 transition"
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center justify-center bg-transparent text-black rounded-full w-15 h-15 hover:bg-[#6F9FBC] transition"
                         >
                             {showConfirmPassword ? <FaEyeSlash size={16} /> : <FaEye size={16} />}
                         </button>
@@ -110,7 +110,7 @@ const Signup = () => {
                     <div>
                         <button
                             type="submit"
-                            className="w-full bg-purple-500 text-white py-3 rounded hover:bg-purple-600 transition duration-200"
+                            className="w-full bg-[#416E8B] text-white py-3 rounded hover:bg-[#6F9FBC] transition-all duration-200"
                         >
                             Register Now
                         </button>
@@ -118,7 +118,7 @@ const Signup = () => {
                 </form>
                 <div className="mt-6 text-right">
                     <button
-                        className="bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-600 transition duration-200"
+                        className="bg-[#253E51] text-white py-2 px-4 rounded hover:bg-[#416E8B] transition duration-200"
                         onClick={handleLogin}
                     >
                         Log In
