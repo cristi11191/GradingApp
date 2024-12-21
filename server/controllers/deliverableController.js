@@ -10,45 +10,26 @@ const uploadFile = async (req, res) => {
         }
 
         const { title, description, projectId } = req.body;
-
         // Validate required fields
         if (!projectId) {
             return res.status(400).json({ error: 'Project ID is required' });
         }
 
-        const filesMetadata = [];
-
-        // Iterate over each uploaded file
-        for (const file of req.files) {
-            const { filename, mimetype, path } = file;
-
-            // Save metadata to the database
-            const deliverable = await prisma.deliverable.create({
-                data: {
-                    title: title || filename, // Default to filename if title is not provided
-                    description: description || '',
-                    attachmentURL: path, // Save the file path
-                    fileType: mimetype,
-                    projectId: parseInt(projectId, 10), // Ensure projectId is an integer
-                },
-            });
-
-            filesMetadata.push(deliverable);
-        }
-
-        return res.status(201).json({ message: 'Files uploaded successfully', files: filesMetadata });
+        return res.status(201).json({ message: 'Files uploaded successfully', files: req.files });
     } catch (error) {
         console.error('Error uploading files:', error);
         return res.status(500).json({ error: 'Error uploading files', details: error.message });
     }
 };
 
+
 const deleteFile = async (req, res) => {
     try {
         const { fileName } = req.body;
 
         try {
-            const filePath = path.join(__dirname, '../uploads/projects', fileName);
+            const filePath = path.join(__dirname, '..','uploads','projects', fileName);
+            console.log("path",filePath);
 
             // Check if file exists
             await fs.access(filePath);
@@ -66,7 +47,8 @@ const deleteFile = async (req, res) => {
     }
 }
 const downloadFile = async (req,res)=>{
-    const filePath = path.join(__dirname, '..', 'uploads/projects', req.params.filename);
+    const filePath = path.join(__dirname, '..', 'uploads', 'projects', req.params.filename);
+    console.log(filePath);
 
     // Check if file exists
     if (!fs.existsSync(filePath)) {
@@ -74,7 +56,7 @@ const downloadFile = async (req,res)=>{
     }
 
     // Set headers to force download
-    res.setHeader('Content-Disposition', `attachment; filename="${req.params.filename}"`);
+    res.setHeader('Content-Disposition', `attachment; filename="${req.params.originalname}"`);
     res.setHeader('Content-Type', 'application/octet-stream'); // Force the file to be treated as a binary
 
     // Stream the file to the client

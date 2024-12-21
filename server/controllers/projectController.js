@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+const path = require("path");
 const prisma = new PrismaClient();
 
 const createProject = async (req, res) => {
@@ -92,6 +93,7 @@ const updateProject = async (req, res) => {
         const collaborators = Object.keys(req.body)
             .filter((key) => key.startsWith('collaborator_'))
             .map((key) => req.body[key]);
+
         // Fetch the existing project
         const existingProject = await prisma.project.findUnique({
             where: { id: parseInt(projectId, 10) },
@@ -101,54 +103,69 @@ const updateProject = async (req, res) => {
         if (!existingProject) {
             return res.status(404).json({ message: 'Project not found' });
         }
+        const datePrefix = new Date().toISOString().split('T')[0]; // Get YYYY-MM-DD format
+        // Handle file uploads (call uploadFile logic)
+        const newFileAttachments = [];
+        if (req.files && req.files.length > 0) {
+            for (const file of req.files) {
+                const { originalname, mimetype, path } = file;
 
+                // Save metadata to the database
+                const deliverable = await prisma.deliverable.create({
+                    data: {
+                        title: originalname, // Default to filename
+                        description: req.body.description || '',
+                        attachmentURL: `/uploads/projects/${datePrefix}-${originalname}`,
+                        fileType: mimetype,
+                        projectId: parseInt(projectId, 10),
+                    },
+                });
+
+                newFileAttachments.push({
+                    title: deliverable.title,
+                    description: deliverable.description,
+                    attachmentURL: deliverable.attachmentURL,
+                    fileType: deliverable.fileType,
+                    projectId: parseInt(projectId, 10),
+                });
+            }
+        }
+
+        // Combine new and existing files
         let existingFiles = [];
         if (req.body.files) {
-            const files = Array.isArray(req.body.files) ? req.body.files : [req.body.files]; // Ensure files is an array
+            const files = Array.isArray(req.body.files) ? req.body.files : [req.body.files];
 
-            // Process each file
+            // Process existing files metadata
             existingFiles = files
                 .filter((file) => {
                     try {
                         JSON.parse(file); // Check if it's JSON
                         return true;
                     } catch (error) {
-                        return false; // Skip if not JSON (new file handled by multer)
+                        return false;
                     }
                 })
-                .map((file) => JSON.parse(file)); // Parse existing files as JSON
+                .map((file) => JSON.parse(file)); // Parse JSON
         }
 
-
-        // Handle new files from multer
-        const newFileAttachments = req.files.map((file) => ({
-            attachmentURL: `/uploads/projects/${file.filename}`,
-            fileType: file.mimetype.split('/')[0], // Extract file type
-        }));
-
-        // Combine existing and new files
         const allFiles = [...existingFiles, ...newFileAttachments];
+
 
         // Update the project data
         const updatedProject = await prisma.project.update({
             where: { id: parseInt(projectId, 10) },
             data: {
-                // Update title, description, and deadline with fallback to existing values
                 title: title || existingProject.title,
                 description: description || existingProject.description,
                 deadline: deadline ? new Date(deadline) : existingProject.deadline,
+                attachmentURL: urls.join(','),
 
-                // Override the attachmentURL with the new URLs
-                attachmentURL: urls.join(','), // Replace URLs with new ones
-
-                // Replace collaborators
                 collaborators: {
                     deleteMany: {}, // Remove all existing collaborators
                     create: collaborators.map((email) => ({ email })), // Add new collaborators
                 },
 
-                // Replace deliverables with only file attachments
-                // Update deliverables with both old and new files
                 deliverables: {
                     deleteMany: {}, // Remove all existing deliverables
                     create: allFiles.map((file) => ({
@@ -163,10 +180,11 @@ const updateProject = async (req, res) => {
 
         res.status(200).json({ message: 'Project updated successfully', project: updatedProject });
     } catch (error) {
-        console.error(error);
+        console.error('Error updating project:', error);
         res.status(500).json({ message: 'Failed to update project', error: error.message });
     }
 };
+
 
 /**
  * Fetch the project where the given email is a collaborator.

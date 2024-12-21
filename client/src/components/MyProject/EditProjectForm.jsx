@@ -340,12 +340,15 @@ const EditProjectForm = ({ open, project, onCancel, onSave,  currentUserEmail })
 
         // Add merged files to FormData
         allFiles.forEach((fileObj) => {
+
             if (fileObj.isExisting) {
                 // For existing files, pass their JSON representation
                 formData.append("files", JSON.stringify(fileObj));
+                console.log("sjon" , JSON.stringify(fileObj))
             } else {
                 // For new files, append the actual file object
                 formData.append("files", fileObj.file);
+                console.log("new files" , fileObj.file)
             }
         });
 
