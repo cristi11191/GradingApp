@@ -1,5 +1,5 @@
 .min-h-screen {
-    background-image:linear-gradient(115deg,#CBDAE6,#253E51) !important;
+    background-image:radial-gradient(circle,#CBDAE6,#253E51);
 }
 
 .my-project-container {
@@ -21,11 +21,13 @@
 
 .close-button:hover {
     transform: scale(1.2);
-    color: #ff4d4f;
+    background: none !important;
+
 }
 
 .my-evaluation-form {
     display: flex;
+    background: #253E51;
     align-items: center;
     gap: 10px; /* Space between input and button */
     margin-top: 10px;
@@ -37,6 +39,7 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
+    background: lightgray !important;
 }
 
 .my-evaluation-form button {
