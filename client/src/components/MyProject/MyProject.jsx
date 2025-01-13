@@ -1,56 +1,65 @@
-// eslint-disable-next-line no-unused-vars
+// File: MyProject.jsx
 import React, { useState, useEffect } from "react";
 import EditProjectForm from "./EditProjectForm.jsx";
 import CollaboratorsList from "./CollaboratorsList.jsx";
 import EvaluationsList from "./EvaluationsList.jsx";
 import './MyProject.css';
-import {jwtDecode} from "jwt-decode";
-import { fetchProjectByCollaboratorEmail } from "../../services/apiProject";
-import { deleteProject } from '../../services/apiProject';
-
+import { jwtDecode } from "jwt-decode";
+import { fetchProjectByCollaboratorEmail, deleteProject } from "../../services/apiProject";
 
 /**
- * Extracts the email from the JWT token.
- * @param {string} token - The JWT token.
- * @returns {string|null} The email if present in the token, or null if not found.
+ * Componentă pentru vizualizarea unui videoclip într-un pop-up.
  */
+const VideoPopup = ({ videoURL, onClose, onDownload }) => (
+    <div className="video-popup">
+        <div className="video-popup-content">
+            <video controls className="video-element">
+                <source src={videoURL} type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
+            <div className="video-popup-buttons">
+                <button className="btnDownload" onClick={() => onDownload(videoURL)}>
+                    Download
+                </button>
+                <button className="btnClose" onClick={onClose}>
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+);
+
 const getEmailFromToken = (token) => {
     try {
         const decodedToken = jwtDecode(token);
-        return decodedToken.email || null; // Adjust based on your token's structure
+        return decodedToken.email || null;
     } catch (error) {
         console.error("Error decoding token:", error);
         return null;
     }
 };
 
-
-
 const MyProject = () => {
     const [project, setProject] = useState({});
     const [isEditing, setIsEditing] = useState(false);
-    const [isCreating, setIsCreating] = useState(false); // Stare pentru creare proiect
+    const [isCreating, setIsCreating] = useState(false);
+    const [videoToWatch, setVideoToWatch] = useState(null); // Video pentru pop-up
+    const BASE_URL = "http://localhost:5000"; //
+    const videoURL = `${BASE_URL}${videoToWatch}`;
 
 
     useEffect(() => {
         const fetchProject = async () => {
             try {
-                const projectData = await fetchProjectByCollaboratorEmail(); // Apelul funcției
-                if(projectData.length ===0) {
-                    setProject(null); // Setează datele proiectului sau null
-                } else {
-                    setProject(projectData);
-                }
-                    //console.log(projectData);
-                // eslint-disable-next-line no-unused-vars
+                const projectData = await fetchProjectByCollaboratorEmail();
+                setProject(projectData.length === 0 ? null : projectData);
             } catch (error) {
-                setProject(null); // Dacă apare o eroare, setează null
+                setProject(null);
             }
         };
 
-        fetchProject(); // Apelează funcția
+        fetchProject();
     }, []);
-
 
     const handleEdit = () => {
         setIsEditing(true);
@@ -62,169 +71,123 @@ const MyProject = () => {
     };
 
     const handleSave = (updatedProject) => {
-        setProject(updatedProject); // Update the project state
+        setProject(updatedProject);
         setIsEditing(false);
         setIsCreating(false);
     };
 
-    // eslint-disable-next-line react/prop-types
-    const DeleteProjectButton = ({ projectId, onDeleteSuccess }) => {
-        const handleDelete = async () => {
-            if (window.confirm("Are you sure you want to delete this project?")) {
-                try {
-                    const response = await deleteProject(projectId);
-                    if (response.status===200) { // Assuming 'response.success' indicates the success status
-                        onDeleteSuccess(); // Call the callback to refresh the parent component
-                    } else {
-                        alert(response.data.message || "Failed to delete project");
-                    } // Notify parent component or refresh the list
-                } catch (error) {
-                    alert(error || "Failed to delete project");
-                }
-            }
-        };
-
-        return (
-            <button onClick={handleDelete} className="btn-delete">
-                    Delete Project
-            </button>
-        );
+    const handleDeleteSuccess = () => {
+        alert('Project deleted successfully!');
+        setProject(null);
     };
 
-                const existProject = (project || Object.keys(project || {}).length !== 0);
-                const currentUserEmail = getEmailFromToken(localStorage.getItem("token"));
+    const downloadAttachment = async (filename) => {
+        if (!filename) {
+            console.error("No filename provided for download.");
+            return;
+        }
 
-                const handleDeleteSuccess = () => {
-                alert('Project deleted successfully!');
-                // Redirect or refresh the project list here
-                setProject(null);
-            };
+        try {
+            const response = await fetch(`http://localhost:5000/api/files/download/${filename}`);
+            if (!response.ok) throw new Error("Failed to download file");
 
-                const downloadAttachment = async (filename) => {
-                if (!filename) {
-                console.error("No filename provided for download.");
-                return;
-            }
+            const blob = await response.blob();
+            const downloadUrl = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.setAttribute('download', filename);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(downloadUrl);
+        } catch (error) {
+            console.error("Error during download:", error);
+        }
+    };
 
+    const isVideoFile = (filename) => {
+        const videoExtensions = ['mp4', 'webm', 'ogg'];
+        const extension = filename.split('.').pop().toLowerCase();
+        return videoExtensions.includes(extension);
+    };
 
-                try {
-                const response = await fetch(`http://localhost:5000/api/files/download/${filename}`);
-                console.log("filename: " , filename);
-
-                if (!response.ok) {
-                throw new Error("Failed to download file");
-            }
-
-                const blob = await response.blob();
-                const downloadUrl = window.URL.createObjectURL(blob);
-
-                // Create a temporary link to trigger the download
-                const link = document.createElement('a');
-                link.href = downloadUrl;
-                link.setAttribute('download', filename); // Specify the downloaded file name
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-
-                // Revoke the blob URL to free memory
-                window.URL.revokeObjectURL(downloadUrl);
-            } catch (error) {
-                console.error("Error during download:", error);
-            }
-            };
-
-
-                return (
-                <div className={`my-project-container ${!existProject ? 'no-project-background' : ''}`}>
-                    {!existProject ? (
-                        <div className="no-project">
-                            <p>No project available. Start by creating one!</p>
-                            <button className="btnAdd" onClick={handleAddProject}>Add Project</button>
-                        </div>
+    return (
+        <div className={`my-project-container ${!project ? 'no-project-background' : ''}`}>
+            {!project ? (
+                <div className="no-project">
+                    <p>No project available. Start by creating one!</p>
+                    <button className="btnAdd" onClick={handleAddProject}>Add Project</button>
+                </div>
+            ) : (
+                <div className="my-project">
+                    <h1 className="my-project-text">My Project</h1>
+                    {(isEditing || isCreating) ? (
+                        <EditProjectForm
+                            open={true}
+                            project={project || {}}
+                            onSave={handleSave}
+                            onCancel={() => {
+                                isCreating ? setProject(null) : setIsCreating(false);
+                                setIsEditing(false);
+                                setIsCreating(false);
+                            }}
+                        />
                     ) : (
-                        <div className="my-project">
-                            <h1 className="my-project-text">My Project</h1>
-                            {(isEditing || isCreating) ? (
-                                <EditProjectForm
-                                    open={true}
-                                    project={project || {}}
-                                    onSave={handleSave}
-                                    onCancel={() => {
-                                        isCreating ? setProject(null) : setIsCreating(false);
-                                        setIsEditing(false);
-                                        setIsCreating(false);
-                                    }}
-                                    currentUserEmail={currentUserEmail}
-                                />
-                            ) : (
-                                <>
-                                    <h2>Title: {project.title}</h2>
-                                    <p>Description: {project.description}</p>
-                                    <p>
-                                        Deadline: {project.deadline
-                                        ? new Intl.DateTimeFormat('en-GB', {
-                                            day: 'numeric',
-                                            month: 'long',
-                                            year: 'numeric',
-                                        }).format(new Date(project.deadline))
-                                        : 'No deadline specified'}
-                                    </p>
-                                    <h3>Collaborators</h3>
-                                    <CollaboratorsList collaborators={project.collaborators} projectId={project.id}/>
-                                    {project.attachmentURL && (
-                                        <div className="attachment-section">
-                                            <h3>URL-s:</h3>
-                                            <ul>
-                                                <li>
-                                                    <span>{project.attachmentURL ? project.attachmentURL.split('/').pop() : "Unknown File"}</span>
+                        <>
+                            <h2>Title: {project.title}</h2>
+                            <p>Description: {project.description}</p>
+                            <h3>Collaborators</h3>
+                            <CollaboratorsList collaborators={project.collaborators} projectId={project.id} />
 
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    )}
-
-                                    {project.deliverables && project.deliverables.length > 0 && (
-                                        <div className="deliverables-section">
-                                            <h3>Deliverables:</h3>
-                                            <ul>
-                                                {project.deliverables.map((deliverable, index) => (
-                                                    <li key={index}>
-                                                        <span>{deliverable.attachmentURL ? deliverable.attachmentURL.split('/').pop() : "Unknown File"}</span>
-                                                        <button
-                                                            className="btnDownload"
-                                                            onClick={() => downloadAttachment(deliverable.attachmentURL.split('/').pop())}
-                                                        >
-                                                            Download
-                                                        </button>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    )}
-
-
-                                    <h3>Evaluations</h3>
-                                    <EvaluationsList evaluations={project.evaluations} projectId={project.id}/>
-
-                                    <div>
-                                        {new Date(project.deadline) > new Date() && (
-                                            <div className="edit-button-container">
-                                                <DeleteProjectButton
-                                                    projectId={project.id}
-                                                    onDeleteSuccess={handleDeleteSuccess}
-                                                />
-                                                <button className="btnEdit" onClick={handleEdit}>
-                                                    Edit Project
-                                                </button>
-                                            </div>
-                                        )}
-                                    </div>
-                                </>
+                            {project.deliverables && project.deliverables.length > 0 && (
+                                <div className="deliverables-section">
+                                    <h3>Deliverables:</h3>
+                                    <ul>
+                                        {project.deliverables.map((deliverable, index) => (
+                                            <li key={index}>
+                                                <span>{deliverable.attachmentURL.split('/').pop()}</span>
+                                                {isVideoFile(deliverable.attachmentURL) ? (
+                                                    <button
+                                                        className="btnWatch"
+                                                        onClick={() => setVideoToWatch(`${BASE_URL}${deliverable.attachmentURL}`)}
+                                                    >
+                                                        Watch
+                                                    </button>
+                                                ) : (
+                                                    <button
+                                                        className="btnDownload"
+                                                        onClick={() => downloadAttachment(deliverable.attachmentURL.split('/').pop())}
+                                                    >
+                                                        Download
+                                                    </button>
+                                                )}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
                             )}
-                        </div>
+
+                            <EvaluationsList evaluations={project.evaluations} projectId={project.id} />
+
+                            <div className="edit-button-container">
+                                <button className="btnEdit" onClick={handleEdit}>
+                                    Edit Project
+                                </button>
+                            </div>
+                        </>
                     )}
                 </div>
-                );
+            )}
+
+            {videoToWatch && (
+                <VideoPopup
+                    videoURL={videoToWatch} // Folosește direct valoarea completă
+                    onClose={() => setVideoToWatch(null)}
+                    onDownload={(videoURL) => downloadAttachment(videoURL.split('/').pop())}
+                />
+            )}
+        </div>
+    );
 };
 
 export default MyProject;

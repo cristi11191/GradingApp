@@ -15,6 +15,7 @@ const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatu
     const [isLegendVisible, setIsLegendVisible] = useState(false);
     const [allUsers, setAllUsers] = useState([]);
 
+
     useEffect(() => {
         const fetchUsers = async () => {
             try {
@@ -65,6 +66,7 @@ const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatu
             e.preventDefault();
         }
     };
+
 
     const removeCollaborator = (index) => {
         const removedCollaborator = collaborators[index];
@@ -158,6 +160,23 @@ const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatu
 const UrlInput = ({ urls, setUrls }) => {
     const [urlInput, setUrlInput] = useState("");
 
+    const isVideo = (url) => {
+        const videoExtensions = [".mp4", ".webm", ".ogg"];
+        return videoExtensions.some((ext) => url.endsWith(ext));
+    };
+
+    const renderVideoPreview = (url) => {
+        if (isVideo(url)) {
+            return (
+                <video key={url} controls width="100%">
+                    <source src={url} type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+            );
+        }
+        return null;
+    };
+
     const handleKeyDown = (e) => {
         if (e.key === "Enter" && urlInput.trim()) {
             if (urls.includes(urlInput.trim())) {
@@ -179,12 +198,19 @@ const UrlInput = ({ urls, setUrls }) => {
             <label htmlFor="urls" className="url-label">Add URLs:</label>
             <div className="tags-input">
                 {urls.map((url, index) => (
-                    <span key={index} className="tag">
-                        <p>{url} </p>
-                        <button className="icon" type="button" onClick={() => removeUrl(index)}>
-                            <CloseIcon className="close-icon" />
-                        </button>
-                    </span>
+                    <div key={index} className="url-preview-container">
+                        <span className="tag">
+                            <p>{url}</p>
+                            <button
+                                className="icon"
+                                type="button"
+                                onClick={() => removeUrl(index)}
+                            >
+                                <CloseIcon className="close-icon" />
+                            </button>
+                        </span>
+                        {renderVideoPreview(url)}
+                    </div>
                 ))}
                 <input
                     id="urls"
@@ -278,6 +304,7 @@ const EditProjectForm = ({ open, project, onCancel, onSave,  currentUserEmail })
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"],
             "application/vnd.ms-excel": [".xls"],
             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [".xlsx"],
+            "video/*": [".mp4", ".webm", ".ogg"]
         },
         multiple: true,
     });

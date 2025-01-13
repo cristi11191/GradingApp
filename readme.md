@@ -70,4 +70,3 @@ In the second terminal:
   ```
   http://localhost:3000
   ```
-

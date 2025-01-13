@@ -6,7 +6,7 @@ const crypto = require('crypto');
 const fs = require('fs'); // For checking and creating files
 const { execSync } = require('child_process'); // For running Prisma CLI commands
 const { cleanOrphanedFiles } = require('./controllers/deleteFiles');
-const router = require('./routes/indexRoutes')
+const router = require('./routes/indexRoutes');
 
 dotenv.config();
 const app = express();
@@ -16,11 +16,17 @@ const uploadDir = './uploads';
 const DB_PATH = './prisma/database.db';
 process.env.JWT_SECRET = crypto.randomBytes(64).toString('hex'); // Generate a new random secret
 
-
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Serve static files from the uploads directory
+app.use('/uploads', express.static(uploadDir));
+
+// Set API routes
 app.use('/api', router);
 
 const resetTokenVersion = async () => {
@@ -29,7 +35,7 @@ const resetTokenVersion = async () => {
   });
 };
 
-
+// Initialize database and uploads directory if they don't exist
 if (!fs.existsSync(DB_PATH)) {
   console.log('Database file not found. Initializing the database...');
   try {
@@ -46,6 +52,7 @@ if (!fs.existsSync(uploadDir)) {
   console.log('Created uploads/projects directory');
 }
 
+// Clean up orphaned files on startup
 cleanOrphanedFiles().catch((error) => {
   console.error('Error during server start file cleanup:', error.message);
 });
@@ -54,4 +61,6 @@ cleanOrphanedFiles().catch((error) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-resetTokenVersion(); // Call this function when the server starts
+
+// Reset token version for users
+resetTokenVersion();

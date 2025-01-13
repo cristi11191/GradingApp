@@ -145,24 +145,15 @@ h3 {
   margin-bottom: 0;
 }
 
-.btnDownload {
-  max-width: 80vh;
-  max-height: 20vh;
-  padding: 5px 15px;
-  background: #320477;
-  color: white;
-  border: 1px solid #218df4;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-left: 10px;
-  font-size: 14px;
-  transition: background 0.3s;
+.DeliverablesList li {
+  display: grid;
+  grid-template-columns: auto auto auto; /* Ajustează numărul de coloane */
+  align-items: center;
+  gap: 20px; /* Distanța între elemente */
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
 }
 
-.btnDownload:hover {
-  background: #0056b3;
-  border: 1px solid #218df4;
-}
 
 .edit-button-container {
   margin-top: 30px;
@@ -184,6 +175,37 @@ h3 {
   background: #0056b3;
   border: 1px solid #218df4;
 }
+
+.btnDownload, .btnWatch {
+  padding: 7px 20px; /* Dimensiune mai mică */
+  font-size: 12px; /* Text mai mic */
+  margin: 0 10px;
+  border-radius: 4px; /* Colțuri ușor rotunjite */
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btnDownload {
+  margin-right: 20px;
+  background-color: #007BFF;
+  color: white;
+}
+
+.btnDownload:hover {
+  background-color: #0056b3;
+}
+
+.btnWatch {
+  background-color: #4CAF50; /* Verde pentru Watch */
+  color: white;
+}
+
+.btnWatch:hover {
+  background-color: #3e8e41;
+}
+
+
 .attachment-section {
   margin: 20px 0;
   color: white;
@@ -213,5 +235,81 @@ h3 {
 .deliverables-section{
   color: white;
   margin-bottom: 10px;
+}
+
+iframe {
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.video-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #253E51; /* Fundal semi-transparent pentru pop-up */
+  box-shadow: 0 4px 10px #253E51;
+  z-index: 1000;
+  padding: 20px;
+  max-width: 90%;
+  max-height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px; /* Colțuri rotunjite */
+  color: white; /* Text alb */
+}
+
+.video-popup-content {
+  background:#253E51; /* Fundal mai întunecat */
+  padding: 15px;
+  border-radius: 10px;
+  width: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+}
+
+.video-element {
+  max-width: 100%;
+  max-height: 70%;
+  border-radius: 5px; /* Rotunjire ușoară pentru video */
+  box-shadow: 0 4px 6px #253E51; /* Umbra pentru video */
+}
+
+.video-popup-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.video-popup-buttons .btnDownload, .video-popup-buttons .btnClose {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.video-popup-buttons .btnDownload {
+  background-color: #007BFF;
+  color: white;
+}
+
+.video-popup-buttons .btnDownload:hover {
+  background-color: #0056b3;
+}
+
+.video-popup-buttons .btnClose {
+  background-color: #ff4f4f;
+  color: white;
+}
+
+.video-popup-buttons .btnClose:hover {
+  background-color: #d63031;
 }
 
