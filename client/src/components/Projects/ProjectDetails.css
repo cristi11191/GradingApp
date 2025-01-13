@@ -30,7 +30,8 @@
     background: #253E51;
     align-items: center;
     gap: 10px; /* Space between input and button */
-    margin-top: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .my-evaluation-form input {
