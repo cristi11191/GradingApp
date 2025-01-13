@@ -105,6 +105,7 @@ const ProjectDetails = () => {
             } else {
                 const newEvaluation = await createEvaluation(project.id, {score: parsedScore});
                 setEvaluations([...evaluations, newEvaluation]);
+                setUserEvaluation(newEvaluation);
                 setScore('');
             }
 

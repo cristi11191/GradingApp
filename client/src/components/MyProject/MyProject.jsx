@@ -137,7 +137,7 @@ const MyProject = () => {
                             <h2>Title: {project.title}</h2>
                             <p>Description: {project.description}</p>
                             <h3>Collaborators</h3>
-                            <CollaboratorsList collaborators={project.collaborators} projectId={project.id} />
+                            <CollaboratorsList collaborators={project.collaborators} projectId={project.id}/>
 
                             {project.deliverables && project.deliverables.length > 0 && (
                                 <div className="deliverables-section">
@@ -166,8 +166,8 @@ const MyProject = () => {
                                     </ul>
                                 </div>
                             )}
-
-                            <EvaluationsList evaluations={project.evaluations} projectId={project.id} />
+                            <h3>Evaluations:</h3>
+                            <EvaluationsList evaluations={project.evaluations} projectId={project.id}/>
 
                             <div className="edit-button-container">
                                 <button className="btnEdit" onClick={handleEdit}>
