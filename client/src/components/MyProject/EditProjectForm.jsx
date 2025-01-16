@@ -77,7 +77,7 @@ const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatu
             return newStatus;
         });
     };
-
+    const currentEmail = localStorage.getItem("email");
     const filteredUsers = allUsers.filter(
         (user) => !collaborators.some((collaborator) => collaborator.email === user.email)
     );
@@ -98,7 +98,7 @@ const CollaboratorsInput = ({ collaborators, setCollaborators, collaboratorStatu
                         }`}
                     >
                         {collaborator.email}
-                        {index > 0 &&
+                        {collaborator.email !== currentEmail &&
                             <button
                                 className="icon"
                                 type="button"

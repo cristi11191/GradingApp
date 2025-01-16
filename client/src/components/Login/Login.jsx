@@ -24,6 +24,7 @@ const Login = () => {
       localStorage.setItem("token", response.token); // Store JWT token
       localStorage.setItem("role", response.user.role); // Store role if needed
       localStorage.setItem("name", response.user.name); // Store name if needed
+      localStorage.setItem("email", response.user.email); // Store email if needed
       localStorage.setItem('loginTimestamp', performance.now()); // Save login timestamp
       navigate("/dashboard"); // Redirect to dashboard
       window.location.reload(); // Force re-render to apply token

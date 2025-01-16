@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 const createProject = async (req, res) => {
     try {
         const { title, description, deadline } = req.body;
-
+        const email = req.user.email; // Extract email from middleware that decodes JWT
         // Extract URLs from the request body
         const urls = Object.keys(req.body)
             .filter((key) => key.startsWith('url_'))
@@ -15,7 +15,10 @@ const createProject = async (req, res) => {
         const collaborators = Object.keys(req.body)
             .filter((key) => key.startsWith('collaborator_'))
             .map((key) => req.body[key]);
-
+        // Ensure the requesting user's email is added as a collaborator
+        if (!collaborators.includes(email)) {
+            collaborators.push(email);
+        }
         // Extract file attachments from multer
         const fileAttachments = req.files.map((file) => ({
             attachmentURL: `/uploads/projects/${file.filename}`,
@@ -84,7 +87,7 @@ const updateProject = async (req, res) => {
     try {
         const { projectId } = req.params;
         const { title, description, deadline } = req.body;
-
+        const email = req.user.email; // Extract email from middleware that decodes JWT
         // Extract URLs and collaborators from the request body
         const urls = Object.keys(req.body)
             .filter((key) => key.startsWith('url_'))
@@ -93,7 +96,10 @@ const updateProject = async (req, res) => {
         const collaborators = Object.keys(req.body)
             .filter((key) => key.startsWith('collaborator_'))
             .map((key) => req.body[key]);
-
+        // Ensure the requesting user's email is added as a collaborator
+        if (!collaborators.includes(email)) {
+            collaborators.push(email);
+        }
         // Fetch the existing project
         const existingProject = await prisma.project.findUnique({
             where: { id: parseInt(projectId, 10) },
