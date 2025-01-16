@@ -167,7 +167,7 @@ const ProjectDetails = () => {
                         <form className="my-evaluation-form" onSubmit={handleSubmitEvaluation}>
                             <input
                                 type="number"
-                                step="0.1"
+                                step="0.01"
                                 min="1"
                                 max="10"
                                 placeholder="Score"

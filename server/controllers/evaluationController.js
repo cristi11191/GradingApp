@@ -5,8 +5,6 @@ const jwt = require("jsonwebtoken");
 const {calculateFinalGrade} = require("../utils/gradeUtils"); // Ensure the correct relative path
 module.exports = prisma;
 
-
-// Add evaluation
 // Add evaluation
 const addEvaluation = async (req, res) => {
     const { score, projectId } = req.body;
