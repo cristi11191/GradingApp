@@ -27,5 +27,5 @@
 
 .my-project-card .no-project {
     font-size: 16px; /* Reducem dimensiunea fontului */
-    color: #ccc;
+    color: #ccc !important;
 }

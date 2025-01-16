@@ -22,7 +22,7 @@ const Notifications = () => {
                         setFinalScore(projectSummary.finalGrade);
                     }
                     if (grades.length === 0) {
-                        setError("Nu există evaluări disponibile.");
+                        setError("No evaluations found");
                     } else {
                         setEvaluations(grades);
                     }
@@ -41,12 +41,12 @@ const Notifications = () => {
     if (loading) return <p>Se încarcă datele...</p>;
 
     return (
-        <div className="card my-project-card">
+        <div className="my-project-card">
             <h2>Statistics</h2>
             {loading ? (
                 <div>Se încarcă datele...</div>
             ) : error ? (
-                <div className="no-evaluations">{error}</div>
+                <div className="no-project">{error}</div>
             ) : finalScore !== null ? (
                 <div className="statistics-details">
                     <p>
