@@ -1,29 +1,56 @@
-/* RecentEvaluations.css */
 .recent-evaluations {
+    margin-top: 8px;
     padding: 20px;
-    background-color: #fff;
+    background-color: #1E2A38;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: #fff;
+}
+
+.recent-evaluations h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #fff;
+    border-bottom: 2px solid #007BFF;
+    padding-bottom: 10px;
 }
 
 .evaluation-list {
     list-style-type: none;
     padding: 0;
+    margin-top: 30px;
 }
 
 .evaluation-item {
-    margin-bottom: 15px;
-}
-
-.evaluation-details {
-    margin-bottom: 10px;
-}
-
-.no-evaluations {
-    max-width: 400px;
+    display: flex;
+    flex-direction: column;
     padding: 15px;
-    background-color: #19293B !important;
-    color: #ccc;
-    text-align: center;
-    margin: 50px auto;
-    margin-top: 100px;
-    border-radius: 10px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    background-color: #19293B;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.evaluation-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.project-title {
+    font-size: 16px;
+    font-weight: bold;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.evaluation-score,
+.evaluation-date {
+    font-size: 14px;
+    color: #cccccc;
+}
+
+.evaluation-item:last-child {
+    margin-bottom: 0;
 }

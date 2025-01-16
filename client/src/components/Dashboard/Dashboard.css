@@ -81,6 +81,4 @@
     margin-bottom: 0;
 }
 
-.quickstats-container {
-    grid-column: span 2; /* Face ca Notifications să ocupe ambele coloane */
-}
+
