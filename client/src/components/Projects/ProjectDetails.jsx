@@ -123,7 +123,7 @@ const ProjectDetails = () => {
 
     return (
         <div className="my-project-container">
-            <button className="close-button" onClick={() => navigate('/projects')}>
+            <button className="close-button" onClick={() => navigate(-1)}>
                 ✖
             </button>
             <div className="my-project">

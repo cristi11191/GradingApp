@@ -1,0 +1,21 @@
+.my-project-card {
+    background-color: #19293B !important;
+    border-radius: 8px; /* Reducem radius-ul */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px; /* Reducem padding-ul */
+    color: white;
+    font-size: 16px; /* Reducem fontul */
+}
+
+.my-project-card h2 {
+    font-size: 20px; /* Reducem fontul pentru subtitluri */
+    margin-bottom: 12px; /* Reducem spațiul de jos */
+    color: #ffffff;
+    border-bottom: 1px solid #007BFF;
+    padding-bottom: 8px; /* Reducem padding-ul de jos */
+}
+
+.my-project-card .no-project {
+    font-size: 16px; /* Reducem dimensiunea fontului */
+    color: #ccc;
+}
