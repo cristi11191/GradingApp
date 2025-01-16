@@ -4,6 +4,7 @@
 
 .my-project-container {
     position:relative;
+    border: 1px solid #007BFF;
 }
 .close-button {
     position: absolute !important;

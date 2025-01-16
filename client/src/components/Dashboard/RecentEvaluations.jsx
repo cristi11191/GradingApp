@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { fetchEvaluationsByUserId } from "../../services/apiEvaluations.jsx";
 import "./RecentEvaluations.css";
 
@@ -6,12 +6,13 @@ const RecentEvaluations = ({ projects }) => {
     const [evaluation, setEvaluation] = useState(null);
     const [projectDetails, setProjectDetails] = useState(null);
     const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const getEvaluations = async () => {
             try {
                 const data = await fetchEvaluationsByUserId();
-                if (data.length === 0) {
+                if (!data || data.length === 0) {
                     setError("No evaluations found for this user.");
                 } else {
                     const firstEvaluation = data[0];
@@ -25,32 +26,47 @@ const RecentEvaluations = ({ projects }) => {
                 }
             } catch (err) {
                 setError("Failed to load evaluations.");
+            } finally {
+                setLoading(false); // Dezactivează starea de încărcare
             }
         };
 
         getEvaluations();
     }, [projects]);
 
+    // Afișare mesaj de eroare
     if (error) {
         return (
-            <div className="card recent-evaluations">
+            <div className="recent-evaluations">
                 <h2>Evaluated Project Details</h2>
                 <div className="no-evaluations">{error}</div>
             </div>
         );
     }
 
-    if (!evaluation || !projectDetails) {
+    // Afișare mesaj de încărcare
+    if (loading) {
         return (
-            <div className="card recent-evaluations">
+            <div className="recent-evaluations">
                 <h2>Evaluated Project Details</h2>
                 <div>Loading evaluation...</div>
             </div>
         );
     }
 
+    if (error || !evaluation || !projectDetails) {
+        return (
+            <div className="recent-evaluations">
+                <h2>Evaluated Project Details</h2>
+                <div className="no-project">No data available.</div>
+            </div>
+        );
+    }
+
+
+    // Afișare evaluare și detalii proiect
     return (
-        <div className="card recent-evaluations">
+        <div className="recent-evaluations">
             <h2>Recently Evaluation Details</h2>
             <ul className="evaluation-list">
                 <li className="evaluation-item">

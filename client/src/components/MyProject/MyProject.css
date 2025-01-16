@@ -41,7 +41,7 @@
   right: 10px;
   background-color: #001529; /* O culoare albastră */
   color: white;
-  border: none;
+  border: 1px solid #218df4;
   padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;

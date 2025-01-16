@@ -1,27 +1,49 @@
 import React, { useEffect, useState } from "react";
 import { fetchAllProjects } from "../../services/apiProject.jsx";
-import "./RecentProjects.css"; // Creăm un fișier CSS separat pentru stiluri
+import "./RecentProjects.css";
 
 const RecentProjects = () => {
     const [projects, setProjects] = useState([]);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const projects = await fetchAllProjects();
-                setProjects(projects);
+                const allProjects = await fetchAllProjects();
+                const currentDate = new Date(); // Data curentă
+
+                // Filtrăm proiectele cu un deadline valid și ulterior datei curente
+                const upcomingProjects = allProjects
+                    .filter(
+                        (project) =>
+                            project.deadline && new Date(project.deadline) >= currentDate
+                    )
+                    .sort((a, b) => new Date(a.deadline) - new Date(b.deadline)); // Sortare crescătoare
+
+                setProjects(upcomingProjects);
             } catch (error) {
                 console.error("Error fetching projects:", error);
+                setError("Failed to load projects.");
             }
         };
+
         fetchData();
     }, []);
+
+    if (error) {
+        return (
+            <div className="card">
+                <h2>Recent Projects</h2>
+                <p>{error}</p>
+            </div>
+        );
+    }
 
     if (!Array.isArray(projects) || projects.length === 0) {
         return (
             <div className="card">
                 <h2>Recent Projects</h2>
-                <p>No projects available.</p>
+                <p>No upcoming projects available.</p>
             </div>
         );
     }
