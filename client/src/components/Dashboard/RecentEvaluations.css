@@ -1,18 +1,31 @@
 .recent-evaluations {
-    margin-top: 8px;
-    padding: 20px;
-    background-color: #1E2A38;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    color: #fff;
+    background-color: #19293B !important;
+    border-radius: 8px; /* Reducem radius-ul */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px; /* Reducem padding-ul */
+    color: white;
+    font-size: 16px; /* Reducem fontul */
 }
 
+.recent-evaluations .no-project ,.recent-evaluations .no-evaluations{
+    background-color: #001529 !important; /* Fundal mai închis pentru box */
+    border-radius: 8px; /* Colțuri rotunjite */
+    padding: 15px; /* Spațiu interior */
+    text-align: center; /* Text centrat */
+    font-size: 16px; /* Dimensiune font */
+    color: #ccc; /* Culoare text */
+    margin-top: 100px; /* Spațiere față de conținutul anterior */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Adăugăm o umbră discretă */
+}
+
+
+
 .recent-evaluations h2 {
-    font-size: 20px;
-    margin-bottom: 15px;
-    color: #fff;
-    border-bottom: 2px solid #007BFF;
-    padding-bottom: 10px;
+    font-size: 20px; /* Reducem fontul pentru subtitluri */
+    margin-bottom: 12px; /* Reducem spațiul de jos */
+    color: #ffffff;
+    border-bottom: 1px solid #007BFF; /* Linie similară sub titlu */
+    padding-bottom: 8px; /* Reducem padding-ul de jos */
 }
 
 .evaluation-list {
@@ -40,7 +53,6 @@
 
 .project-title {
     font-size: 16px;
-    font-weight: bold;
     font-weight: bold;
     color: #ffffff;
 }

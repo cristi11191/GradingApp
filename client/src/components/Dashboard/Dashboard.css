@@ -4,7 +4,7 @@
     max-height: 95vh; /* Dublăm înălțimea maximă */
     margin: 0 auto;
     background: #253E51;
-    border: 1px solid #ddd;
+    border: 1px solid #007BFF;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     font-family: 'Arial', sans-serif;
@@ -22,19 +22,23 @@
 .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* 2 coloane egale */
-    gap: 40px; /* Creștem spațiul dintre elemente */
+    gap: 25px; /* Creștem spațiul dintre elemente */
 }
-
 .card {
     background-color: #19293B !important;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px; /* Creștem padding-ul */
+    padding: 20px;
     color: white;
-    font-size: 16px; /* Mărim fontul */
+    font-size: 16px;
+    max-height: 330px;
+    overflow: hidden;
 }
 
 .card h2 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-size: 20px; /* Mărim fontul pentru subtitluri */
     margin-bottom: 12px; /* Creștem spațiul de jos */
     color: #ffffff;
@@ -48,6 +52,9 @@
 }
 
 .card ul li {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     margin-bottom: 15px; /* Creștem spațiul de jos */
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px; /* Creștem padding-ul */

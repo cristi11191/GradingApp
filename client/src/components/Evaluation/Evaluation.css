@@ -1,3 +1,9 @@
+.form-select{
+    background: #253E51;
+    color: white;
+    box-shadow: 0 0 0 0.5px white;
+}
+
 .evaluation-card {
     background: #253E51;
     border: 1px solid #218df4;

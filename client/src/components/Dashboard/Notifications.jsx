@@ -14,7 +14,7 @@ const Notifications = () => {
             try {
                 setLoading(true);
                 const data = await fetchProjectByCollaboratorEmail(); // Fetch evaluările utilizatorului
-                console.log(data);
+                //console.log(data);
                 if(data.length!==0){
                     const projectSummary = await fetchProjectSummary(data.id);
                     const grades = await fetchEvaluationsByProjectId(data.id);
@@ -22,7 +22,7 @@ const Notifications = () => {
                         setFinalScore(projectSummary.finalGrade);
                     }
                     if (grades.length === 0) {
-                        setError("Nu există evaluări disponibile.");
+                        setError("No evaluations found");
                     } else {
                         setEvaluations(grades);
                     }
@@ -40,29 +40,23 @@ const Notifications = () => {
 
     if (loading) return <p>Se încarcă datele...</p>;
 
-    // Calcularea mediei, maximului și minimului folosind funcția calculateFinalGrade
-    const scores = evaluations.map((e) => e.score); // Extrage scorurile din evaluări
-    const theFinalGrade = finalScore;
-    const max = Math.max(...scores);
-    const min = Math.min(...scores);
-
     return (
-        <div className="card my-project-card">
+        <div className="my-project-card">
             <h2>Statistics</h2>
             {loading ? (
                 <div>Se încarcă datele...</div>
             ) : error ? (
-                <div className="no-evaluations">{error}</div>
+                <div className="no-project">{error}</div>
             ) : finalScore !== null ? (
                 <div className="statistics-details">
                     <p>
-                        <strong>Final grade average:</strong> {finalScore}
+                        Final grade average: {finalScore}
                     </p>
                     <p>
-                        <strong>Highest grade:</strong> {Math.max(...evaluations.map((e) => e.score))}
+                        Highest grade:{Math.max(...evaluations.map((e) => e.score))}
                     </p>
                     <p>
-                        <strong>Lowest grade:</strong> {Math.min(...evaluations.map((e) => e.score))}
+                        Lowest grade:{Math.min(...evaluations.map((e) => e.score))}
                     </p>
                 </div>
             ) : (
