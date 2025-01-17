@@ -6,6 +6,8 @@ const fileRoutes = require("./fileRoutes");
 const projectRoutes = require("./projectRoutes");
 const collaboratorRoutes = require("./collaboratorsRoutes");
 const evaluationRoutes = require("./evaluationRoutes");
+const {getCounts} = require("../utils/dashboardUtils");
+const {authMiddleware} = require("../middlewares/authMiddleware");
 
 const router = express.Router();
 
@@ -16,5 +18,6 @@ router.use('/files', fileRoutes);
 router.use('/project', projectRoutes);
 router.use('/collaborator', collaboratorRoutes); // Register the collaborator route
 router.use('/evaluation',evaluationRoutes);
+router.get('/counts', authMiddleware, getCounts);
 
 module.exports = router;

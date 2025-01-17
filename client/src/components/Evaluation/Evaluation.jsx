@@ -24,7 +24,10 @@ const Evaluation = () => {
 
                 // Fetch all projects
                 const projectsData = await fetchAllProjects();
-                setProjects(projectsData);
+                const filtered = projectsData.filter(project =>
+                    evaluationsData.some(evaluation => evaluation.projectId === project.id) // Match project.id with evaluation.projectId
+                );
+                setProjects(filtered); // Set only the filtered projects
             } catch (error) {
                 setError(error.message || "Failed to fetch data");
             } finally {

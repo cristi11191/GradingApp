@@ -4,6 +4,7 @@ import MyProject from "../components/MyProject/MyProject.jsx";
 import Evaluation from "../components/Evaluation/Evaluation.jsx";
 import ProjectDetails from "../components/Projects/ProjectDetails.jsx";
 import AdminDashboard from "../components/AdminDashboard/AdminDashboard.jsx";
+import Users from "../components/Users/Users.jsx";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import React from "react";
 import AssignmentIcon from "@mui/icons-material/Assignment";
@@ -50,6 +51,13 @@ export const rolesConfig = {
         label: 'Project Details',
         path: '/project/:projectId',
         component: ProjectDetails,
+        roles: ['user','admin'],
+    },
+    users: {
+        label: 'Users',
+        path: '/users',
+        component: Users,
+        roles: ['admin'],
     },
 
     // Add more roles and paths as needed
