@@ -150,9 +150,13 @@ const ProjectDetails = () => {
                         <p>No evaluations found.</p>
                     ) : (
                         <ul className="evaluations-list">
-                            {evaluations.map((evaluation, index) => (
+                            {evaluations.map((evaluation) => (
                                 <li key={evaluation.id} className="textcolor">
-                                    Evaluator: <strong>{index + 1}</strong> Score: <strong>{evaluation.score}</strong>
+                                    {userRole !== 'admin' && (
+                                        <>Evaluator: <strong>{evaluation.userID}</strong> </>
+                                    )}
+                                    Score: <strong>{evaluation.score}</strong>
+
                                 </li>
                             ))}
                         </ul>

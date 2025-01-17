@@ -1,0 +1,88 @@
+/* Custom table styling */
+.custom-table {
+    width: 100%; /* Full width */
+    border-collapse: collapse; /* Remove gaps between cells */
+    margin-bottom: 1rem; /* Optional spacing below the table */
+    background-color: #19293B; /* Custom background color */
+    color: white; /* Custom text color */
+}
+
+.custom-table th, .custom-table td {
+    padding: 0.2rem 0.3rem; /* Bootstrap-like padding */
+    vertical-align: center; /* Align to top like Bootstrap */
+    border: 1px solid #0b141b; /* Border color */
+}
+
+.custom-table thead th {
+    background-color: #232830; /* Darker header background */
+    color: white; /* Header text color */
+    font-weight: bold;
+}
+
+.custom-table tbody tr:hover {
+    background-color: #243b4e; /* Lighter background on hover */
+}
+/* Customize the dropdown to match the theme */
+.form-select2 {
+    width: 100px; /* Control the width */
+    margin-left: auto; /* Align to the right */
+    background-color: #19293B; /* Dark theme background */
+    color: white; /* White text */
+    border: 1px solid #ffffff; /* White border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 5px 10px; /* Padding for better appearance */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow */
+}
+
+/* Change dropdown arrow */
+.form-select2:focus {
+    border-color: #26a69a; /* Highlight border on focus */
+    box-shadow: 0px 0px 5px rgba(38, 166, 154, 0.75); /* Highlight effect */
+}
+
+/* Optional: Style the dropdown options */
+.form-select2 option {
+    background-color: #243b4e; /* Slightly lighter dropdown options */
+    color: white; /* White text */
+}
+
+/* Table cell alignment */
+.text-end .form-select {
+    display: block;
+    text-align: right;
+}
+/* Common button styles */
+.button {
+    margin-right: 10px;
+    display: inline-block;
+    padding: 10px 10px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Edit button styles */
+.button-edit {
+    background-color: #ffc107; /* Yellow */
+    color: #000; /* Black text */
+}
+.button-save {
+    background-color: #05a500; /* Yellow */
+    color: #000; /* Black text */
+}
+/* Delete button styles */
+.button-delete {
+    background-color: #dc3545; /* Red */
+    color: #fff; /* White text */
+}
+
+/* Hover and focus effects */
+.button:hover, .button:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

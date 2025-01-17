@@ -1,5 +1,6 @@
 import axios from "axios";
 import api from "./api.jsx";
+const API_URL = import.meta.env.VITE_API_URL+'/api';
 
 export const fetchRecentProjects = async () => {
     const response = await api.get("/api/projects");
@@ -27,4 +28,20 @@ export const fetchQuickStats = async () => {
 export const fetchMyProject = async () => {
     const response = await api.get("/api/my-project");
     return response.data;
+};
+
+export const getCounts = async () => {
+    try {
+        const token = localStorage.getItem("token");
+        const response = await api.get(`${API_URL}/counts`, {
+
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return response.data; // Return "existent" or "inexistent" based on response
+    } catch (error) {
+        console.error("Error checking collaborator existence:", error);
+        throw error.response?.data || "Failed to check collaborator existence"; // Forward the error
+    }
 };

@@ -28,7 +28,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/projects',
-                element: <ProtectedRoutes element={<MainContent />} role={['user']} />,
+                element: <ProtectedRoutes element={<MainContent />} role={['user','admin']} />,
             },
             {
                 path: '/myproject',
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/project/:projectId',
-                element: <ProtectedRoutes element={<MainContent />} role={['user']} />,
+                element: <ProtectedRoutes element={<MainContent />} role={['user','admin']} />,
             },
 
             // Admin-specific routes
@@ -49,11 +49,7 @@ const router = createBrowserRouter([
                 element: <ProtectedRoutes element={<AdminDashboard />} role={['admin']} />,
             },
             {
-                path: '/admin/projects',
-                element: <ProtectedRoutes element={<MainContent />} role={['admin']} />,
-            },
-            {
-                path: '/admin/project/:projectId',
+                path: 'users',
                 element: <ProtectedRoutes element={<MainContent />} role={['admin']} />,
             },
         ]
