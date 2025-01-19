@@ -31,7 +31,7 @@ api.interceptors.response.use(
 
 export const validateToken = async () => {
   try {
-    const response = await api.get('/auth/validate', {
+    const response = await api.post('/auth/validate', {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     });
 
