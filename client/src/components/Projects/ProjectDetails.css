@@ -6,6 +6,48 @@
     position:relative;
     border: 1px solid #007BFF;
 }
+
+.my-project h1,
+.my-project h2,
+.my-project h3,
+.my-project p,
+.my-project ul,
+.my-project li {
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    color: #ffffff !important;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.my-project h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.my-project p,
+.my-project h2,
+.my-project h3{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+.my-project ul {
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.my-project strong {
+    font-weight: bold;
+}
+
+.my-project .overall-score,
+.my-project .my-evaluation-form {
+    margin-top: 20px;
+}
+
 .close-button {
     position: absolute !important;
     top: 10px !important;
@@ -38,7 +80,7 @@
 .my-evaluation-form input {
     flex: 1;
     padding: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid #ffffff;
     border-radius: 4px;
     font-size: 14px;
     background: lightgray !important;
@@ -58,10 +100,19 @@
     background-color: #0056b3;
 }
 
+.my-evaluation-form input,
+.my-evaluation-form button {
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+}
+
 .evaluations-container {
-    max-height: 150px;
+    max-height: 200px;
     overflow-y: auto;
-    margin-bottom: 10px;
+    border: 1px solid #253E51;
+    padding: 2px;
+    border-radius: 4px;
+    background-color: #253E51;
 }
 
 .evaluations-list {
@@ -71,12 +122,24 @@
 }
 
 .evaluations-list li {
-    padding: 8px;
+    padding: 5px 5px;
+    border-bottom: 1px solid #ffffff;
 }
+
+.evaluations-list li:last-child {
+    border-bottom: none;
+}
+
+.url-link{
+    color: #ffffff !important;
+}
+
 .overall-score {
     font-size: 16px;
     font-weight: bold;
     color: #333;
     margin-top: 10px;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #ffffff;
 }
+
+
