@@ -75,13 +75,13 @@
     background-color: #05a500; /* Yellow */
     color: #000; /* Black text */
 }
-/* Delete button styles */
+
 .button-delete {
-    background-color: #dc3545; /* Red */
-    color: #fff; /* White text */
+    background-color: #dc3545;
+    color: #fff;
 }
 
-/* Hover and focus effects */
+
 .button:hover, .button:focus {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
