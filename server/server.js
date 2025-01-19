@@ -15,10 +15,11 @@ const prisma = new PrismaClient();
 const uploadDir = './uploads';
 const DB_PATH = './prisma/database.db';
 process.env.JWT_SECRET = crypto.randomBytes(64).toString('hex'); // Generate a new random secret
-
+const allowedOrigins = ['https://grading-app-six.vercel.app' , 'https://localhost:3000'];
 app.use(cors({
-  origin: '*',
+  origin: allowedOrigins,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true,
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
