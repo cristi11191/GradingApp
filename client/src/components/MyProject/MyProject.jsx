@@ -40,7 +40,7 @@ const getEmailFromToken = (token) => {
 };
 
 const MyProject = () => {
-    const [project, setProject] = useState({});
+    const [project, setProject] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const [isCreating, setIsCreating] = useState(false);
     const [videoToWatch, setVideoToWatch] = useState(null); // Video pentru pop-up
