@@ -57,11 +57,17 @@
 }
 
 .evaluation-score,
-.evaluation-date {
+.evaluation-date,
+.project-ddl{
     font-size: 14px;
     color: #cccccc;
 }
 
 .evaluation-item:last-child {
     margin-bottom: 0;
+}
+
+.expired{
+    font-size: 14px;
+    color: red;
 }
