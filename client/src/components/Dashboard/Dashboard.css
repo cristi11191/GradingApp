@@ -1,7 +1,7 @@
 .dashboard {
-    padding: 40px; /* Dublăm padding-ul */
-    max-width: 160vh; /* Dublăm lățimea maximă */
-    max-height: 95vh; /* Dublăm înălțimea maximă */
+    padding: 40px;
+    max-width: 160vh;
+    max-height: 95vh;
     margin: 0 auto;
     background: #253E51;
     border: 1px solid #007BFF;
@@ -12,17 +12,17 @@
 }
 
 .dashboard h1 {
-    font-size: 25px; /* Mărim fontul pentru titlu */
-    margin-bottom: 30px; /* Creștem spațiul de jos */
+    font-size: 25px;
+    margin-bottom: 30px;
     border-bottom: 2px solid #007BFF;
-    padding-bottom: 10px; /* Creștem padding-ul de jos */
+    padding-bottom: 10px;
     text-align: center;
 }
 
 .dashboard-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 coloane egale */
-    gap: 25px; /* Creștem spațiul dintre elemente */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
 }
 .card {
     background-color: #19293B !important;
@@ -39,11 +39,11 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 20px; /* Mărim fontul pentru subtitluri */
-    margin-bottom: 12px; /* Creștem spațiul de jos */
+    font-size: 20px;
+    margin-bottom: 12px;
     color: #ffffff;
     border-bottom: 1px solid #007BFF;
-    padding-bottom: 8px; /* Creștem padding-ul de jos */
+    padding-bottom: 8px;
 }
 
 .card ul {
@@ -55,20 +55,20 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-bottom: 15px; /* Creștem spațiul de jos */
+    margin-bottom: 15px;
     border-bottom: 1px solid #ddd;
-    padding-bottom: 10px; /* Creștem padding-ul */
-    padding-top: 10px; /* Creștem padding-ul */
+    padding-bottom: 10px;
+    padding-top: 10px;
 }
 
 .btnEdit {
-    padding: 15px 30px; /* Creștem padding-ul */
+    padding: 15px 30px;
     background: #007BFF;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 18px; /* Mărim fontul */
+    font-size: 18px;
     transition: background 0.3s;
 }
 
@@ -79,8 +79,8 @@
 .notification {
     background-color: #320477;
     border-radius: 5px;
-    padding: 20px; /* Creștem padding-ul */
-    margin-bottom: 15px; /* Creștem spațiul de jos */
+    padding: 20px;
+    margin-bottom: 15px;
     color: white;
 }
 

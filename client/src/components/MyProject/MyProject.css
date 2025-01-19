@@ -39,7 +39,7 @@
   position: fixed;
   top: 10px;
   right: 10px;
-  background-color: #001529; /* O culoare albastră */
+  background-color: #001529;
   color: white;
   border: 1px solid #218df4;
   padding: 10px 15px;
@@ -132,11 +132,11 @@ h3 {
 .CollaboratorsList li,
 .DeliverablesList li,
 .EvaluationsList li {
-  margin-bottom: 20px; /* Crește distanța dintre elementele listei */
+  margin-bottom: 20px;
   font-size: 15px;
   color: #ffffff;
-  padding: 8px 0; /* Adaugă spațiere internă între text și marginile elementului */
-  border-bottom: 1px solid #ddd; /* Linie sub fiecare element pentru claritate (opțional) */
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
 }
 
 .CollaboratorsList li:last-child,
@@ -147,9 +147,9 @@ h3 {
 
 .DeliverablesList li {
   display: grid;
-  grid-template-columns: auto auto auto; /* Ajustează numărul de coloane */
+  grid-template-columns: auto auto auto;
   align-items: center;
-  gap: 20px; /* Distanța între elemente */
+  gap: 20px;
   padding: 8px 0;
   border-bottom: 1px solid #ddd;
 }
@@ -157,7 +157,7 @@ h3 {
 
 .edit-button-container {
   margin-top: 30px;
-  text-align: right; /* Plasează butonul la dreapta */
+  text-align: right;
 }
 
 .btnEdit {
@@ -177,10 +177,10 @@ h3 {
 }
 
 .btnDownload, .btnWatch {
-  padding: 7px 20px; /* Dimensiune mai mică */
-  font-size: 12px; /* Text mai mic */
+  padding: 7px 20px;
+  font-size: 12px;
   margin: 0 10px;
-  border-radius: 4px; /* Colțuri ușor rotunjite */
+  border-radius: 4px;
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -197,7 +197,7 @@ h3 {
 }
 
 .btnWatch {
-  background-color: #4CAF50; /* Verde pentru Watch */
+  background-color: #4CAF50;
   color: white;
 }
 
@@ -210,11 +210,11 @@ h3 {
   margin: 20px 0;
   color: white;
 
-  /* Stiluri pentru limitarea textului */
-  overflow: hidden;               /* Ascunde conținutul care depășește lungimea */
-  white-space: nowrap;            /* Previne textul să treacă pe linii noi */
-  text-overflow: ellipsis;        /* Adaugă "..." la sfârșitul textului */
-  max-width: 100ch;               /* Lungime maximă de 100 de caractere */
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100ch;
 }
 
 .attachment-image {
@@ -247,7 +247,7 @@ iframe {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #253E51; /* Fundal semi-transparent pentru pop-up */
+  background: #253E51;
   box-shadow: 0 4px 10px #253E51;
   z-index: 1000;
   padding: 20px;
@@ -256,12 +256,12 @@ iframe {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 10px; /* Colțuri rotunjite */
-  color: white; /* Text alb */
+  border-radius: 10px;
+  color: white;
 }
 
 .video-popup-content {
-  background:#253E51; /* Fundal mai întunecat */
+  background:#253E51;
   padding: 15px;
   border-radius: 10px;
   width: 100%;
@@ -275,8 +275,8 @@ iframe {
 .video-element {
   max-width: 100%;
   max-height: 70%;
-  border-radius: 5px; /* Rotunjire ușoară pentru video */
-  box-shadow: 0 4px 6px #253E51; /* Umbra pentru video */
+  border-radius: 5px;
+  box-shadow: 0 4px 6px #253E51;
 }
 
 .video-popup-buttons {

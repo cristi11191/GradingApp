@@ -255,10 +255,10 @@ const ProjectDetails = () => {
                         <p>No evaluations found.</p>
                     ) : (
                         <ul className="evaluations-list">
-                            {evaluations.map((evaluation) => (
+                            {evaluations.map((evaluation, index) => (
                                 <li key={evaluation.id} className="textcolor">
                                     {userRole !== 'admin' && (
-                                        <>Evaluator: <strong>{evaluation.userID}</strong> </>
+                                        <>Evaluator: <strong>{index +1}</strong> </>
                                     )}
                                     Score: <strong>{evaluation.score}</strong>
 
@@ -268,7 +268,8 @@ const ProjectDetails = () => {
                     )}
                 </div>
                 <p className="overall-score">Overall: <strong>{finalScore}</strong></p>
-                <h3>My Evaluation:</h3>
+                {userRole !== 'admin' && (
+                <h3>My Evaluation:</h3>  )}
                 {userRole === 'user' && (
                     isEvaluationOlderThan12Hours() ? (
                         <p>Your Score: <strong>{userEvaluation?.score}</strong></p>
