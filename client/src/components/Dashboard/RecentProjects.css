@@ -16,9 +16,9 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .recent-project-item:last-child {
-    margin-bottom: 0; /* Eliminăm spațiul de jos */
-    padding-bottom: 10px; /* Păstrăm padding-ul pentru linia albă */
-    border-bottom: 1px solid #ddd; /* Menținem linia albă */
+    margin-bottom: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
 }
 
 .recent-project-item:hover {
