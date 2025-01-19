@@ -2,13 +2,18 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 async function main() {
+    const hashedPassword = await bcrypt.hash('secret', 10);
+
     await prisma.user.create({
         data: {
-            username: 'admin',
+            name: 'admin',
             email: 'admin@test.com',
-            password: 'secret', // Always hash passwords!
+            password: hashedPassword,
+            role: 'admin', // Optional: Set the desired role
         },
     });
+
+    console.log('Seed data created successfully.');
 }
 
 main()
