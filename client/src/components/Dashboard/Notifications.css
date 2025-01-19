@@ -1,31 +1,31 @@
 .my-project-card {
-    background-color: #19293B !important; /* Fundal consistent */
-    border-radius: 8px; /* Colțuri rotunjite */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Umbra identică */
-    padding: 20px; /* Spațiu interior */
-    color: white; /* Text alb */
-    font-size: 16px; /* Dimensiunea fontului */
+    background-color: #19293B !important;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    color: white;
+    font-size: 16px;
 }
 
 .my-project-card h2 {
-    font-size: 20px; /* Dimensiune font pentru subtitluri */
-    margin-bottom: 12px; /* Spațiere între titlu și conținut */
+    font-size: 20px;
+    margin-bottom: 12px;
     color: #ffffff;
-    border-bottom: 1px solid #007BFF; /* Linie sub titlu */
-    padding-bottom: 8px; /* Spațiere sub titlu */
+    border-bottom: 1px solid #007BFF;
+    padding-bottom: 8px;
 }
 
 .my-project-card .statistics-details p {
-    margin-bottom: 12px; /* Spațiere între paragrafe */
-    border-bottom: 1px solid #ddd; /* Linie albă dedesubt */
-    padding-bottom: 8px; /* Spațiere dedesubt */
-    padding-top: 8px; /* Spațiere deasupra */
-    color: white; /* Culoare text */
-    font-size: 16px; /* Dimensiune font */
+    margin-bottom: 12px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    color: white;
+    font-size: 16px;
 }
 
 
 .my-project-card .no-project {
-    font-size: 16px; /* Reducem dimensiunea fontului */
+    font-size: 16px;
     color: #ccc !important;
 }
