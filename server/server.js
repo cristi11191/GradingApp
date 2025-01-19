@@ -40,7 +40,7 @@ if (!fs.existsSync(DB_PATH)) {
   console.log('Database file not found. Initializing the database...');
   try {
     // Run Prisma migrations to create the database and schema
-    execSync('npx prisma migrate dev --name init', { stdio: 'inherit' });
+    execSync('npx prisma migrate dev --name init --schema=./prisma/schema.prisma', { stdio: 'inherit' });
     console.log('Database initialized successfully.');
   } catch (error) {
     console.error('Failed to initialize the database:', error);
@@ -61,6 +61,17 @@ cleanOrphanedFiles().catch((error) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+process.on('SIGINT', () => {
+  console.log('Backend server shutting down...');
+  process.exit(0); // Exit gracefully
+});
+
+process.on('SIGTERM', () => {
+  console.log('Backend server received termination signal.');
+  process.exit(0); // Exit gracefully
+});
+
 
 // Reset token version for users
 resetTokenVersion();
