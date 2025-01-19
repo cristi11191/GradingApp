@@ -163,6 +163,29 @@ const MyProject = () => {
                                                 )}
                                             </li>
                                         ))}
+
+                                        {/* Afișează URL-urile salvate */}
+                                        {project.attachmentURL && project.attachmentURL.length > 0 && (
+                                            <div className="urls-section">
+                                                <h3>URLs:</h3>
+                                                <ul>
+                                                    {project.attachmentURL.split(",").map((url, index) => (
+                                                        <li key={index}>
+                                                            <a
+                                                                href={url}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="url-link"
+                                                            >
+                                                                {url}
+                                                            </a>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        )}
+
+
                                     </ul>
                                 </div>
                             )}

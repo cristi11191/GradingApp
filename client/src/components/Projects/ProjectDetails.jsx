@@ -9,6 +9,28 @@ import {
 import { useParams, useNavigate } from 'react-router-dom';
 import './ProjectDetails.css';
 
+const VideoPopup = ({ videoURL, onClose, onDownload }) => (
+    <div className="video-popup">
+        <div className="video-popup-content">
+            <video controls className="video-element">
+                <source src={videoURL} type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
+            <div className="video-popup-buttons">
+                <button className="btnDownload" onClick={() => onDownload(videoURL)}>
+                    Download
+                </button>
+                <button className="btnClose" onClick={onClose}>
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+);
+
+
+
+
 const ProjectDetails = () => {
     const { projectId } = useParams();
     const [project, setProject] = useState(null);
@@ -19,6 +41,9 @@ const ProjectDetails = () => {
     const [userRole, setRole] = useState(null);
     const [finalScore, setFinalScore] = useState(null);
     const navigate = useNavigate();
+    const [videoToWatch, setVideoToWatch] = useState(null); // Video pentru pop-up
+    const BASE_URL = "http://localhost:5000"; //
+    const videoURL = `${BASE_URL}${videoToWatch}`;
 
     useEffect(() => {
         const fetchProjectDetails = async () => {
@@ -121,6 +146,36 @@ const ProjectDetails = () => {
     if (error) return <p>{error}</p>;
     if (!project) return <p>Loading project details...</p>;
 
+    const downloadAttachment = async (filename) => {
+        if (!filename) {
+            console.error("No filename provided for download.");
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:5000/api/files/download/${filename}`);
+            if (!response.ok) throw new Error("Failed to download file");
+
+            const blob = await response.blob();
+            const downloadUrl = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.setAttribute('download', filename);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(downloadUrl);
+        } catch (error) {
+            console.error("Error during download:", error);
+        }
+    };
+
+    const isVideoFile = (filename) => {
+        const videoExtensions = ['mp4', 'webm', 'ogg'];
+        const extension = filename.split('.').pop().toLowerCase();
+        return videoExtensions.includes(extension);
+    };
+
     return (
         <div className="my-project-container">
             <button className="close-button" onClick={() => navigate(-1)}>
@@ -144,6 +199,56 @@ const ProjectDetails = () => {
                     </ul>)}
 
 
+                {project.deliverables && project.deliverables.length > 0 && (
+                    <div className="deliverables-section">
+                        <h3>Deliverables:</h3>
+                        <ul>
+                            {project.deliverables.map((deliverable, index) => (
+                                <li key={index}>
+                                    <span>{deliverable.attachmentURL.split('/').pop()}</span>
+                                    {isVideoFile(deliverable.attachmentURL) ? (
+                                        <button
+                                            className="btnWatch"
+                                            onClick={() => setVideoToWatch(`${BASE_URL}${deliverable.attachmentURL}`)}
+                                        >
+                                            Watch
+                                        </button>
+                                    ) : (
+                                        <button
+                                            className="btnDownload"
+                                            onClick={() => downloadAttachment(deliverable.attachmentURL.split('/').pop())}
+                                        >
+                                            Download
+                                        </button>
+                                    )}
+                                </li>
+                            ))}
+
+                            {/* Afișează URL-urile salvate */}
+                            {project.attachmentURL && project.attachmentURL.length > 0 && (
+                                <div className="urls-section">
+                                    <h3>URLs:</h3>
+                                    <ul>
+                                        {project.attachmentURL.split(",").map((url, index) => (
+                                            <li key={index}>
+                                                <a
+                                                    href={url}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="url-link"
+                                                >
+                                                    {url}
+                                                </a>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+
+
+                        </ul>
+                    </div>
+                )}
                 <h3>Evaluations</h3>
                 <div className="evaluations-container">
                     {evaluations.length === 0 ? (

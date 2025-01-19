@@ -199,19 +199,27 @@ const UrlInput = ({ urls, setUrls }) => {
             <div className="tags-input">
                 {urls.map((url, index) => (
                     <div key={index} className="url-preview-container">
-                        <span className="tag">
-                            <p>{url}</p>
-                            <button
-                                className="icon"
-                                type="button"
-                                onClick={() => removeUrl(index)}
-                            >
-                                <CloseIcon className="close-icon" />
-                            </button>
-                        </span>
+        <span className="tag">
+            <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="url-link"
+            >
+                {url}
+            </a>
+            <button
+                className="icon"
+                type="button"
+                onClick={() => removeUrl(index)}
+            >
+                <CloseIcon className="close-icon" />
+            </button>
+        </span>
                         {renderVideoPreview(url)}
                     </div>
                 ))}
+
                 <input
                     id="urls"
                     type="text"
@@ -435,7 +443,6 @@ const EditProjectForm = ({ open, project, onCancel, onSave,  currentUserEmail })
             />
 
 
-
             <div className="description-container">
                 <label className="description-label">Description:</label>
                 <textarea
@@ -453,8 +460,10 @@ const EditProjectForm = ({ open, project, onCancel, onSave,  currentUserEmail })
                     value={deadline}
                     onChange={(e) => setDeadline(e.target.value)}
                     required
+                    min={new Date().toISOString().split("T")[0]} // Setează data minimă la ziua curentă
                 />
             </div>
+
             <UrlInput
                 urls={urls}
                 setUrls={setUrls}
