@@ -71,6 +71,13 @@ const RecentEvaluations = ({ projects }) => {
             <ul className="evaluation-list">
                 <li className="evaluation-item">
                     <p className="project-title">{projectDetails.title}</p>
+                    <p className={`project-ddl ${new Date(projectDetails.deadline) < new Date() ? 'expired' : ''}`}>
+                     <strong>Deadline:</strong>{" "}
+                        {new Intl.DateTimeFormat("en-GB", {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                        }).format(new Date(projectDetails.deadline))}</p>
                     <p className="evaluation-score">
                         <strong>Score:</strong> {evaluation.score}
                     </p>

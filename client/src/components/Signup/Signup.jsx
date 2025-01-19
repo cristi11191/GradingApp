@@ -60,6 +60,7 @@ const Signup = () => {
                             value={formData.name}
                             onChange={handleChange}
                             placeholder="Name"
+                            autoComplete="off"
                             className="w-full p-3 border border-[#6F9FBC] rounded focus:outline-none focus:ring-2 focus:ring-[#416E8B]"
                         />
                     </div>
@@ -70,6 +71,7 @@ const Signup = () => {
                             value={formData.email}
                             onChange={handleChange}
                             placeholder="Email"
+                            autoComplete="off"
                             className="w-full p-3 border border-[#6F9FBC] rounded focus:outline-none focus:ring-2 focus:ring-[#416E8B]"
                         />
                     </div>
@@ -80,6 +82,7 @@ const Signup = () => {
                             value={formData.password}
                             onChange={handleChange}
                             placeholder="Password"
+                            autoComplete="new-password"
                             className="w-full p-3 border border-[#6F9FBC] rounded focus:outline-none focus:ring-2 focus:ring-[#416E8B]"
                         />
                         <button
@@ -97,6 +100,7 @@ const Signup = () => {
                             value={formData.confirmPassword}
                             onChange={handleChange}
                             placeholder="Confirm Password"
+                            autoComplete="new-password"
                             className="w-full p-3 border border-[#6F9FBC] rounded focus:outline-none focus:ring-2 focus:ring-[#416E8B]"
                         />
                         <button
