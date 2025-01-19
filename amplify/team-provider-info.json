@@ -1,0 +1,33 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-gradingapp-dev-babf2-authRole",
+      "UnauthRoleArn": "arn:aws:iam::390402536463:role/amplify-gradingapp-dev-babf2-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::390402536463:role/amplify-gradingapp-dev-babf2-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-gradingapp-dev-babf2-deployment",
+      "UnauthRoleName": "amplify-gradingapp-dev-babf2-unauthRole",
+      "StackName": "amplify-gradingapp-dev-babf2",
+      "StackId": "arn:aws:cloudformation:eu-central-1:390402536463:stack/amplify-gradingapp-dev-babf2/165c8aa0-d686-11ef-a366-0a534b5b8b61",
+      "AmplifyAppId": "d2c91jjhv72whz",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-gradingapp-dev-babf2-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+    },
+    "categories": {
+      "function": {
+        "gradingapp49af3faa": {
+          "deploymentBucketName": "amplify-gradingapp-dev-babf2-deployment",
+          "s3Key": "amplify-builds/gradingapp49af3faa-354c5a69583358622f67-build.zip"
+        }
+      },
+      "auth": {
+        "gradingapp": {}
+      },
+      "api": {
+        "apisGrading": {}
+      },
+      "hosting": {
+        "S3AndCloudFront": {}
+      }
+    }
+  }
+}
