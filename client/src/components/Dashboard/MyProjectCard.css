@@ -1,28 +1,28 @@
 .my-project-card {
     background-color: #19293B !important;
-    border-radius: 8px; /* Reducem radius-ul */
+    border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px; /* Reducem padding-ul */
+    padding: 20px;
     color: white;
-    font-size: 16px; /* Reducem fontul */
+    font-size: 16px;
 }
 
 .my-project-card h2 {
-    font-size: 20px; /* Reducem fontul pentru subtitluri */
-    margin-bottom: 12px; /* Reducem spațiul de jos */
+    font-size: 20px;
+    margin-bottom: 12px;
     color: #ffffff;
     border-bottom: 1px solid #007BFF;
-    padding-bottom: 8px; /* Reducem padding-ul de jos */
+    padding-bottom: 8px;
 }
 
 .my-project-card .project-details p {
-    margin-bottom: 12px; /* Reducem spațiul de jos */
+    margin-bottom: 12px;
     border-bottom: 1px solid #ddd;
-    padding-bottom: 8px; /* Reducem padding-ul */
-    padding-top: 8px; /* Reducem padding-ul */
+    padding-bottom: 8px;
+    padding-top: 8px;
 }
 
 .my-project-card .no-project {
-    font-size: 16px; /* Reducem dimensiunea fontului */
+    font-size: 16px;
     color: #ccc;
 }

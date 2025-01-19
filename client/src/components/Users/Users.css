@@ -1,57 +1,53 @@
-/* Custom table styling */
+
 .custom-table {
-    width: 100%; /* Full width */
-    border-collapse: collapse; /* Remove gaps between cells */
-    margin-bottom: 1rem; /* Optional spacing below the table */
-    background-color: #19293B; /* Custom background color */
-    color: white; /* Custom text color */
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+    background-color: #19293B;
+    color: white;
 }
 
 .custom-table th, .custom-table td {
-    padding: 0.2rem 0.3rem; /* Bootstrap-like padding */
-    vertical-align: center; /* Align to top like Bootstrap */
-    border: 1px solid #0b141b; /* Border color */
+    padding: 0.2rem 0.3rem;
+    vertical-align: center;
+    border: 1px solid #0b141b;
 }
 
 .custom-table thead th {
-    background-color: #232830; /* Darker header background */
-    color: white; /* Header text color */
+    background-color: #232830;
+    color: white;
     font-weight: bold;
 }
 
 .custom-table tbody tr:hover {
-    background-color: #243b4e; /* Lighter background on hover */
+    background-color: #243b4e;
 }
-/* Customize the dropdown to match the theme */
+
 .form-select2 {
-    width: 100px; /* Control the width */
-    margin-left: auto; /* Align to the right */
-    background-color: #19293B; /* Dark theme background */
-    color: white; /* White text */
-    border: 1px solid #ffffff; /* White border */
-    border-radius: 5px; /* Rounded corners */
-    padding: 5px 10px; /* Padding for better appearance */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow */
+    width: 100px;
+    margin-left: auto;
+    background-color: #19293B;
+    color: white;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    padding: 5px 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Change dropdown arrow */
 .form-select2:focus {
-    border-color: #26a69a; /* Highlight border on focus */
-    box-shadow: 0px 0px 5px rgba(38, 166, 154, 0.75); /* Highlight effect */
+    border-color: #26a69a;
+    box-shadow: 0 0 5px rgba(38, 166, 154, 0.75);
 }
 
-/* Optional: Style the dropdown options */
 .form-select2 option {
-    background-color: #243b4e; /* Slightly lighter dropdown options */
-    color: white; /* White text */
+    background-color: #243b4e;
+    color: white;
 }
 
-/* Table cell alignment */
 .text-end .form-select {
     display: block;
     text-align: right;
 }
-/* Common button styles */
 .button {
     margin-right: 10px;
     display: inline-block;
@@ -66,21 +62,18 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Edit button styles */
 .button-edit {
-    background-color: #ffc107; /* Yellow */
-    color: #000; /* Black text */
+    background-color: #ffc107;
+    color: #000;
 }
 .button-save {
-    background-color: #05a500; /* Yellow */
-    color: #000; /* Black text */
+    background-color: #05a500;
+    color: #000;
 }
-
 .button-delete {
     background-color: #dc3545;
     color: #fff;
 }
-
 
 .button:hover, .button:focus {
     transform: translateY(-2px);

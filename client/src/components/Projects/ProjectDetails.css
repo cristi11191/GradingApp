@@ -17,7 +17,7 @@
     cursor: pointer;
     padding: 5px;
     transition: transform 0.2s ease, color 0.2s ease;
-    z-index: 10; /* Asigură vizibilitatea */
+    z-index: 10;
 }
 
 .close-button:hover {
@@ -30,13 +30,13 @@
     display: flex;
     background: #253E51;
     align-items: center;
-    gap: 10px; /* Space between input and button */
+    gap: 10px;
     margin-top: 20px;
     margin-bottom: 20px;
 }
 
 .my-evaluation-form input {
-    flex: 1; /* Input takes up the remaining space */
+    flex: 1;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -59,8 +59,8 @@
 }
 
 .evaluations-container {
-    max-height: 150px; /* Fixed height for evaluations */
-    overflow-y: auto; /* Enable scrolling */
+    max-height: 150px;
+    overflow-y: auto;
     margin-bottom: 10px;
 }
 
@@ -69,6 +69,9 @@
     padding: 0;
     margin: 0;
 }
+
+.evaluations-list li {
+    padding: 8px;
 
 .overall-score {
     font-size: 16px;
