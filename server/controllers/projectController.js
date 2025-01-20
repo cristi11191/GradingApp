@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+const { sendProjectNotifications } = require('./notifyController');
 const path = require("path");
 const prisma = new PrismaClient();
 
@@ -6,6 +7,7 @@ const createProject = async (req, res) => {
     try {
         const { title, description, deadline } = req.body;
         const email = req.user.email; // Extract email from middleware that decodes JWT
+
         // Extract URLs from the request body
         const urls = Object.keys(req.body)
             .filter((key) => key.startsWith('url_'))
@@ -19,6 +21,7 @@ const createProject = async (req, res) => {
         if (!collaborators.includes(email)) {
             collaborators.push(email);
         }
+
         // Extract file attachments from multer
         const fileAttachments = req.files.map((file) => ({
             attachmentURL: `/uploads/projects/${file.filename}`,
@@ -50,6 +53,9 @@ const createProject = async (req, res) => {
                 },
             },
         });
+
+        const collaboratorsEmail= collaborators.filter(collaboratorEmail => collaboratorEmail !== email);
+        await sendProjectNotifications(collaboratorsEmail, title);
 
         res.status(201).json({ message: 'Project created successfully', project });
     } catch (error) {
@@ -109,6 +115,13 @@ const updateProject = async (req, res) => {
         if (!existingProject) {
             return res.status(404).json({ message: 'Project not found' });
         }
+
+        // Get existing collaborator emails from the project
+        const existingCollaborators = existingProject.collaborators.map((collab) => collab.email);
+
+        // Find new collaborators (who are not in the existing list)
+        const newCollaborators = collaborators.filter((collab) => !existingCollaborators.includes(collab));
+
         const datePrefix = new Date().toISOString().split('T')[0]; // Get YYYY-MM-DD format
         // Handle file uploads (call uploadFile logic)
         const newFileAttachments = [];
@@ -184,6 +197,7 @@ const updateProject = async (req, res) => {
             },
         });
 
+        await sendProjectNotifications(newCollaborators, title);
         res.status(200).json({ message: 'Project updated successfully', project: updatedProject });
     } catch (error) {
         console.error('Error updating project:', error);
@@ -239,7 +253,7 @@ const deleteProject = async (req, res) => {
             return res.status(404).json({ message: "Project not found" });
         }
 
-// Delete related deliverables
+        // Delete related deliverables
         await prisma.deliverable.deleteMany({
             where: { projectId: parseInt(projectId, 10) },
         });
@@ -284,8 +298,6 @@ const getAllProjects = async (req, res) => {
         res.status(500).json({ message: 'Failed to fetch projects', error: error.message });
     }
 };
-
-
 
 
 module.exports = { createProject , getProject, updateProject ,getProjectByCollaboratorEmail , deleteProject, getAllProjects };
