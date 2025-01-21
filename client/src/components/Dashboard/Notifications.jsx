@@ -13,7 +13,7 @@ const Notifications = () => {
         const getEvaluations = async () => {
             try {
                 setLoading(true);
-                const data = await fetchProjectByCollaboratorEmail(); // Fetch evaluările utilizatorului
+                const data = await fetchProjectByCollaboratorEmail();
                 //console.log(data);
                 if(data.length!==0){
                     const projectSummary = await fetchProjectSummary(data.id);
@@ -29,7 +29,7 @@ const Notifications = () => {
                 }
 
             } catch (err) {
-                setError("A apărut o eroare la preluarea evaluărilor.");
+                setError("Failed to load evaluations.");
             } finally {
                 setLoading(false);
             }
