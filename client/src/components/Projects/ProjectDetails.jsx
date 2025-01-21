@@ -189,15 +189,17 @@ const ProjectDetails = () => {
 
                 <h3>Collaborators</h3>
                 {/*<CollaboratorsList collaborators={project.collaborators} projectId={project.id}/>*/}
+
                 {project.collaborators.length === 0 ? (<p>No Collaborators found. </p>) :
                     (<ul>
-                        {project.collaborators.map((collaborator) => (
-                            <li className="collab-color" key={collaborator.id}>
-                                <strong>{collaborator.name}</strong> {collaborator.email}
-                            </li>
-                        ))}
-                    </ul>)}
+                            {project.collaborators.map((collaborator) => (
+                                <li className="collab-color" key={collaborator.id}>
+                                    <strong>{collaborator.name}</strong> {collaborator.email}
+                                </li>
+                            ))}
+                        </ul>
 
+                   )}
 
                 {project.deliverables && project.deliverables.length > 0 && (
                     <div className="deliverables-section">

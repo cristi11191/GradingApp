@@ -104,9 +104,6 @@ form:hover {
   transition: background-color 0.3s ease;
 }
 
-.dropzone p {
-  color: #39028a !important;
-}
 
 .dropzone:hover {
   background-color: #faf7ff;
@@ -131,7 +128,7 @@ form:hover {
 
 .file-list p,
 .existing-files p {
-  color: rgba(0, 0, 0, 60%) !important;
+  color: black !important;
 }
 
 .remove-file-btn {
@@ -298,4 +295,7 @@ form:hover {
 
 .edit-project-form .legend p {
   font-size: 11px !important;
+}
+.dropzone > p {
+  color: #39028a !important;
 }
