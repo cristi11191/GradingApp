@@ -21,9 +21,6 @@ const Dashboard = () => {
         <div className="dashboard">
             <h1>Dashboard</h1>
             <div className="dashboard-grid">
-                {/*<div className="quickstats-container">*/}
-                {/*    <QuickStats/>*/}
-                {/*</div>*/}
                 <MyProjectCard  />
                 <RecentEvaluations projects={projects} />
                 <RecentProjects />

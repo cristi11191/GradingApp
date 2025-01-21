@@ -18,7 +18,7 @@ const RecentProjects = () => {
                         (project) =>
                             project.deadline && new Date(project.deadline) >= currentDate
                     )
-                    .sort((a, b) => new Date(a.deadline) - new Date(b.deadline)); // Sortare crescătoare
+                    .sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
 
                 setProjects(upcomingProjects);
             } catch (error) {
@@ -41,7 +41,7 @@ const RecentProjects = () => {
 
     if (!Array.isArray(projects) || projects.length === 0) {
         return (
-            <div className="card">
+            <div className="no-projects">
                 <h2>Recent Projects</h2>
                 <p>No upcoming projects available.</p>
             </div>
