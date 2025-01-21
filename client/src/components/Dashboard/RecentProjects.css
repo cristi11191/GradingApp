@@ -8,7 +8,7 @@
     border-radius: 8px;
     padding: 15px;
     text-align: center;
-    font-size: 16px;
+    font-size: 16px !important;
     color: white;
     margin-top: 100px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
