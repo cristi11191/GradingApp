@@ -167,7 +167,7 @@ const checkDaily = () => {
     setInterval(async () => {
         console.log('Running daily project deadline check...');
         await checkProjectDeadlines();
-    }, 300000); // Rulează la fiecare 24 de ore
+    }, 24*60*60*1000); // Rulează la fiecare 24 de ore
 };
 
 // Inițializăm procesul de verificare zilnică
