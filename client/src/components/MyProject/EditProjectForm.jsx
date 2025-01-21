@@ -486,7 +486,7 @@ const EditProjectForm = ({ open, project, onCancel, onSave,  currentUserEmail })
             </div>
             <div {...getRootProps()} className="dropzone">
                 <input {...getInputProps()} />
-                <p>Drag & drop files here, or click to select</p>
+                <p className="p-black">Drag & drop files here, or click to select</p>
             </div>
             <div className="file-list">
                 <h4>New Files:</h4>
