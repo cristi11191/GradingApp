@@ -66,6 +66,50 @@ const sendProjectDeadlineNotifications = async (collaborators, projectName, dead
     }
 };
 
+const sendEvaluatorNotification = async (email,projectId) => {
+    const projectLink = `https://d1nci5bgxg7422.cloudfront.net/login?redirect=/project/${projectId}`;
+    //const projectLink = `https://localhost:3000/login?redirect=/project/${projectId}`; idk why doesnt work
+    const mailOptions = {
+        from: '"Project Notification" <no-reply@yourdomain.com>',
+        subject: 'You have been selected as an evaluator',
+        text: `You have been selected to evaluate the project. Click the link below to access it:
+        ${projectLink}`
+    };
+
+    try {
+        await transporter.sendMail({ ...mailOptions, to: email });
+        console.log(`Evaluator email sent to: ${email}`);
+    } catch (error) {
+        console.error(`Failed to send evaluator email to: ${email}`, error);
+    }
+};
+
+const selectRandomEvaluators = async (projectId) => {
+    const allUsers = await prisma.user.findMany();
+    const project = await prisma.project.findUnique({
+        where: { id: projectId },
+        include: { collaborators: true }
+    });
+    const projectCollaboratorsEmails = project.collaborators.map(collab => collab.email);
+    const eligibleUsers = allUsers.filter(user => !projectCollaboratorsEmails.includes(user.email));
+    const shuffleArray = (array) => array.sort(() => Math.random() - 0.5);
+    const selectedEvaluators = shuffleArray(eligibleUsers).slice(0, 3);
+
+    console.log(`Selected evaluators for project ${projectId}:`, selectedEvaluators.map(e => e.email));
+
+    if (selectedEvaluators.length === 0) {
+        console.warn(`No eligible evaluators found for project ${projectId}`);
+        return;
+    }
+
+    for (const evaluator of selectedEvaluators) {
+        try {
+            await sendEvaluatorNotification(evaluator.email,projectId);
+        } catch (error) {
+            console.error(`Error sending email to ${evaluator.email}:`, error);
+        }
+    }
+};
 
 // Funcția de verificare a proiectelor cu deadline azi sau mâine
 const checkProjectDeadlines = async () => {
@@ -91,7 +135,10 @@ const checkProjectDeadlines = async () => {
                 }
             },
             include: {
-                collaborators: true
+                collaborators: true,
+                evaluations: {
+                    select: { id: true }  // Ensure evaluations are selected properly
+                }
             }
         });
 
@@ -105,6 +152,9 @@ const checkProjectDeadlines = async () => {
         // Trimiterea notificărilor pentru fiecare proiect
         for (const project of projectsWithDeadlines) {
             const collaboratorsEmails = project.collaborators.map(collab => collab.email);
+            if (project.evaluations.length === 0) {
+                await selectRandomEvaluators(project.id);
+            }
             await sendProjectDeadlineNotifications(collaboratorsEmails, project.title, project.deadline);
         }
     } catch (error) {
@@ -117,7 +167,7 @@ const checkDaily = () => {
     setInterval(async () => {
         console.log('Running daily project deadline check...');
         await checkProjectDeadlines();
-    }, 24*60*60*1000); // Rulează la fiecare 24 de ore
+    }, 300000); // Rulează la fiecare 24 de ore
 };
 
 // Inițializăm procesul de verificare zilnică
