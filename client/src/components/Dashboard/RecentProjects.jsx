@@ -34,16 +34,20 @@ const RecentProjects = () => {
         return (
             <div className="card">
                 <h2>Recent Projects</h2>
+                <div className="no-projects">
                 <p>{error}</p>
+                </div>
             </div>
         );
     }
 
     if (!Array.isArray(projects) || projects.length === 0) {
         return (
-            <div className="no-projects">
+            <div className="card">
                 <h2>Recent Projects</h2>
-                <p>No upcoming projects available.</p>
+                <div className="no-projects">
+                    <p>No upcoming projects available.</p>
+                </div>
             </div>
         );
     }
