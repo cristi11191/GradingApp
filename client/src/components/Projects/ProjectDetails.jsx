@@ -42,6 +42,7 @@ const ProjectDetails = () => {
     const [finalScore, setFinalScore] = useState(null);
     const navigate = useNavigate();
     const [videoToWatch, setVideoToWatch] = useState(null); // Video pentru pop-up
+    const [remainingTime, setRemainingTime] = useState(null);
     const BASE_URL = "http://localhost:5000"; //
     const videoURL = `${BASE_URL}${videoToWatch}`;
 
@@ -79,6 +80,30 @@ const ProjectDetails = () => {
             fetchProjectDetails();
         }
     }, [projectId]);
+
+    useEffect(() => {
+        if (userEvaluation?.createdOn) {
+            const createdOnTime = new Date(userEvaluation.createdOn).getTime();
+            const twelveHoursLater = createdOnTime + 12 * 60 * 60 * 1000;
+
+            const updateRemainingTime = () => {
+                const now = Date.now();
+                const remaining = Math.max(0, twelveHoursLater - now);
+
+                const hours = Math.floor(remaining / (1000 * 60 * 60));
+                const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+
+                setRemainingTime(`${hours}:${minutes}:${seconds}`);
+            };
+
+            updateRemainingTime();
+            const interval = setInterval(updateRemainingTime, 1000);
+
+            return () => clearInterval(interval);
+        }
+    }, [userEvaluation]);
+
     const isEvaluationOlderThan12Hours = () => {
         if (!userEvaluation || !userEvaluation.createdOn) return false;
         const createdOnTime = new Date(userEvaluation.createdOn).getTime();
@@ -279,19 +304,26 @@ const ProjectDetails = () => {
                         <p>Your Score: <strong>{userEvaluation?.score}</strong></p>
                     ) : (
                         <form className="my-evaluation-form" onSubmit={handleSubmitEvaluation}>
-                            <input
-                                type="number"
-                                step="0.01"
-                                min="1"
-                                max="10"
-                                placeholder="Score"
-                                value={score}
-                                onChange={(e) => setScore(e.target.value)}
-                            />
-                            <button type="submit">{userEvaluation ? 'Update' : 'Submit'}</button>
+                            <div className="evaluation-row">
+                                <input
+                                    type="number"
+                                    step="0.01"
+                                    min="1"
+                                    max="10"
+                                    placeholder="Score"
+                                    value={score}
+                                    onChange={(e) => setScore(e.target.value)}
+                                />
+                                <button type="submit">{userEvaluation ? 'Update' : 'Submit'}</button>
+                            </div>
+                            {remainingTime && (
+                                <p className="remaining-time-small">
+                                    Time left to edit: <strong>{remainingTime}</strong>
+                                </p>
+                            )}
                         </form>
                     )
-                )}
+                    )}
             </div>
         </div>
     );

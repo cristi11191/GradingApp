@@ -3,7 +3,7 @@
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 1rem;
-    background-color: #19293B;
+    background-color: #253e51;
     color: white;
 }
 
@@ -24,39 +24,59 @@
 }
 
 .form-select2 {
-    width: 100px;
+    width: 90px; /* Slightly reduced width */
     margin-left: auto;
-    background-color: #19293B;
-    color: white;
-    border: 1px solid #ffffff;
-    border-radius: 5px;
-    padding: 5px 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #1a2b3c; /* Updated darker shade for better contrast */
+    color: #e5e5e5; /* Softer white for the text */
+    border: 1px solid #ffffff; /* Light border for better visibility */
+    border-radius: 4px; /* Subtle rounded corners */
+    padding: 3px 8px; /* Reduced padding for smaller height */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    font-size: 13px; /* Smaller font for a compact design */
+    line-height: 1.2; /* Adjusted line height for better spacing */
+    height: auto; /* Ensures height is determined by content and padding */
+    transition: all 0.2s ease-in-out; /* Smooth interaction animations */
 }
 
 .form-select2:focus {
-    border-color: #26a69a;
-    box-shadow: 0 0 5px rgba(38, 166, 154, 0.75);
+    border-color: #26a69a; /* Bright color for focus state */
+    box-shadow: 0 0 6px rgba(38, 166, 154, 0.75); /* Glow effect */
+    outline: none; /* Removes default focus outline */
 }
 
 .form-select2 option {
-    background-color: #243b4e;
-    color: white;
+    background-color: #243b4e; /* Matches table hover color for consistency */
+    color: white; /* White text for readability */
+    padding: 5px; /* Better spacing inside options */
 }
+
+/* Hover effect for dropdown */
+.form-select2:hover {
+    background-color: #203040; /* Slightly brighter shade on hover */
+    cursor: pointer;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .form-select2 {
+        width: 100%; /* Full-width for smaller screens */
+        font-size: 12px; /* Slightly smaller text */
+    }
+}
+
 
 .text-end .form-select {
     display: block;
     text-align: right;
 }
 .button {
-    margin-right: 10px;
-    display: inline-block;
-    padding: 10px 10px;
-    font-size: 16px;
-    font-weight: bold;
+    margin-right: 5px; /* Smaller margin between buttons */
+    padding: 5px 8px; /* Reduced padding for smaller buttons */
+    font-size: 14px; /* Smaller text size */
+    font-weight: normal; /* Make text less bold */
     text-align: center;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 4px; /* Slightly smaller border radius */
     border: none;
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -74,6 +94,7 @@
     background-color: #dc3545;
     color: #fff;
 }
+
 
 .button:hover, .button:focus {
     transform: translateY(-2px);

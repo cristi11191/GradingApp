@@ -10,7 +10,6 @@
 .my-project h1,
 .my-project h2,
 .my-project h3,
-.my-project p,
 .my-project ul,
 .my-project li {
     font-family: 'Arial', sans-serif;
@@ -36,7 +35,7 @@
 
 .my-project ul {
     overflow-y: auto !important;
-    max-height: 60px !important;
+    max-height: 150px !important;
     padding-left: 20px;
     margin-top: 10px;
 }
@@ -78,15 +77,21 @@
 
 .my-evaluation-form {
     display: flex;
+    flex-direction: column; /* Stack rows vertically */
+    gap: 5px;
     background: #253E51;
-    align-items: center;
-    gap: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.my-evaluation-form input {
-    flex: 1;
+.evaluation-row {
+    display: flex;
+    align-items: center; /* Vertically center the input and button */
+    flex-direction: row;
+}
+
+.evaluation-row input {
+    flex: 1; /* Allow the input to take up available space */
     padding: 8px;
     border: 1px solid #ffffff;
     border-radius: 4px;
@@ -94,7 +99,7 @@
     background: lightgray !important;
 }
 
-.my-evaluation-form button {
+.evaluation-row button {
     padding: 8px 12px;
     background-color: #253E51 !important;
     color: white;
@@ -102,8 +107,21 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
+    white-space: nowrap; /* Prevent button text from wrapping */
 }
 
+.evaluation-row button:hover {
+    background-color: #0056b3;
+}
+
+.remaining-time-small {
+    font-size: 8px !important; /* Make text smaller */
+    color: #d3d3d3; /* Light gray color */
+    margin-top: 5px; /* Add spacing above */
+}
+form div{
+    margin-bottom: 0;
+}
 .my-evaluation-form button:hover {
     background-color: #0056b3;
 }
@@ -115,7 +133,7 @@
 }
 
 .evaluations-container {
-    max-height: 110px;
+    max-height: 200px;
     overflow-y: auto;
     border: 1px solid #253E51;
     padding: 2px;
