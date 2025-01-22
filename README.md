@@ -28,8 +28,7 @@ Ensure you have the following installed on your machine:
 
 3. **Install dependencies**:
 
-   #### a) Server
-   Directly in root folder use the command :
+   #### Directly in root folder use the command :
    ```bash
    npm run installs
    ```
