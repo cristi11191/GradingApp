@@ -19,6 +19,7 @@
     "bootstrap": "^5.3.3",
     "dotenv": "^16.4.5",
     "framer-motion": "^11.11.11",
+    "gradingapp": "file:..",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.456.0",
     "postcss-cli": "^11.0.0",

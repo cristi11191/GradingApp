@@ -17,6 +17,7 @@
     "react-icons": "^5.4.0"
   },
   "scripts": {
+    "installs": "concurrently -n frontend,backend -c green,blue \"npm install --prefix client\" \"npm install --prefix server\"",
     "start": "concurrently --kill-others -n frontend,backend -c green,blue \"cross-env-shell npm run dev --prefix client\" \"cd server && node server.js\" && Read-Host -Prompt 'Press Enter to exit'",
     "backend": "nodemon server/server.js"
   },
