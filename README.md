@@ -29,37 +29,22 @@ Ensure you have the following installed on your machine:
 3. **Install dependencies**:
 
    #### a) Server
-   Navigate to the server folder and install the dependencies:
+   Directly in root folder use the command :
    ```bash
-   cd server
-   npm install
+   npm run installs
    ```
 
-   #### b) Client
-   Navigate to the client folder and install the dependencies:
-   ```bash
-   cd client
-   npm install
-   ```
 
 ---
 
 ### Running the Application
 
-The application requires two terminal windows: one for the server and one for the client.
+To run the application use the command in root directory.
 
 #### 1. Start the Server
 In the first terminal:
    ```bash
-   cd server
-   node server.js
-   ```
-
-#### 2. Start the Client
-In the second terminal:
-   ```bash
-   cd client
-   npm run dev
+   npm start
    ```
 
 ---
