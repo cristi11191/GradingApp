@@ -8,6 +8,8 @@ const collaboratorRoutes = require("./collaboratorsRoutes");
 const evaluationRoutes = require("./evaluationRoutes");
 const {getCounts} = require("../utils/dashboardUtils");
 const {authMiddleware} = require("../middlewares/authMiddleware");
+const checkRole = require("../middlewares/roleMiddleware");
+const ROLES = require("../config/roleConfig");
 
 const router = express.Router();
 
@@ -18,6 +20,6 @@ router.use('/files', fileRoutes);
 router.use('/project', projectRoutes);
 router.use('/collaborator', collaboratorRoutes); // Register the collaborator route
 router.use('/evaluation',evaluationRoutes);
-router.get('/counts', authMiddleware, getCounts);
+router.get('/counts', authMiddleware, checkRole([ROLES.ADMIN,ROLES.USER]), getCounts);
 
 module.exports = router;
